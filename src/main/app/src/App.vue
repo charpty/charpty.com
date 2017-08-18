@@ -1,22 +1,37 @@
-<template>
+<template lang="html">
   <div id="app">
-    <router-view></router-view>
+    <header-bar></header-bar>
+      <transition name="component-fade">
+        <keep-alive>
+          <router-view></router-view>
+        </keep-alive>
+      </transition>
+    <footer-bar></footer-bar>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'app'
-}
+  import HeaderBar from './components/HeaderBar'
+  import FooterBar from './components/FooterBar'
+  export default {
+    components: {
+      HeaderBar,
+      FooterBar
+    }
+  }
 </script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 0px;
-}
+
+<style lang="stylus">
+  @import './stylus/style.styl'
+
+  #app
+    display: flex
+    flex-flow:column
+    min-height: 100vh
+
+  main
+    flex:1
 </style>
+
+
