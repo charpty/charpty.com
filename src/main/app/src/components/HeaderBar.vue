@@ -1,6 +1,6 @@
 <template>
   <header>
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
       <div class="container-fluid">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse"
@@ -33,6 +33,10 @@
     </nav>
   </header>
 </template>
+
+<script>
+  export default {};
+</script>
 
 <style>
   .header-logo {

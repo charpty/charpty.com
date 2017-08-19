@@ -2,8 +2,7 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
-import VueRouter from 'vue-router'
-import routers from './routers'
+import router from './router'
 import './assets/css/bootstrap.min.css'
 import './assets/js/bootstrap.min'
 
@@ -12,16 +11,9 @@ import './stylus/global.styl'
 import 'github-markdown-css'
 
 
-Vue.config.productionTip = false
+// Vue.config.productionTip = false
 
-Vue.use(VueRouter)
-
-const router = new VueRouter({
-  router: routers
-})
-
-/* eslint-disable no-new */
-new Vue({
+var vm = new Vue({
   el: '#app',
   router,
   template: '<App/>',

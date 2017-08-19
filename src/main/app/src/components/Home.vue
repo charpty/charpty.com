@@ -1,10 +1,24 @@
 <template lang="html">
-  <main>This is HOME page</main>
+
+<ul id="example-2">
+  <li v-for="(item, index) in items">
+    {{ index }} - {{ item.message }}
+  </li>
+</ul>
 </template>
 
 <script>
-export default {}
+
+
+export default {
+  data () {
+    return {
+        items:[
+
+        ]
+    }
+  }
+
+}
 </script>
 
-<style lang="css">
-</style>
