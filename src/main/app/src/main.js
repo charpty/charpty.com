@@ -11,6 +11,7 @@ import 'normalize.css'
 import './stylus/global.styl'
 import 'github-markdown-css'
 
+
 Vue.config.productionTip = false
 
 Vue.use(VueRouter)
