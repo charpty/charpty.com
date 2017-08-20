@@ -23,7 +23,7 @@ public class ArticleServiceImpl implements ArticleService {
 	@Override
 	public List<Article> listArticles() {
 		Iterable<Article> it = articleRepository.findAll();
-		Pageable pageable = new PageRequest(0, 1);
+		Pageable pageable = new PageRequest(0, 4);
 		Page<Article> all = articleRepository.findAll(pageable);
 		return Lists.newArrayList(all);
 	}
