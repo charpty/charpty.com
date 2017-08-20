@@ -13,8 +13,9 @@
       <div class="row">
         <div v-for="(article,index) in articles" :key="index" v-if="index!=0" class="col-md-4">
           <h2>{{ article.title }}</h2>
-          <p>{{ article.summary }}<p>
-          <a class="btn btn-default" href="#" role="button">阅读更多 &raquo;</a></p>
+          <p>{{ article.summary }}</p>
+          <p><a class="btn btn-default" href="#" role="button">阅读更多 &raquo;</a></p>
+          <br>
         </div>
       </div>
     </div>
