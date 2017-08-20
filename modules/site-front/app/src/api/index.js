@@ -1,19 +1,105 @@
-import service from './service.js'
+const apihost = 'http://localhost:8080/s/api/';
+const fetch = global.fetch;
+const Headers = global.Headers;
+function parseResponse(response) {
+  return Promise.all([response.status, response.statusText, response.json()])
+}
+
+function checkStatus([status, statusText, data]) {
+  if (status >= 200 && status < 300) {
+    return data
+  } else {
+    let error = new Error(statusText);
+    error.status = status;
+    error.error_message = data;
+    console.log("[ERR]code=" + status + ",msg=" + statusText);
+    return Promise.reject(error)
+  }
+}
 
 export default {
-  async getPostList (params) {
-    return await service.get('posts', params)
+  get (url, param = {}, headers = {}, host = apihost) {
+    let reqHeaders = new Headers();
+    reqHeaders.append('Accept', 'application/json');
+    let query = [];
+    Object.keys(param).forEach((item) => {
+      query.push(`${item}=${encodeURIComponent(param[item])}`)
+    });
+    let params = query.length
+      ? '?' + query.join('&')
+      : '' // fixme
+    url = host + url + params;
+    console.log(host, params);
+    let init = {
+      method: 'GET',
+      headers: reqHeaders,
+      credentials: 'include',
+      cache: 'default',
+      mode: 'cors'
+    }
+    return fetch(url, init).then(parseResponse).then(checkStatus);
   },
-  async getPost (title) {
-    return await service.get(`posts/${title}`)
+  patch (url, param = {}, headers = {}, host = apihost) {
+    let reqHeaders = new Headers()
+    reqHeaders.append('Content-Type', 'application/json');
+    reqHeaders.append('Accept', 'application/json');
+    url = host + url;
+
+    let init = {
+      method: 'PATCH',
+      headers: reqHeaders,
+      credentials: 'include',
+      mode: 'cors',
+      body: JSON.stringify(param)
+    };
+
+    return fetch(url, init).then(parseResponse).then(checkStatus)
   },
-  async getAllTags () {
-    return await service.get('tags')
+  post (url, param = {}, headers = {}, host = apihost) {
+    let reqHeaders = new Headers();
+    reqHeaders.append('Content-Type', 'application/json');
+    reqHeaders.append('Accept', 'application/json');
+    url = host + url;
+    let init = {
+      method: 'POST',
+      headers: reqHeaders,
+      credentials: 'include',
+      mode: 'cors',
+      body: JSON.stringify(param)
+    };
+
+    return fetch(url, init).then(parseResponse).then(checkStatus)
   },
-  async getCategories (params) {
-    return await service.get('categories', params)
+  put (url, param = {}, headers = {}, host = apihost) {
+    let reqHeaders = new Headers();
+    reqHeaders.append('Content-Type', 'application/json');
+    reqHeaders.append('Accept', 'application/json');
+    url = host + url;
+
+    let init = {
+      method: 'PUT',
+      headers: reqHeaders,
+      credentials: 'include',
+      mode: 'cors',
+      body: JSON.stringify(param)
+    };
+
+    return fetch(url, init).then(parseResponse).then(checkStatus)
   },
-  async postComment (params) {
-    return await service.post('comments', params)
+  delete (url, param = {}, headers = {}, host = apihost) {
+    let reqHeaders = new Headers();
+    reqHeaders.append('Content-Type', 'application/json');
+    reqHeaders.append('Accept', 'application/json');
+    url = host + url;
+
+    let init = {
+      method: 'DELETE',
+      credentials: 'include',
+      headers: reqHeaders,
+      mode: 'cors'
+    };
+
+    return fetch(url, init).then(parseResponse).then(checkStatus)
   }
+
 }

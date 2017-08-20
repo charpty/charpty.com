@@ -10,7 +10,7 @@ export default {
     let _timestamp
     let _timer
     if (immediate) {
-      return function() {
+      return function () {
         let now = Date.now()
         if (_timestamp && now - _timestamp < wait) {
           _timestamp = now
@@ -21,7 +21,7 @@ export default {
         func.apply(this, arguments)
       }
     }
-    return function() {
+    return function () {
       let now = Date.now()
       if (_timestamp && now - _timestamp < wait) {
         clearTimeout(_timer)
@@ -33,7 +33,7 @@ export default {
   _throttle(func, wait = 200, atleast = 200) {
     let _timestamp
     let _timer
-    return function() {
+    return function () {
       let now = Date.now()
       if (!_timestamp) {
         _timestamp = now

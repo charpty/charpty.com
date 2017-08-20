@@ -1,4 +1,4 @@
-package com.charpty.blog;
+package com.charpty.article;
 
 /**
  * @author CaiBo
