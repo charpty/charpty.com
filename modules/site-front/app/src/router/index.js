@@ -1,15 +1,16 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Hello from '../components/Home'
+import Home from '../components/Home'
+import BlogList from '../components/BlogList'
 
 Vue.use(Router);
 
 const routes = [
   {
     path: '/',
-    name: 'home',
-    component: Hello
-  },
+    name: 'blogList',
+    component: BlogList
+  }
 ];
 
 const router = new Router({

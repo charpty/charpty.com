@@ -4,16 +4,19 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+
     <groupId>com.charpty</groupId>
-    <artifactId>site</artifactId>
+    <artifactId>site-front</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <modules>
-        <module>modules/tomato</module>
-        <module>modules/site-server</module>
-        <module>modules/site-front</module>
-    </modules>
-
+    <dependencies>
+        <dependency>
+            <groupId>com.charpty</groupId>
+            <artifactId>site-server</artifactId>
+            <type>war</type>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 
 </project>

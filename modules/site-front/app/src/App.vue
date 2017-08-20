@@ -1,7 +1,6 @@
 <template lang="html">
   <div id="app">
     <header-bar></header-bar>
-    <jumbotron></jumbotron>
       <transition name="component-fade">
         <keep-alive>
           <router-view></router-view>
@@ -14,13 +13,11 @@
 <script>
   import HeaderBar from './components/HeaderBar'
   import FooterBar from './components/FooterBar'
-  import Jumbotron from './components/Jumbotron'
   export default {
     name: 'app',
     components: {
-      HeaderBar,
-      Jumbotron,
-      FooterBar
+      'header-bar':HeaderBar,
+      'footer-bar':FooterBar
     }
   }
 
