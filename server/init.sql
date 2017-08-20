@@ -1,0 +1,9 @@
+-- 文章列表
+CREATE TABLE `article` (
+  `ID` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `TITLE` varchar(30) DEFAULT NULL,
+  `SUMMARY` varchar(100) DEFAULT NULL,
+  `CONTENT` text,
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `ID_UNIQUE` (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
