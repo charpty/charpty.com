@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.DispatcherServlet;
 
 /**
- *
  * @author CaiBo
  * @version $Id$
  * @since 2017/8/17 下午4:31
@@ -15,7 +14,7 @@ import org.springframework.web.servlet.DispatcherServlet;
 @Configuration
 public class ServletMappingConfig {
 
-	// @Bean
+	@Bean
 	// 直接使用application.properties#server.servlet-path
 	public ServletRegistrationBean dispatcherServletRegistration(DispatcherServlet dispatcherServlet) {
 		ServletRegistrationBean registration = new ServletRegistrationBean(dispatcherServlet, "/api/*");

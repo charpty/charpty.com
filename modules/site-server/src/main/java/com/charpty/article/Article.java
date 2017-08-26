@@ -2,6 +2,7 @@ package com.charpty.article;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.util.Date;
 
 /**
  * @author CaiBo
@@ -14,8 +15,12 @@ public class Article {
 	@Id
 	private int id;
 	private String title;
+	private String tag;
 	private String summary;
 	private String content;
+	private String creator;
+	private Date creationDate;
+	private int revision;
 
 	public int getId() {
 		return id;
@@ -31,6 +36,14 @@ public class Article {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public String getTag() {
+		return tag;
+	}
+
+	public void setTag(String tag) {
+		this.tag = tag;
 	}
 
 	public String getSummary() {
@@ -49,4 +62,27 @@ public class Article {
 		this.content = content;
 	}
 
+	public String getCreator() {
+		return creator;
+	}
+
+	public void setCreator(String creator) {
+		this.creator = creator;
+	}
+
+	public Date getCreationDate() {
+		return creationDate;
+	}
+
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
+	}
+
+	public int getRevision() {
+		return revision;
+	}
+
+	public void setRevision(int revision) {
+		this.revision = revision;
+	}
 }

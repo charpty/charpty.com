@@ -10,6 +10,7 @@ import com.tomato.util.BooleanUtil;
 import com.tomato.util.NumberUtil;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.data.web.config.EnableSpringDataWebSupport;
 import org.springframework.http.CacheControl;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -33,6 +34,8 @@ import java.util.List;
  * @since 2017年7月14日 上午11:24:17
  */
 @Configuration
+@EnableSpringDataWebSupport
+@EnableWebMvc
 public class AppWebMvcBaseConfig extends WebMvcConfigurationSupport {
 
 	/**

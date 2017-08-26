@@ -1,12 +1,20 @@
 package com.charpty.article;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
+
+import java.util.List;
 
 /**
  * @author CaiBo
  * @version $Id$
  * @since 2017/8/20 下午7:57
  */
-public interface ArticleRepository extends PagingAndSortingRepository<Article, Long> {
+public interface ArticleRepository extends PagingAndSortingRepository<Article, Integer> {
+
+	@Query("SELECT id,title,summary FROM Article")
+	List<Article> listArticles(Pageable pageable);
 }

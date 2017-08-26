@@ -21,10 +21,13 @@ public class ArticleServiceImpl implements ArticleService {
 	private ArticleRepository articleRepository;
 
 	@Override
-	public List<Article> listArticles() {
-		Iterable<Article> it = articleRepository.findAll();
-		Pageable pageable = new PageRequest(0, 4);
-		Page<Article> all = articleRepository.findAll(pageable);
-		return Lists.newArrayList(all);
+	public List<Article> listArticles(Pageable pageable) {
+		List<Article> result = articleRepository.listArticles(pageable);
+		return result;
+	}
+
+	@Override
+	public Article getArticle(int id) {
+		return articleRepository.findOne(id);
 	}
 }
