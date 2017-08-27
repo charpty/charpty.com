@@ -30,4 +30,9 @@ public class ArticleServiceImpl implements ArticleService {
 	public Article getArticle(int id) {
 		return articleRepository.findOne(id);
 	}
+
+	@Override
+	public long countArticles() {
+		return articleRepository.count();
+	}
 }

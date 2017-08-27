@@ -3,7 +3,6 @@
     <div class="articles-table-wrap">
       <articles-table></articles-table>
     </div>
-
     <div class="right-misc-wrap">
       <right-misc></right-misc>
     </div>
@@ -23,7 +22,6 @@
       'right-misc': RightMisc
     }
   }
-
 </script>
 
 <style lang="css">

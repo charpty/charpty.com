@@ -30,4 +30,9 @@ public interface ArticleService {
 	 * @return the article
 	 */
 	Article getArticle(int id);
+
+	/**
+	 * @return
+	 */
+	long countArticles();
 }

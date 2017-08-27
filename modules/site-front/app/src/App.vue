@@ -1,6 +1,6 @@
 <template lang="html">
-  <div id="app" class="body-app" style="min-height:100%;position: relative;">
-  <div style="width: 100%;padding-bottom:75px;">
+  <div id="app" class="body-app">
+  <div class="body-header-and-content">
     <header-bar></header-bar>
       <transition name="component-fade">
         <keep-alive>
@@ -8,7 +8,7 @@
         </keep-alive>
       </transition>
   </div>
-  <div style="position: absolute; bottom:0;width: 100%">
+  <div class="body-footer">
     <footer-bar></footer-bar>
   </div>
   </div>
@@ -30,8 +30,21 @@
 <style>
   .body-app {
     background: #ebebeb;
+    min-height:100%;
+    position: relative;
   }
 
+  .body-header-and-content {
+    width: 100%;
+    padding-bottom:75px;
+  }
+
+  .body-footer {
+    position: absolute;
+    bottom:0;
+    width: 100%;
+    left: 0;
+  }
 
 </style>
 

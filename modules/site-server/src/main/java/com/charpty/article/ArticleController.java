@@ -29,6 +29,11 @@ public class ArticleController {
 		return articleService.listArticles(pageable);
 	}
 
+	@RequestMapping(value = "/articles/count", method = RequestMethod.GET)
+	public long countArticles() {
+		return articleService.countArticles();
+	}
+
 	@RequestMapping(value = "/article/{id}", method = RequestMethod.GET)
 	public Article getArticle(@PathVariable("id") int id) {
 		Article r = articleService.getArticle(id);
