@@ -20,7 +20,23 @@ public class Article {
 	private String content;
 	private String creator;
 	private Date creationDate;
+	private int displayOrder;
 	private int revision;
+
+	public Article() {
+
+	}
+
+	public Article(int id, String title, String tag, String summary, String creator, Date creationDate, int displayOrder, int revision) {
+		this.id = id;
+		this.title = title;
+		this.tag = tag;
+		this.summary = summary;
+		this.creator = creator;
+		this.creationDate = creationDate;
+		this.displayOrder = displayOrder;
+		this.revision = revision;
+	}
 
 	public int getId() {
 		return id;
@@ -76,6 +92,14 @@ public class Article {
 
 	public void setCreationDate(Date creationDate) {
 		this.creationDate = creationDate;
+	}
+
+	public int getDisplayOrder() {
+		return displayOrder;
+	}
+
+	public void setDisplayOrder(int displayOrder) {
+		this.displayOrder = displayOrder;
 	}
 
 	public int getRevision() {

@@ -2,6 +2,7 @@ package com.charpty.article;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +24,8 @@ public class ArticleController {
 	private ArticleService articleService;
 
 	@RequestMapping(value = "/articles", method = RequestMethod.GET)
-	public List<Article> listArticles(@PageableDefault(value = 7) Pageable pageable) {
+	public List<Article> listArticles(
+			@PageableDefault(value = 7, sort = { "displayOrder", "creationDate", "id" }, direction = Sort.Direction.DESC) Pageable pageable) {
 		return articleService.listArticles(pageable);
 	}
 

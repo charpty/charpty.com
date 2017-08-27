@@ -1,9 +1,7 @@
 package com.charpty.article;
 
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.List;
@@ -15,6 +13,6 @@ import java.util.List;
  */
 public interface ArticleRepository extends PagingAndSortingRepository<Article, Integer> {
 
-	@Query("SELECT id,title,summary FROM Article")
+	@Query("SELECT new Article (id,title,tag,summary,creator,creationDate,displayOrder,revision) FROM Article")
 	List<Article> listArticles(Pageable pageable);
 }

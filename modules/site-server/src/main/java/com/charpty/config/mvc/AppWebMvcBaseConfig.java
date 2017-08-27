@@ -8,6 +8,10 @@ import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
 import com.tomato.util.BooleanUtil;
 import com.tomato.util.NumberUtil;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration;
+import org.springframework.boot.autoconfigure.web.WebMvcAutoConfiguration;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.data.web.config.EnableSpringDataWebSupport;
@@ -36,7 +40,8 @@ import java.util.List;
 @Configuration
 @EnableSpringDataWebSupport
 @EnableWebMvc
-public class AppWebMvcBaseConfig extends WebMvcConfigurationSupport {
+@EnableAutoConfiguration(exclude = SecurityAutoConfiguration.class)
+public class AppWebMvcBaseConfig extends WebMvcConfigurerAdapter {
 
 	/**
 	 * Form 表单验证消息本地化资源处理
@@ -84,18 +89,6 @@ public class AppWebMvcBaseConfig extends WebMvcConfigurationSupport {
 	}
 
 	@Override
-	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-		GsonHttpMessageConverter gsonHttpMessageConverter = new GsonHttpMessageConverter();
-		GsonBuilder gsonBuilder = new GsonBuilder();
-		gsonBuilder.registerTypeAdapter(BigDecimal.class, BIG_DECIMAL);
-		gsonBuilder.setDateFormat(UNIFIED_DATE_FORMAT);
-		gsonHttpMessageConverter.setGson(gsonBuilder.create());
-		converters.add(gsonHttpMessageConverter);
-
-		addDefaultHttpMessageConverters(converters);
-	}
-
-	@Override
 	public void configurePathMatch(PathMatchConfigurer configurer) {
 		// 禁止(/user.abc == /user.efg == /user)
 		configurer.setUseSuffixPatternMatch(false);
@@ -134,23 +127,6 @@ public class AppWebMvcBaseConfig extends WebMvcConfigurationSupport {
 		CorsRegistration registration = registry.addMapping("/**");
 		registration.allowCredentials(true).maxAge(3600);
 		registration.allowedMethods(CROSS_DOMAIN_ALLOWED_METHOD);
-	}
-
-	@Override
-	public ConfigurableWebBindingInitializer getConfigurableWebBindingInitializer() {
-		ConfigurableWebBindingInitializer initializer = new AppWebBindingInitializer();
-		initializer.setConversionService(mvcConversionService());
-		initializer.setValidator(mvcValidator());
-		initializer.setMessageCodesResolver(getMessageCodesResolver());
-		return initializer;
-	}
-
-	@Override
-	protected void addInterceptors(InterceptorRegistry registry) {
-		WebContentInterceptor webContentInterceptor = new WebContentInterceptor();
-		CacheControl nocache = CacheControl.noCache();
-		webContentInterceptor.addCacheMapping(nocache, "/**");
-		registry.addInterceptor(webContentInterceptor);
 	}
 
 	static {
