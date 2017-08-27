@@ -1,13 +1,12 @@
 <template>
-  <main>
-    <!--<article-jumbotron></article-jumbotron>-->
-    <!--<div>-->
-      <!--<div class="articles-table-wrap">-->
-        <!--<articles-table></articles-table>-->
-      <!--</div>-->
-      <!--<articles-recently></articles-recently>-->
-      <!--<right-misc></right-misc>-->
-    <!--</div>-->
+  <main class="man-wrap">
+    <div class="articles-table-wrap">
+      <articles-table></articles-table>
+    </div>
+
+    <div class="right-misc-wrap">
+      <right-misc></right-misc>
+    </div>
   </main>
 </template>
 
@@ -28,9 +27,39 @@
 </script>
 
 <style lang="css">
+
   .articles-table-wrap {
     float: left;
+    width: 70%;
   }
 
+  .right-misc-wrap {
+    float: right;
+    width: 30%;
+  }
+
+  @media (max-width: 981px) {
+    .right-misc-wrap {
+      visibility: hidden;
+    }
+
+    .articles-table-wrap {
+      width: 100%;
+    }
+  }
+
+  .man-wrap {
+    align: center;
+    overflow: hidden;
+  }
+
+  @media (min-width: 1281px) {
+    .man-wrap {
+      align: center;
+      margin-left: 100px;
+      margin-right: 100px;
+      overflow: hidden;
+    }
+  }
 
 </style>

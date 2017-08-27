@@ -1,12 +1,16 @@
 <template lang="html">
-  <div id="app">
+  <div id="app" class="body-app" style="min-height:100%;position: relative;">
+  <div style="width: 100%;padding-bottom:75px;">
     <header-bar></header-bar>
       <transition name="component-fade">
         <keep-alive>
           <router-view></router-view>
         </keep-alive>
       </transition>
+  </div>
+  <div style="position: absolute; bottom:0;width: 100%">
     <footer-bar></footer-bar>
+  </div>
   </div>
 </template>
 
@@ -23,6 +27,12 @@
 
 </script>
 
+<style>
+  .body-app {
+    background: #ebebeb;
+  }
 
+
+</style>
 
 
