@@ -1,4 +1,4 @@
-const apihost = 'http://localhost:8080/s/api/';
+const apihost = 's/api/';
 const fetch = global.fetch;
 const Headers = global.Headers;
 function parseResponse(response) {

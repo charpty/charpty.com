@@ -24,8 +24,8 @@ public class ArticleController {
 	private ArticleService articleService;
 
 	@RequestMapping(value = "/articles", method = RequestMethod.GET)
-	public List<Article> listArticles(
-			@PageableDefault(value = 7, sort = { "displayOrder", "creationDate", "id" }, direction = Sort.Direction.DESC) Pageable pageable) {
+	public List<Article> listArticles(@PageableDefault(value = 7, sort = { "displayOrder", "modificationDate", "creationDate",
+			"id" }, direction = Sort.Direction.DESC) Pageable pageable) {
 		return articleService.listArticles(pageable);
 	}
 

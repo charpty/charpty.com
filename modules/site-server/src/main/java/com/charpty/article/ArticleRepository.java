@@ -12,7 +12,7 @@ import java.util.List;
  * @since 2017/8/20 下午7:57
  */
 public interface ArticleRepository extends PagingAndSortingRepository<Article, Integer> {
-
-	@Query("SELECT new Article (id,title,tag,summary,creator,creationDate,displayOrder,revision) FROM Article")
+	@Query("SELECT new Article (id,type,status,title,tag,summary,coverImage,groupName,creator,creationDate,modificationDate,"
+			+ "displayOrder,pinged,praised,commentStatus,commentCount,revision) FROM Article")
 	List<Article> listArticles(Pageable pageable);
 }

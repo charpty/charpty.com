@@ -79,6 +79,16 @@ public class AppWebMvcBaseConfig extends WebMvcConfigurerAdapter {
 	}
 
 	@Override
+	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+		GsonHttpMessageConverter gsonHttpMessageConverter = new GsonHttpMessageConverter();
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.registerTypeAdapter(BigDecimal.class, BIG_DECIMAL);
+		gsonBuilder.setDateFormat(UNIFIED_DATE_FORMAT);
+		gsonHttpMessageConverter.setGson(gsonBuilder.create());
+		converters.add(gsonHttpMessageConverter);
+	}
+
+	@Override
 	public Validator getValidator() {
 		ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
 		messageSource.setDefaultEncoding(MESSAGE_SOURCE_DEFAULT_ENCODING);

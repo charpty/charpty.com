@@ -10,12 +10,12 @@
                 <h1 class="post-title"><a href="#">{{ article.title }}</a></h1>
                 <div class="post-meta">
                   <span class="author">作者：<a href="#">{{ article.creator }}</a></span> &bull;
-                  <time class="post-date" datetime="" title="">{{ article.creationDate }}</time>
+                  <time class="post-date" datetime="" title="">{{ article.creationDate.split(' ')[0] }}</time>
                 </div>
               </div>
               <div class="featured-media">
                 <a href="#">
-                  <!--<img src="http://static.ghostchina.com/image/a/21/de1b2911072f5a4eff82abdb62632.png" alt="article.title" v-bind:title="article.title">-->
+                  <img v-if="article.coverImage" v-bind:src="article.coverImage" v-bind:alt="article.title" v-bind:title="article.title">
                 </a>
               </div>
               <div class="post-content">
@@ -28,9 +28,10 @@
               </div>
               <footer class="post-footer clearfix">
                 <div class="pull-left tag-list">
-                  <span class="author">阅读量：<a href="#">暂未统计</a></span>
-                  &nbsp;&nbsp; | &nbsp;&nbsp;
-                  <span class="author">修订版本：<a href="#">0</a></span>
+                  <span class="author">阅读量：<a href="#">{{ article.pinged < 0 ? '暂未统计' : article.pinged }}</a></span>
+                  <span class="author">&nbsp;&nbsp; | &nbsp;&nbsp;喜欢：<a href="#">{{ article.praised < 0 ? '暂未统计' : article.praised }}</a></span>
+                  <span class="bottom-right-misc1"> &nbsp;&nbsp; | &nbsp;&nbsp;分类：<a href="#">{{ article.groupName }}</a></span>
+                  <span class="bottom-right-misc2">&nbsp;&nbsp; | &nbsp;&nbsp;评论数：<a href="#">{{ article.commentCount < 0 ? '暂未统计' : article.commentCount }}</a></span>
                 </div>
                 <div class="pull-right share">
                 </div>
@@ -93,6 +94,22 @@
 
 <style lang="stylus">
   @import "../stylus/article_post.styl";
+
+  @media (max-width: 481px) {
+    .bottom-right-misc1 {
+      display: none;
+    }
+
+    .bottom-right-misc2 {
+      display: none;
+    }
+  }
+
+  @media (max-width: 641px) {
+    .bottom-right-misc1 {
+      display: none;
+    }
+  }
 
   .pagination {
     margin: 0 0 35px;
