@@ -15,7 +15,7 @@
               </div>
               <div class="featured-media">
                 <a href="#">
-                  <img src="http://static.ghostchina.com/image/a/21/de1b2911072f5a4eff82abdb62632.png" alt="article.title" v-bind:title="article.title">
+                  <!--<img src="http://static.ghostchina.com/image/a/21/de1b2911072f5a4eff82abdb62632.png" alt="article.title" v-bind:title="article.title">-->
                 </a>
               </div>
               <div class="post-content">
