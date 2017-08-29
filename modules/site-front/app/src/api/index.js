@@ -53,7 +53,7 @@ export default {
       body: JSON.stringify(param)
     };
 
-    return fetch(url, init).then(parseResponse).then(checkStatus)
+    return fetch(url, init).then(parseResponse).then(checkStatus);
   },
   post (url, param = {}, headers = {}, host = apihost) {
     let reqHeaders = new Headers();
@@ -68,7 +68,7 @@ export default {
       body: JSON.stringify(param)
     };
 
-    return fetch(url, init).then(parseResponse).then(checkStatus)
+    return fetch(url, init).then(parseResponse).then(checkStatus);
   },
   put (url, param = {}, headers = {}, host = apihost) {
     let reqHeaders = new Headers();
@@ -99,7 +99,7 @@ export default {
       mode: 'cors'
     };
 
-    return fetch(url, init).then(parseResponse).then(checkStatus)
+    return fetch(url, init).then(parseResponse).then(checkStatus);
   }
 
 }

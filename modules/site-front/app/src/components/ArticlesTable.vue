@@ -89,7 +89,7 @@
         this.listArticles();
       },
       goArtileDetail: function (articleId) {
-        router.push({name: 'article', params: {id: articleId}});
+        router.push({name: 'article', params: {articleId: articleId}});
       },
       goAboutAuthor: function (authorName) {
         router.push({name: 'author', params: {name: authorName}});
