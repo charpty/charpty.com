@@ -1,7 +1,6 @@
 <template>
   <main>
     <div class="markdown-body" v-if="this.showContent" v-html="this.mdHtml">
-
     </div>
   </main>
 </template>
@@ -9,8 +8,7 @@
 <script>
   import api from '../api'
   import router from '../router'
-  import markdownDirective from '../markdown'
-  import marked from 'marked'
+  import marked from '../markdown'
 
   export default {
     data() {
@@ -33,10 +31,8 @@
       turnMarkdown2Html: function (content) {
         return marked(content);
       }
-    },
-    directives: {
-      md: markdownDirective
     }
+
   }
 </script>
 

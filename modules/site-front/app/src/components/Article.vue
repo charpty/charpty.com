@@ -31,10 +31,21 @@
     width: 70%;
     background: #fff;
     min-height: 700px;
-    margin-left: 100px;
+    margin-left: 50px;
   }
 
   .article-content {
+  }
+
+  @media (max-width: 641px) {
+    .content-wrap {
+      box-sizing: border-box;
+      padding: 40px;
+      width: 100%;
+      background: #fff;
+      min-height: 700px;
+      margin: 20px;
+    }
   }
 
   @media (min-width: 1281px) {
