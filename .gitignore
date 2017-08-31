@@ -8,3 +8,4 @@ logs
 .DS_Store
 src/main/webapp/node_modules
 *.log
+node_modules

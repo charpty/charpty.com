@@ -1,24 +1,40 @@
 <template>
   <main class="man-wrap">
-    <article-main></article-main>
+    <div class="content-wrap">
+      <div class="article-content">
+        <article-md-content></article-md-content>
+      </div>
+    </div>
   </main>
 </template>
 
 <script>
-  import ArticleMain from './ArticleMain'
+  import ArticleMdContent from './ArticleMdContent'
 
   export default {
     components: {
-      'article-main': ArticleMain
+      'article-md-content': ArticleMdContent
     }
   }
 </script>
 
 <style>
   .man-wrap {
-    align: center;
     overflow: hidden;
     min-height: 500px;
+  }
+
+  .content-wrap {
+    float: left;
+    box-sizing: border-box;
+    padding: 40px;
+    width: 70%;
+    background: #fff;
+    min-height: 700px;
+    margin-left: 100px;
+  }
+
+  .article-content {
   }
 
   @media (min-width: 1281px) {
