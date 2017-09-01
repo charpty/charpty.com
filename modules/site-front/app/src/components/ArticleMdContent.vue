@@ -31,6 +31,12 @@
       turnMarkdown2Html: function (content) {
         return markdownParser.parse(content);
       }
+    },
+    watch: {
+      '$route' (to, from) {
+        document.body.scrollTop = 0;
+        this.getArticleDetail();
+      }
     }
 
   }
