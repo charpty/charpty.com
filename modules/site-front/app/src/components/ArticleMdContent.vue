@@ -8,7 +8,7 @@
 <script>
   import api from '../api'
   import router from '../router'
-  import marked from '../markdown'
+  import markdownParser from '../markdown'
 
   export default {
     data() {
@@ -29,7 +29,7 @@
       },
 
       turnMarkdown2Html: function (content) {
-        return marked(content);
+        return markdownParser.parse(content);
       }
     }
 
