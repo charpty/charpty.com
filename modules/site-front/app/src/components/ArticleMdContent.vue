@@ -1,7 +1,19 @@
 <template>
   <main>
-    <div class="markdown-body" v-if="this.showContent" v-html="this.mdHtml">
-    </div>
+    <article class="post">
+      <header class="post-head">
+        <h1 class="post-title">自定义文章摘要（Excerpt）</h1>
+        <section class="post-meta">
+          <span v-on:click="goAboutAuthor(article.creator)" class="author">作者：{{ article.creator }}</span> &bull;
+          <time class="post-date" datetime="" title="">{{ article.creationDate?article.creationDate.split(' ')[0]:"" }}</time>
+        </section>
+      </header>
+      <br><br>
+      <section>
+        <div class="markdown-body" v-if="this.showContent" v-html="this.mdHtml">
+        </div>
+      </section>
+    </article>
   </main>
 </template>
 
@@ -34,8 +46,8 @@
     },
     watch: {
       '$route' (to, from) {
-        document.body.scrollTop = 0;
-        this.getArticleDetail();
+//        document.body.scrollTop = 0;
+//        this.getArticleDetail();
       }
     }
 
@@ -43,6 +55,7 @@
 </script>
 
 <style>
+  @import "../stylus/article_post.styl";
 
   .markdown-body {
     background: white;

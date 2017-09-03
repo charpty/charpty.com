@@ -1,6 +1,6 @@
 <template>
   <main>
-    <section class="content-wrap">
+    <section>
       <div class="container">
         <div class="row">
           <main class="col-md-8 main-content">
@@ -37,15 +37,15 @@
                 </div>
               </footer>
             </article>
+            <nav class="pagination" role="navigation">
+              <span class="page-number" v-if="this.currentPage && this.currentPage > 0" v-on:click="previousPage()">上一页</span>
+              <span class="page-number">第 1 页 &frasl; 共 9 页</span>
+              <span class="page-number" v-if="(this.everySize*(this.currentPage+1))<this.totalCount" v-on:click="nextPage()">下一页</span>
+            </nav>
           </main>
         </div>
       </div>
     </section>
-    <nav class="pagination" role="navigation">
-      <span class="page-number" v-if="this.currentPage && this.currentPage > 0" v-on:click="previousPage()">上一页</span>
-      <span class="page-number">第 1 页 &frasl; 共 9 页</span>
-      <span class="page-number" v-if="(this.everySize*(this.currentPage+1))<this.totalCount" v-on:click="nextPage()">下一页</span>
-    </nav>
   </main>
 
 </template>

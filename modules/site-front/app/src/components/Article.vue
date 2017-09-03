@@ -1,9 +1,7 @@
 <template>
   <main class="man-wrap">
     <div class="content-wrap">
-      <div class="article-content">
         <article-md-content></article-md-content>
-      </div>
     </div>
   </main>
 </template>
@@ -31,20 +29,17 @@
     width: 70%;
     background: #fff;
     min-height: 700px;
-    margin-left: 50px;
-  }
-
-  .article-content {
   }
 
   @media (max-width: 641px) {
     .content-wrap {
       box-sizing: border-box;
-      padding: 40px;
+      padding: 20px;
       width: 100%;
       background: #fff;
       min-height: 700px;
-      margin: 20px;
+      margin-left: 20px;
+      margin-right: 20px;
     }
   }
 
