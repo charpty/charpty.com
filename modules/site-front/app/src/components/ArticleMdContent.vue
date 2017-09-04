@@ -2,10 +2,10 @@
   <main>
     <article class="post">
       <header class="post-head">
-        <h1 class="post-title">自定义文章摘要（Excerpt）</h1>
+        <h1 class="post-title">{{ article.title }}</h1>
         <section class="post-meta">
           <span v-on:click="goAboutAuthor(article.creator)" class="author">作者：{{ article.creator }}</span> &bull;
-          <time class="post-date" datetime="" title="">{{ article.creationDate?article.creationDate.split(' ')[0]:"" }}</time>
+          <time class="post-date" datetime="" title="">{{ article.creationDate ? article.creationDate.split(' ')[0] : "" }}</time>
         </section>
       </header>
       <br><br>
@@ -27,7 +27,8 @@
       return {
         article: {},
         showContent: true,
-        mdHtml: ""
+        mdHtml: "",
+        articleId: -1
       }
     },
     created() {
@@ -46,8 +47,10 @@
     },
     watch: {
       '$route' (to, from) {
-//        document.body.scrollTop = 0;
-//        this.getArticleDetail();
+        if (to.path.startsWith("/article/")) {
+          document.body.scrollTop = 0;
+          this.getArticleDetail();
+        }
       }
     }
 
