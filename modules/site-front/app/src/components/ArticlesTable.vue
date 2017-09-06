@@ -96,9 +96,6 @@
         router.push({name: 'author', params: {name: authorName}});
       }
     },
-    watch: {
-      '$route': 'listArticles'
-    }
   }
 </script>
 

@@ -35,4 +35,9 @@ const router = new Router({
   history: true
 });
 
+router.beforeEach((to, from, next) => {
+  // TODO 那些路由或者情况要置顶
+  next();
+});
+
 export default router

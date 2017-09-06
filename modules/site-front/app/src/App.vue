@@ -4,7 +4,7 @@
     <header-bar></header-bar>
       <transition name="app-fade">
         <keep-alive>
-          <router-view></router-view>
+          <router-view :key="$route.path"></router-view>
         </keep-alive>
       </transition>
   </div>

@@ -44,11 +44,7 @@
       turnMarkdown2Html: function (content) {
         return markdownParser.parse(content);
       }
-    },
-    watch: {
-      '$route': 'getArticleDetail'
     }
-
   }
 </script>
 
