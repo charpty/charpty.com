@@ -51,6 +51,16 @@
 <style>
   @import "../stylus/article_post.styl";
 
+  @media (max-width: 641px) {
+    .post {
+      padding: 25px;
+      background: #fff;
+      margin-bottom: 35px;
+      position: relative;
+      overflow: hidden
+    }
+  }
+
   .markdown-body {
     background: white;
     overflow: hidden;
