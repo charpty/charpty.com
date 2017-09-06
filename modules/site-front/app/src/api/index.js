@@ -1,4 +1,4 @@
-const apihost = 's/api/';
+const apihost = '/s/api/';
 const fetch = global.fetch;
 const Headers = global.Headers;
 function parseResponse(response) {

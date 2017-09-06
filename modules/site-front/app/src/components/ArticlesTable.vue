@@ -65,11 +65,11 @@
       }
     },
     created () {
-      this.countAricles();
       this.listArticles();
     },
     methods: {
       async listArticles (){
+        this.countAricles();
         let data = await api.get("articles", {
           size: this.everySize,
           page: this.currentPage
@@ -80,6 +80,7 @@
         let tc = await api.get("articles/count");
         this.totalCount = tc;
       },
+
       nextPage: function () {
         this.currentPage++;
         this.listArticles();
@@ -94,6 +95,9 @@
       goAboutAuthor: function (authorName) {
         router.push({name: 'author', params: {name: authorName}});
       }
+    },
+    watch: {
+      '$route': 'listArticles'
     }
   }
 </script>

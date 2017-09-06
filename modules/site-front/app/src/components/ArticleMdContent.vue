@@ -46,12 +46,7 @@
       }
     },
     watch: {
-      '$route' (to, from) {
-        if (to.path.startsWith("/article/")) {
-          document.body.scrollTop = 0;
-          this.getArticleDetail();
-        }
-      }
+      '$route': 'getArticleDetail'
     }
 
   }

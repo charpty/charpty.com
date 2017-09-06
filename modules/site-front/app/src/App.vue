@@ -2,7 +2,7 @@
   <div id="app" class="body-app">
   <div class="body-header-and-content">
     <header-bar></header-bar>
-      <transition name="component-fade">
+      <transition name="app-fade">
         <keep-alive>
           <router-view></router-view>
         </keep-alive>
@@ -32,11 +32,15 @@
     background: #ebebeb;
     min-height:100%;
     position: relative;
+    font-family: "Helvetica Neue", Helvetica, "Microsoft YaHei", "WenQuanYi Micro Hei", Arial, sans-serif;
+    font-size: 14px;
+    line-height: 2;
   }
 
   .body-header-and-content {
     width: 100%;
     padding-bottom:75px;
+    min-height: 768px;
   }
 
   .body-footer {
@@ -46,6 +50,12 @@
     left: 0;
   }
 
+  .app-fade-enter-active, .fade-leave-active {
+    transition: opacity 2s
+  }
+  .app-fade-enter, .app-fade-leave-to {
+    opacity: 0
+  }
 </style>
 
 

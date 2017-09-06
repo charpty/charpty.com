@@ -27,8 +27,12 @@
           </div>
           <div class="collapse navbar-collapse" style="float: none" id="example-navbar-collapse">
             <ul class="nav navbar-nav">
-              <li class="active"><a href="#">文章列表</a></li>
-              <li><a href="#">2017年</a></li>
+              <li class="active"><a>
+                <router-link to="/articles">文章列表</router-link>
+              </a></li>
+              <li><a>
+                <router-link to="/y2017">2017年</router-link>
+              </a></li>
               <li><a href="#">结构与存储</a></li>
               <li><a href="#">J2EE设计</a></li>
               <li><a href="#">心得随记</a></li>
@@ -54,8 +58,8 @@
 
 <style>
   .navbar .nav, .navbar .nav > li {
-    float:none;
-    display:inline-block;
+    float: none;
+    display: inline-block;
   }
 
   @media (min-width: 768px) {
@@ -63,10 +67,12 @@
       width: 100%;
       text-align: center;
     }
+
     .navbar-nav > li {
       float: none;
       display: inline-block;
     }
+
     .navbar-nav > li.navbar-right {
       float: right !important;
     }
