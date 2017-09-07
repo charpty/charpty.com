@@ -1,8 +1,12 @@
 <template>
   <main class="man-wrap">
-    <div class="content-wrap">
-      <article-md-content></article-md-content>
-    </div>
+      <div class="container">
+        <div class="row">
+          <main class="col-md-8 main-content">
+            <article-md-content></article-md-content>
+          </main>
+        </div>
+      </div>
   </main>
 </template>
 
@@ -38,12 +42,12 @@
   @media (max-width: 641px) {
     .content-wrap {
       box-sizing: border-box;
-      padding: 8px;
+      padding: 10px;
       width: 100%;
       background: #fff;
       min-height: 700px;
-      margin-left: 1px;
-      margin-right: 1px;
+      margin-left: 10px;
+      margin-right: 10px;
     }
   }
 

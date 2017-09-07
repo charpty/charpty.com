@@ -102,6 +102,7 @@
 
 <style lang="stylus">
   @import "../stylus/article_post.styl";
+  @import "../stylus/pagination.styl";
 
   @media (max-width: 481px) {
     .bottom-right-misc1 {
@@ -117,58 +118,6 @@
     .bottom-right-misc1 {
       display: none;
     }
-  }
-
-  .pagination {
-    margin: 0 0 35px;
-    text-align: center;
-    display: block;
-  }
-
-  .pagination a {
-    text-align: center;
-    display: inline-block;
-    color: #ffffff;
-    background: #e67e22;
-    border-radius: 2px;
-  }
-
-  .pagination a a:hover {
-    background: #505050;
-    text-decoration: none;
-    color: #ffffff;
-  }
-
-  .pagination a i {
-    width: 36px;
-    height: 36px;
-    line-height: 36px;
-  }
-
-  .pagination .page-number {
-    background: #e67e22;
-    color: #ffffff;
-    margin: 0 3px;
-    display: inline-block;
-    line-height: 36px;
-    padding: 0 14px;
-    border-radius: 2px;
-  }
-
-  .fa {
-    display: inline-block;
-    font: normal normal normal 14px / 1 FontAwesome;
-    font-size: inherit;
-    text-rendering: auto;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    transform: translate(0, 0)
-  }
-
-  .fa-lg {
-    font-size: 1.33333333em;
-    line-height: .75em;
-    vertical-align: -15%
   }
 
 </style>

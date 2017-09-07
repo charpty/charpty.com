@@ -23,16 +23,15 @@
         </div>
         <div class="collapse navbar-collapse" style="float: none" id="example-navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a>
+            <li role="presentation"><a aria-controls="profile" role="tab" data-toggle="tab">
               <router-link to="/articles">文章列表</router-link>
             </a></li>
-            <li><a>
+            <li role="presentation"><a aria-controls="profile" role="tab" data-toggle="tab">
               <router-link to="/y2017">2017年</router-link>
             </a></li>
-            <li><a href="#">结构与存储</a></li>
-            <li><a href="#">J2EE设计</a></li>
-            <li><a href="#">心得随记</a></li>
-            <li class="dropdown">
+            <li role="presentation"><a aria-controls="profile" role="tab" data-toggle="tab">J2EE设计</a></li>
+            <li role="presentation"><a aria-controls="profile" role="tab" data-toggle="tab">结构与存储</a></li>
+            <li class="dropdown" aria-controls="profile" role="tab" data-toggle="tab">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 关于我<b class="caret"></b>
               </a>
@@ -48,10 +47,24 @@
 </template>
 
 <script>
-  export default {};
+  export default {
+    data(){
+      return {}
+    },
+    create() {
+    },
+
+    methods: {}
+  }
+  ;
 </script>
 
 <style>
+  .active {
+    border-bottom: 2px solid #e67e22;
+    margin-bottom: -2px;
+  }
+
   .navbar .nav, .navbar .nav > li {
     float: none;
     display: inline-block;
@@ -101,8 +114,10 @@
   }
 
   /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
-  @media (min-width: 641px) {
-
+  @media (max-width: 641px) {
+    .navbar {
+      margin-bottom: 10px;
+    }
   }
 
   /* tablet, landscape iPad, lo-res laptops ands desktops */

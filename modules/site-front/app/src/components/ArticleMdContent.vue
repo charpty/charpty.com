@@ -53,11 +53,11 @@
 
   @media (max-width: 641px) {
     .post {
-      padding: 25px;
+      padding: 35px;
       background: #fff;
       margin-bottom: 35px;
       position: relative;
-      overflow: hidden
+      overflow: hidden;
     }
   }
 
