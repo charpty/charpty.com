@@ -1,7 +1,7 @@
 <template lang="html">
   <div id="app" class="body-app">
   <div class="body-header-and-content">
-    <header-bar></header-bar>
+  <header-bar></header-bar>
       <transition name="app-fade">
         <keep-alive>
           <router-view :key="$route.path"></router-view>
@@ -15,6 +15,7 @@
 </template>
 
 <script>
+
   import HeaderBar from './components/HeaderBar'
   import FooterBar from './components/FooterBar'
   export default {
@@ -24,7 +25,6 @@
       'footer-bar':FooterBar
     }
   }
-
 </script>
 
 <style>

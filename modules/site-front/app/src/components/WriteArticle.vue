@@ -1,7 +1,7 @@
 <template>
   <main>
     <div style="min-height: 800px">
-      <textarea id="abcdefg"></textarea>
+      <textarea id="write-editor"></textarea>
     </div>
   </main>
 
@@ -9,21 +9,11 @@
 
 <script>
 
-  import SimpleMDE from 'simpleMDE';
-  import 'simplemde/dist/simplemde.min.css';
-  import '../assets/css/font-awesome.min.css';
-  import markdownParser from '../markdown'
+  import mde from '../utils/mde'
 
   export default {
     mounted() {
-      let mde = new SimpleMDE({
-        element: document.getElementById("abcdefg"),
-        autoDownloadFontAwesome: false,
-        status: true,
-        previewRender: function (plainText) {
-          return markdownParser.parse(plainText);
-        },
-      });
+      mde.createMDE(document.getElementById("write-editor"));
     },
   }
 </script>

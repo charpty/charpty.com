@@ -1,51 +1,46 @@
 <template>
   <main>
-    <header class="main-header">
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-12">
-            <a class="hide" href="" title=""><img
-              src="../assets/main_header.jpg" alt=""></a>
-            <h2 class="text-hide"></h2>
-            <img src="../assets/main_header.jpg" alt="" class="hide">
-          </div>
-        </div>
-      </div>
-    </header>
     <header>
       <nav class="navbar navbar-default" role="navigation">
         <div class="container-fluid">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse"
-                    data-target="#example-navbar-collapse">
-              <span class="sr-only">切换导航</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-
+          <button type="button" class="navbar-toggle" data-toggle="collapse"
+                  data-target="#example-navbar-collapse">
+            <span class="sr-only">切换导航</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div class="main-header">
+          <div class="row">
+            <div class="col-sm-12">
+              <a class="hide" href="" title=""><img
+                src="../assets/main_header.jpg" alt=""></a>
+              <h2 class="text-hide"></h2>
+              <img src="../assets/main_header.jpg" alt="" class="hide">
+            </div>
           </div>
-          <div class="collapse navbar-collapse" style="float: none" id="example-navbar-collapse">
-            <ul class="nav navbar-nav">
-              <li class="active"><a>
-                <router-link to="/articles">文章列表</router-link>
-              </a></li>
-              <li><a>
-                <router-link to="/y2017">2017年</router-link>
-              </a></li>
-              <li><a href="#">结构与存储</a></li>
-              <li><a href="#">J2EE设计</a></li>
-              <li><a href="#">心得随记</a></li>
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  关于我<b class="caret"></b>
-                </a>
-                <ul class="dropdown-menu">
-                  <li><a href="#">笔者简介</a></li>
-                </ul>
-              </li>
-            </ul>
-          </div>
+        </div>
+        <div class="collapse navbar-collapse" style="float: none" id="example-navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a>
+              <router-link to="/articles">文章列表</router-link>
+            </a></li>
+            <li><a>
+              <router-link to="/y2017">2017年</router-link>
+            </a></li>
+            <li><a href="#">结构与存储</a></li>
+            <li><a href="#">J2EE设计</a></li>
+            <li><a href="#">心得随记</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                关于我<b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a href="#">笔者简介</a></li>
+              </ul>
+            </li>
+          </ul>
         </div>
       </nav>
     </header>
@@ -60,6 +55,12 @@
   .navbar .nav, .navbar .nav > li {
     float: none;
     display: inline-block;
+  }
+
+  .navbar-toggle {
+    top: 30px;
+    left: 20px;
+    position: absolute;
   }
 
   @media (min-width: 768px) {
@@ -95,7 +96,7 @@
   @media (min-width: 481px) {
     .main-header {
       background-image: url("../assets/main_header.jpg");
-      height: 180px;
+      height: 120px;
     }
   }
 
@@ -116,7 +117,7 @@
   @media (min-width: 1281px) {
     .main-header {
       background-image: url("../assets/main_header.jpg");
-      height: 260px;
+      height: 220px;
     }
   }
 

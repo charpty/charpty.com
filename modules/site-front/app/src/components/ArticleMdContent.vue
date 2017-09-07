@@ -20,7 +20,7 @@
 <script>
   import api from '../api'
   import router from '../router'
-  import markdownParser from '../markdown'
+  import markdownParser from '../utils/markdown'
 
   export default {
     data() {

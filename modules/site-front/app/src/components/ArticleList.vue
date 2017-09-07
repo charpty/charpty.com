@@ -1,6 +1,6 @@
 <template>
   <main class="man-wrap">
-   <div class="articles-table-wrap">
+    <div class="articles-table-wrap">
       <articles-table></articles-table>
     </div>
     <div class="right-misc-wrap">

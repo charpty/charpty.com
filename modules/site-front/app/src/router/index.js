@@ -1,8 +1,9 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import ArticleList from '../components/ArticleList'
-import Article from '../components/Article'
-import WriteArticle from '../components/WriteArticle'
+import Vue from 'vue';
+import Router from 'vue-router';
+import ArticleList from '../components/ArticleList.vue';
+import Article from '../components/Article.vue';
+import WriteArticle from '../components/WriteArticle.vue';
+import Y2017 from '../components/Y2017.vue';
 
 Vue.use(Router);
 
@@ -30,7 +31,7 @@ const routes = [
   {
     path: '/y2017',
     name: 'y2017',
-    component: Article
+    component: Y2017
   }
 ];
 
