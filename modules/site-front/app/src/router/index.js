@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import ArticleList from '../components/ArticleList'
 import Article from '../components/Article'
+import WriteArticle from '../components/WriteArticle'
 
 Vue.use(Router);
 
@@ -20,6 +21,11 @@ const routes = [
     path: '/article/:articleId',
     name: 'article',
     component: Article
+  },
+  {
+    path: '/write',
+    name: 'writeArticle',
+    component: WriteArticle
   },
   {
     path: '/y2017',
