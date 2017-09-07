@@ -53,7 +53,7 @@
 
   @media (max-width: 641px) {
     .post {
-      padding: 35px;
+      padding: 12px;
       background: #fff;
       margin-bottom: 35px;
       position: relative;

@@ -1,12 +1,8 @@
 <template>
   <main class="man-wrap">
-      <div class="container">
-        <div class="row">
-          <main class="col-md-8 main-content">
-            <article-md-content></article-md-content>
-          </main>
-        </div>
-      </div>
+    <main class="col-md-8 main-content">
+      <article-md-content></article-md-content>
+    </main>
   </main>
 </template>
 
@@ -48,6 +44,11 @@
       min-height: 700px;
       margin-left: 10px;
       margin-right: 10px;
+    }
+
+    .col-md-8 {
+      padding-right: 5px;
+      padding-left: 5px;
     }
   }
 
