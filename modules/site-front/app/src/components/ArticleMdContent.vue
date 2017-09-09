@@ -2,7 +2,7 @@
   <main>
     <article class="post">
       <header class="post-head">
-        <h1 class="post-title">{{ article.title }}</h1>
+        <span class="post-title">{{ article.title }}</span>
         <section class="post-meta">
           <span v-on:click="goAboutAuthor(article.creator)" class="author">作者：{{ article.creator }}</span> &bull;
           <time class="post-date" datetime="" title="">{{ article.creationDate ? article.creationDate.split(' ')[0] : "" }}</time>
@@ -44,6 +44,11 @@
       turnMarkdown2Html: function (content) {
         return markdownParser.parse(content);
       }
+    },
+    watch: {
+      'article.title': function (t) {
+        console.log(t);
+      }
     }
   }
 </script>
@@ -53,12 +58,24 @@
 
   @media (max-width: 641px) {
     .post {
-      padding: 12px;
+      padding: 25px;
       background: #fff;
       margin-bottom: 35px;
       position: relative;
       overflow: hidden;
     }
+
+    .post-head {
+      margin-top: 30px;
+    }
+
+    .post-title {
+      display: inline-block;
+      overflow: hidden;
+      /*font-size: 50px;*/
+      /*font-size: 5vw !important;*/
+    }
+
   }
 
   .markdown-body {
