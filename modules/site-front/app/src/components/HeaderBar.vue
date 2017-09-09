@@ -23,12 +23,14 @@
         </div>
         <div class="collapse navbar-collapse" style="float: none" id="example-navbar-collapse">
           <ul class="nav navbar-nav">
-            <li role="presentation"><a aria-controls="profile" role="tab" data-toggle="tab">
-              <router-link to="/articles">文章列表</router-link>
-            </a></li>
-            <li role="presentation"><a aria-controls="profile" role="tab" data-toggle="tab">
-              <router-link to="/y2017">2017年</router-link>
-            </a></li>
+            <li role="presentation" v-on:click="goRoute('/articles')">
+              <a aria-controls="profile" role="tab" data-toggle="tab">
+                文章列表
+              </a></li>
+            <li role="presentation" v-on:click="goRoute('/y2017')">
+              <a aria-controls="profile" role="tab" data-toggle="tab">
+                2017年
+              </a></li>
             <li role="presentation"><a aria-controls="profile" role="tab" data-toggle="tab">J2EE设计</a></li>
             <li role="presentation"><a aria-controls="profile" role="tab" data-toggle="tab">结构与存储</a></li>
             <li class="dropdown" aria-controls="profile" role="tab" data-toggle="tab">
@@ -47,6 +49,8 @@
 </template>
 
 <script>
+  import router from '../router';
+
   export default {
     data(){
       return {}
@@ -54,7 +58,11 @@
     create() {
     },
 
-    methods: {}
+    methods: {
+      goRoute: function (path) {
+        router.push(path);
+      }
+    }
   }
   ;
 </script>
