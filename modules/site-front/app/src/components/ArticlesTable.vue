@@ -10,7 +10,10 @@
                   <span v-on:click="goArtileDetail(article.id)">{{ article.title }}</span>
                 </h1>
                 <div class="post-meta">
-                  <span v-on:click="goAboutAuthor(article.creator)" class="author">作者：{{ article.creator }}</span> &nbsp;|&nbsp;
+                  <i class="fa fa-user-circle" aria-hidden="true"></i>
+                  <span v-on:click="goAboutAuthor(article.creator)" class="author">{{ article.creator }}</span>
+                  &nbsp;|&nbsp;&nbsp;<i></i>
+                  <i class="fa fa-calendar" aria-hidden="true"></i>
                   <time class="post-date" datetime="" title="">{{ article.creationDate.split(' ')[0] }}</time>
                 </div>
               </div>

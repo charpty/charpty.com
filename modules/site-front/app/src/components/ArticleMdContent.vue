@@ -4,10 +4,12 @@
       <header class="post-head">
         <h1 class="post-title">{{ article.title }}</h1>
         <section class="post-meta">
-          <span v-on:click="goAboutAuthor(article.creator)" class="author">作者：{{ article.creator }}</span>
-          &nbsp;|&nbsp;<i></i>
+          <i class="fa fa-user-circle" aria-hidden="true"></i>
+          <span v-on:click="goAboutAuthor(article.creator)" class="author">{{ article.creator }}</span>
+          &nbsp;|&nbsp;&nbsp;<i class="fa fa-calendar" aria-hidden="true"></i>
           <time class="post-date" datetime="" title="">{{ article.creationDate ? article.creationDate.split(' ')[0] : "" }}</time>
-          &nbsp;|&nbsp;<span>字数：{{ article.wordCount }}</span>
+          &nbsp;|&nbsp;&nbsp;<i class="fa fa-file-word-o" aria-hidden="true"></i>
+          <span>{{ article.wordCount }}</span>
         </section>
       </header>
       <br><br>

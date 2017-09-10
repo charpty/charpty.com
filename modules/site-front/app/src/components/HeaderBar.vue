@@ -27,7 +27,7 @@
             </div>
           </div>
         </div>
-        <div class="collapse navbar-collapse" style="float: none" id="site-navbar-collapse">
+        <div class="collapse navbar-collapse" id="site-navbar-collapse">
           <ul class="nav navbar-nav">
             <li role="presentation" v-on:click="goRoute('/articles')">
               <a aria-controls="profile" role="tab" data-toggle="tab">

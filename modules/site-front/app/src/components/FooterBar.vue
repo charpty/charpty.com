@@ -1,5 +1,8 @@
 <template>
   <footer class="footer">
+    <div class="main-footer">
+      
+    </div>
     <div class="copyright">
       <div class="container">
         <div class="copyright-row">
