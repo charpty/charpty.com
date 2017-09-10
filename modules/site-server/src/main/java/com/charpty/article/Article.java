@@ -14,6 +14,7 @@ public class Article {
 
 	@Id
 	private int id;
+	private String name;
 	private int type;
 	private int status;
 	private String title;
@@ -28,6 +29,7 @@ public class Article {
 	private int displayOrder;
 	private int pinged;
 	private int praised;
+	private int wordCount;
 	private int commentStatus;
 	private int commentCount;
 	private int revision;
@@ -36,9 +38,10 @@ public class Article {
 
 	}
 
-	public Article(int id, int type, int status, String title, String tag, String summary, String coverImage, String groupName, String creator,
+	public Article(int id, String name, int type, int status, String title, String tag, String summary, String coverImage, String groupName, String creator,
 			Date creationDate, Date modificationDate, int displayOrder, int pinged, int praised, int commentStatus, int commentCount, int revision) {
 		this.id = id;
+		this.name = name;
 		this.type = type;
 		this.status = status;
 		this.title = title;
@@ -52,6 +55,7 @@ public class Article {
 		this.displayOrder = displayOrder;
 		this.pinged = pinged;
 		this.praised = praised;
+		this.wordCount = wordCount;
 		this.commentStatus = commentStatus;
 		this.commentCount = commentCount;
 		this.revision = revision;
@@ -63,6 +67,14 @@ public class Article {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public int getType() {
@@ -175,6 +187,14 @@ public class Article {
 
 	public void setPraised(int praised) {
 		this.praised = praised;
+	}
+
+	public int getWordCount() {
+		return wordCount;
+	}
+
+	public void setWordCount(int wordCount) {
+		this.wordCount = wordCount;
 	}
 
 	public int getCommentStatus() {

@@ -12,10 +12,10 @@
           </button>
         </div>
         <div class="headband"></div>
-        <div class="phone-header">
+        <div class="phone-header" v-on:click="getDailyWord()">
           <div class="site-meta">
-            <span class="custom-title">知足者常乐</span>
-            <span class="custom-sub-title">{{ dailyWord }}</span>
+            <span v-on:click="tryGoHomePage()" class="custom-title">知足者常乐</span>
+            <span v-on:click="getDailyWord()" class="custom-sub-title">{{ dailyWord }}</span>
           </div>
         </div>
         <div class="main-header">
@@ -56,18 +56,34 @@
 
 <script>
   import router from '../router';
+  import api from '../api';
 
   export default {
     data(){
       return {
-        dailyWord: "面对困难不要放弃，别人会比你更艰难"
+        dailyWord: "成功=目标，其他语句都是这行代码的注释",
+        titleClickCount: 0
       }
     },
-    create() {
+    created() {
+      this.getDailyWord();
     },
     methods: {
+      tryGoHomePage: function () {
+        if ((this.titleClickCount++) % 2 === 1) {
+          window.location.href = "/";
+        } else {
+          this.getDailyWord();
+        }
+      },
       goRoute: function (path) {
         router.push(path);
+      },
+      async getDailyWord() {
+        let r = await api.get("/word/random");
+        if (r && r.length > 4) {
+          this.dailyWord = r;
+        }
       }
     }
   };

@@ -1,6 +1,7 @@
 package com.charpty.article;
 
 import com.google.common.collect.Lists;
+import com.tomato.util.NumberUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -27,8 +28,18 @@ public class ArticleServiceImpl implements ArticleService {
 	}
 
 	@Override
-	public Article getArticle(int id) {
-		return articleRepository.findOne(id);
+	public Article getArticle(String idOrName) {
+		Article result = null;
+		try {
+			int idLong = Integer.valueOf(idOrName);
+			result = articleRepository.findOne(idLong);
+		} catch (NumberFormatException ignore) {
+			result = articleRepository.findByName(idOrName);
+		}
+		if (result != null && result.getWordCount() < 0) {
+			result.setWordCount(result.getContent().length());
+		}
+		return result;
 	}
 
 	@Override

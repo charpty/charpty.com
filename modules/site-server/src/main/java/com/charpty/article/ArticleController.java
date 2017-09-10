@@ -35,9 +35,8 @@ public class ArticleController {
 	}
 
 	@RequestMapping(value = "/article/{id}", method = RequestMethod.GET)
-	public Article getArticle(@PathVariable("id") int id) {
-		Article r = articleService.getArticle(id);
-		return r;
+	public Article getArticle(@PathVariable("id") String id) {
+		return articleService.getArticle(id);
 	}
 
 }

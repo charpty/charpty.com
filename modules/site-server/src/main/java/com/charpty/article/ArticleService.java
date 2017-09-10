@@ -29,7 +29,7 @@ public interface ArticleService {
 	 *
 	 * @return the article
 	 */
-	Article getArticle(int id);
+	Article getArticle(String id);
 
 	/**
 	 * @return
