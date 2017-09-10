@@ -7,7 +7,7 @@
           <span v-on:click="goAboutAuthor(article.creator)" class="author">作者：{{ article.creator }}</span>
           &nbsp;|&nbsp;<i></i>
           <time class="post-date" datetime="" title="">{{ article.creationDate ? article.creationDate.split(' ')[0] : "" }}</time>
-          &nbsp; | &nbsp;<span>字数：{{ article.wordCount }}</span>
+          &nbsp;|&nbsp;<span>字数：{{ article.wordCount }}</span>
         </section>
       </header>
       <br><br>

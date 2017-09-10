@@ -80,7 +80,7 @@
         router.push(path);
       },
       async getDailyWord() {
-        let r = await api.get("/word/random");
+        let r = await api.get("word/random");
         if (r && r.length > 4) {
           this.dailyWord = r;
         }
