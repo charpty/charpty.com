@@ -6,7 +6,7 @@
         <section class="post-meta">
           <i class="fa fa-user-circle" aria-hidden="true"></i>
           <span v-on:click="goAboutAuthor(article.creator)" class="author">{{ article.creator }}</span>
-          &nbsp;|&nbsp;&nbsp;<i class="fa fa-calendar" aria-hidden="true"></i>
+          &nbsp;|&nbsp;&nbsp;<i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;
           <time class="post-date" datetime="" title="">{{ article.creationDate ? article.creationDate.split(' ')[0] : "" }}</time>
           &nbsp;|&nbsp;&nbsp;<i class="fa fa-file-word-o" aria-hidden="true"></i>
           <span>{{ article.wordCount }}</span>
@@ -14,7 +14,7 @@
       </header>
       <br><br>
       <section>
-        <div class="markdown-body" v-if="this.showContent" v-html="this.mdHtml">
+        <div class="markdown-body" v-html="this.mdHtml">
         </div>
       </section>
     </article>
@@ -34,7 +34,6 @@
           creationDate: "2017-01-01",
           wordCount: 0
         },
-        showContent: true,
         mdHtml: "",
         articleId: -1
       }
@@ -47,6 +46,7 @@
         let data = await api.get("/article/" + this.$route.params.articleId);
         this.article = data;
         this.mdHtml = this.turnMarkdown2Html(data.content);
+        document.title = data.title;
       },
 
       turnMarkdown2Html: function (content) {

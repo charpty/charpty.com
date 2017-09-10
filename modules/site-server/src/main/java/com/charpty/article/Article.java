@@ -39,7 +39,8 @@ public class Article {
 	}
 
 	public Article(int id, String name, int type, int status, String title, String tag, String summary, String coverImage, String groupName, String creator,
-			Date creationDate, Date modificationDate, int displayOrder, int pinged, int praised, int commentStatus, int commentCount, int revision) {
+			Date creationDate, Date modificationDate, int displayOrder, int pinged, int praised, int wordCount, int commentStatus, int commentCount,
+			int revision) {
 		this.id = id;
 		this.name = name;
 		this.type = type;

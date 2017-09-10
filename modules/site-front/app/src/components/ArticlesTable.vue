@@ -13,8 +13,10 @@
                   <i class="fa fa-user-circle" aria-hidden="true"></i>
                   <span v-on:click="goAboutAuthor(article.creator)" class="author">{{ article.creator }}</span>
                   &nbsp;|&nbsp;&nbsp;<i></i>
-                  <i class="fa fa-calendar" aria-hidden="true"></i>
+                  <i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;
                   <time class="post-date" datetime="" title="">{{ article.creationDate.split(' ')[0] }}</time>
+                  &nbsp;|&nbsp;&nbsp;<i class="fa fa-file-word-o" aria-hidden="true"></i>
+                  <span>{{ article.wordCount }}</span>
                 </div>
               </div>
               <div class="featured-media" v-on:click="goArtileDetail(article.id)">
@@ -77,6 +79,7 @@
           page: this.currentPage
         });
         this.articles = data;
+        document.title = "charpty的文章列表";
       },
       async countAricles() {
         let tc = await api.get("articles/count");

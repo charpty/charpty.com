@@ -1,7 +1,10 @@
 package com.charpty.article;
 
+import com.charpty.misc.DailyWordController;
 import com.google.common.collect.Lists;
 import com.tomato.util.NumberUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -36,8 +39,13 @@ public class ArticleServiceImpl implements ArticleService {
 		} catch (NumberFormatException ignore) {
 			result = articleRepository.findByName(idOrName);
 		}
-		if (result != null && result.getWordCount() < 0) {
-			result.setWordCount(result.getContent().length());
+		if (result != null) {
+			int wordCount = result.getWordCount();
+			int currentCount = result.getContent().length();
+			if (wordCount < 0 || wordCount != currentCount) {
+				result.setWordCount(currentCount);
+				articleRepository.updateWordCount(result.getId(), currentCount);
+			}
 		}
 		return result;
 	}

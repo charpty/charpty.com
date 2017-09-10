@@ -3,7 +3,7 @@
     <header class="site-header">
       <nav class="navbar navbar-default" role="navigation">
         <div class="container-fluid">
-          <button type="button" class="navbar-toggle" data-toggle="collapse"
+          <button type="button" id="button-navbar-toggle" class="navbar-toggle" data-toggle="collapse"
                   data-target="#site-navbar-collapse">
             <span class="sr-only">切换导航</span>
             <span class="icon-bar"></span>
@@ -12,7 +12,7 @@
           </button>
         </div>
         <div class="headband"></div>
-        <div class="phone-header" v-on:click="getDailyWord()">
+        <div class="phone-header" v-on:click="panelClick()">
           <div class="site-meta">
             <span v-on:click="tryGoHomePage()" class="custom-title">知足者常乐</span>
             <span v-on:click="getDailyWord()" class="custom-sub-title">{{ dailyWord }}</span>
@@ -27,7 +27,7 @@
             </div>
           </div>
         </div>
-        <div class="collapse navbar-collapse" id="site-navbar-collapse">
+        <div class="collapse navbar-collapse" id="site-navbar-collapse" v-on:click="barClick()">
           <ul class="nav navbar-nav">
             <li role="presentation" v-on:click="goRoute('/articles')">
               <a aria-controls="profile" role="tab" data-toggle="tab">
@@ -62,19 +62,25 @@
     data(){
       return {
         dailyWord: "成功=目标，其他语句都是这行代码的注释",
-        titleClickCount: 0
+        titleClickCount: 0,
+        panelClickCount: 1
       }
     },
     created() {
       this.getDailyWord();
     },
     methods: {
-      tryGoHomePage: function () {
-        if ((this.titleClickCount++) % 2 === 1) {
-          window.location.href = "/";
-        } else {
+      barClick: function () {
+        $('#button-navbar-toggle').click();
+      },
+      panelClick: function () {
+        $('#button-navbar-toggle').click();
+        if ((this.panelClickCount++) % 3 === 1) {
           this.getDailyWord();
         }
+      },
+      tryGoHomePage: function () {
+        window.location.href = "/";
       },
       goRoute: function (path) {
         router.push(path);
@@ -84,6 +90,7 @@
         if (r && r.length > 4) {
           this.dailyWord = r;
         }
+
       }
     }
   };

@@ -54,12 +54,17 @@
     left: 0;
   }
 
-  .app-fade-enter-active, .fade-leave-active {
-    transition: opacity 2s
+  .app-fade-enter-active {
+    transition: all 1.1s cubic-bezier(1.0, 0.5, 0.8, 1.0);
   }
-  .app-fade-enter, .app-fade-leave-to {
-    opacity: 0
+  .fade-leave-active {
+    transition: all .4s ease;
   }
+  .app-fade-enter .app-fade-leave-to{
+    transform: translateX(10px);
+    opacity: 0;
+  }
+
 </style>
 
 
