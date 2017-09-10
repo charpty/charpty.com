@@ -4,7 +4,6 @@
       <div class="container">
         <div class="row">
           <main class="col-md-8 main-content">
-
             <article v-for="(article,index) in articles" :key="index" class="post">
               <div class="post-head">
                 <h1 class="post-title">
@@ -80,7 +79,6 @@
         let tc = await api.get("articles/count");
         this.totalCount = tc;
       },
-
       nextPage: function () {
         this.currentPage++;
         this.listArticles();
@@ -117,6 +115,11 @@
   @media (max-width: 641px) {
     .bottom-right-misc1 {
       display: none;
+    }
+
+    .col-md-8 {
+      padding-right: 0px;
+      padding-left 0px;
     }
   }
 

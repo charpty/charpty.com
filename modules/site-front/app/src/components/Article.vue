@@ -22,6 +22,7 @@
   .man-wrap {
     overflow: hidden;
     min-height: 500px;
+    overflow-x: hidden
   }
 
   .content-wrap {
@@ -47,8 +48,8 @@
     }
 
     .col-md-8 {
-      padding-right: 5px;
-      padding-left: 5px;
+      padding-right: 0px;
+      padding-left: 0px;
     }
   }
 

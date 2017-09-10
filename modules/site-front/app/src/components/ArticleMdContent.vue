@@ -2,7 +2,7 @@
   <main>
     <article class="post">
       <header class="post-head">
-        <span class="post-title">{{ article.title }}</span>
+        <h1 class="post-title">{{ article.title }}</h1>
         <section class="post-meta">
           <span v-on:click="goAboutAuthor(article.creator)" class="author">作者：{{ article.creator }}</span> &bull;
           <time class="post-date" datetime="" title="">{{ article.creationDate ? article.creationDate.split(' ')[0] : "" }}</time>
@@ -48,6 +48,8 @@
     watch: {
       'article.title': function (t) {
         console.log(t);
+        console.log(this.$refs);
+        console.log(this.$refs.ccccc);
       }
     }
   }
@@ -58,7 +60,7 @@
 
   @media (max-width: 641px) {
     .post {
-      padding: 25px;
+      padding: 35px;
       background: #fff;
       margin-bottom: 35px;
       position: relative;
@@ -69,11 +71,12 @@
       margin-top: 30px;
     }
 
-    .post-title {
+    .post-title-article {
       display: inline-block;
       overflow: hidden;
-      /*font-size: 50px;*/
-      /*font-size: 5vw !important;*/
+      font-size: 5.1vw !important;
+      font-family: Georgia, sans;
+      font-weight: 700;
     }
 
   }

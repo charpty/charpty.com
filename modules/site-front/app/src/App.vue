@@ -29,18 +29,22 @@
 
 <style>
   .body-app {
-    background: #ebebeb;
     min-height:100%;
     position: relative;
     font-family: "Helvetica Neue", Helvetica, "Microsoft YaHei", "WenQuanYi Micro Hei", Arial, sans-serif;
     font-size: 14px;
     line-height: 2;
+    width: 100%;
+    top: 0px;
+    left:0px;
+    overflow-x: hidden;
   }
 
   .body-header-and-content {
     width: 100%;
     padding-bottom:75px;
-    min-height: 768px;
+    min-height: 500px;
+    top:0px;
   }
 
   .body-footer {

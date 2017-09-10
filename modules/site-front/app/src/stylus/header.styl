@@ -1,0 +1,131 @@
+.site-meta {
+  position: relative;
+  text-align: center;
+}
+
+.headband {
+  height: 3px;
+  background: #222;
+}
+
+.phone-header {
+  visibility: hidden;
+  height: 110px;
+  width: auto;
+  padding: 20px;
+  background: #222;
+  top: 0px;
+  right: 0px;
+  position: relative;
+}
+
+.custom-title {
+  opacity: 1;
+  font-size: 20px;
+  font-weight: 400;
+  font-family: Lato, "PingFang SC", "Microsoft YaHei", sans-serif;
+  color: white;
+}
+
+.custom-sub-title {
+  display: block;
+  opacity: 1;
+  margin-top: 0px;
+  font-size: 13px;
+  color: white;
+}
+
+.active {
+  border-bottom: 2px solid #e67e22;
+  margin-bottom: -2px;
+}
+
+.navbar .nav, .navbar .nav > li {
+  float: none;
+  display: inline-block;
+}
+
+.navbar-toggle {
+  top: 20px;
+  left: 20px;
+  position: absolute;
+  background: 0 0;
+  display: block;
+  z-index: 1000;
+}
+
+@media (max-width: 768px) {
+  .navbar-nav {
+    width: 100%;
+    text-align: center;
+  }
+
+  .navbar navbar-default {
+    padding: 0px;
+  }
+
+  .navbar {
+    margin-top: 0px !important;
+    border: none !important;
+  }
+
+  .navbar-nav > li {
+    float: none;
+    display: inline-block;
+  }
+
+  .navbar-nav > li.navbar-right {
+    float: right !important;
+  }
+}
+
+.main-header {
+  background-image: url("../assets/main_header.jpg");
+  height: 220px;
+}
+
+/* smartphones, iPhone, portrait 480x320 phones */
+@media (min-width: 320px) {
+  .main-header {
+    height: 150px;
+  }
+}
+
+/* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
+@media (min-width: 481px) {
+  .main-header {
+    height: 120px;
+  }
+}
+
+/* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
+@media (max-width: 641px) {
+  .navbar {
+    margin-bottom: 3px;
+  }
+
+  .phone-header {
+    visibility: visible;
+  }
+
+  .main-header {
+    height: 0px;
+    visibility: hidden;
+  }
+}
+
+/* tablet, landscape iPad, lo-res laptops ands desktops */
+@media (min-width: 961px) {
+}
+
+/* big landscape tablets, laptops, and desktops */
+@media (min-width: 1025px) {
+}
+
+/* hi-res laptops and desktops */
+@media (min-width: 1281px) {
+  .main-header {
+    background-image: url("../assets/main_header.jpg");
+    height: 220px;
+  }
+}

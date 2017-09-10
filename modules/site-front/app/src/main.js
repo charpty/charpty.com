@@ -5,8 +5,9 @@ import './assets/css/bootstrap.min.css'
 import './assets/js/bootstrap.min'
 
 import 'normalize.css'
-import './stylus/global.styl'
 import 'github-markdown-css'
+
+import 'isomorphic-fetch';
 
 
 Vue.$global = Vue.prototype.$global = {};
