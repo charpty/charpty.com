@@ -12,8 +12,8 @@
           </button>
         </div>
         <div class="headband"></div>
-        <div class="phone-header" v-on:click="panelClick()">
-          <div class="site-meta">
+        <div class="phone-header">
+          <div class="site-meta" v-on:click="panelClick($event)">
             <span v-on:click="tryGoHomePage()" class="custom-title">知足者常乐</span>
             <span v-on:click="getDailyWord()" class="custom-sub-title">{{ dailyWord }}</span>
           </div>
@@ -73,8 +73,10 @@
       barClick: function () {
         $('#button-navbar-toggle').click();
       },
-      panelClick: function () {
-        $('#button-navbar-toggle').click();
+      panelClick: function (event) {
+        if (event.target.className == 'site-meta') {
+          $('#button-navbar-toggle').click();
+        }
         if ((this.panelClickCount++) % 3 === 1) {
           this.getDailyWord();
         }

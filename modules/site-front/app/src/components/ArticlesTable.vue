@@ -95,6 +95,7 @@
       },
       goArtileDetail: function (articleId) {
         router.push({name: 'article', params: {articleId: articleId}});
+        document.body.scrollTop = 0;
       },
       goAboutAuthor: function (authorName) {
         router.push({name: 'author', params: {name: authorName}});

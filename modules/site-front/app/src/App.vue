@@ -2,7 +2,7 @@
   <div id="app" class="body-app">
   <div class="body-header-and-content">
   <header-bar></header-bar>
-      <transition name="app-fade">
+      <transition name="fade">
         <keep-alive>
           <router-view :key="$route.path"></router-view>
         </keep-alive>
@@ -54,15 +54,11 @@
     left: 0;
   }
 
-  .app-fade-enter-active {
-    transition: all 1.1s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity .7s
   }
-  .fade-leave-active {
-    transition: all .4s ease;
-  }
-  .app-fade-enter .app-fade-leave-to{
-    transform: translateX(10px);
-    opacity: 0;
+  .fade-enter, .fade-leave-to /* .fade-leave-active in below version 2.1.8 */ {
+    opacity: 0
   }
 
 </style>

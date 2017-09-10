@@ -43,7 +43,6 @@ const router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
-  // TODO 那些路由或者情况要置顶
   next();
 });
 

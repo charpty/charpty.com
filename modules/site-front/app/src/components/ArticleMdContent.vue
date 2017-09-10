@@ -34,8 +34,7 @@
           creationDate: "2017-01-01",
           wordCount: 0
         },
-        mdHtml: "",
-        articleId: -1
+        mdHtml: ""
       }
     },
     created() {
@@ -58,4 +57,20 @@
 
 <style>
   @import "../stylus/article_post.styl";
+
+  .markdown-body {
+    animation: slideInFromTop 1.5s ease-out 0s 1;
+    -webkit-animation: slideInFromTop 1.5s ease-out 0s 1;
+  }
+
+  @keyframes slideInFromTop {
+    0% {
+      transform: translateY(-1%);
+      color: white;
+    }
+    100% {
+      transform: translateY(0);
+      color: #4c4c4c;
+    }
+  }
 </style>
