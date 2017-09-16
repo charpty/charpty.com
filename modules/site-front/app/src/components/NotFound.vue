@@ -19,7 +19,6 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import '../stylus/style.styl'
 .content
   padding:50px 0
   fullWidth()

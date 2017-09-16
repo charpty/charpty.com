@@ -23,8 +23,7 @@
                 <img v-if="article.coverImage" v-bind:src="article.coverImage" v-bind:alt="article.title" v-bind:title="article.title">
               </div>
               <div v-on:click="goArtileDetail(article.id)" class="post-content">
-                <p>
-                  {{ article.summary }}
+                <p v-html="parseSummary(article.summary)">
                 </p>
               </div>
               <div class="post-permalink" v-on:click="goArtileDetail(article.id)">
@@ -58,6 +57,7 @@
 <script>
   import api from '../api'
   import router from '../router'
+  import markdownParser from '../utils/markdown'
 
   export default {
     data() {
@@ -99,6 +99,12 @@
       },
       goAboutAuthor: function (authorName) {
         router.push({name: 'author', params: {name: authorName}});
+      },
+      parseSummary: function (summary) {
+        if (summary && summary.length > 7) {
+          return markdownParser.parse(summary);
+        }
+        return summary;
       }
     },
   }

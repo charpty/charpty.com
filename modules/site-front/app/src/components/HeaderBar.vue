@@ -39,14 +39,7 @@
               </a></li>
             <li role="presentation"><a aria-controls="profile" role="tab" data-toggle="tab">J2EE设计</a></li>
             <li role="presentation"><a aria-controls="profile" role="tab" data-toggle="tab">结构与存储</a></li>
-            <li class="dropdown" aria-controls="profile" role="tab" data-toggle="tab">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                关于我<b class="caret"></b>
-              </a>
-              <ul class="dropdown-menu">
-                <li><a href="#">笔者简介</a></li>
-              </ul>
-            </li>
+            <li role="presentation"><a aria-controls="profile" role="tab" data-toggle="tab">关于本站</a></li>
           </ul>
         </div>
       </nav>
@@ -71,7 +64,9 @@
     },
     methods: {
       barClick: function () {
-        $('#button-navbar-toggle').click();
+        if ($(window).width() <= 641) {
+          $('#button-navbar-toggle').click();
+        }
       },
       panelClick: function (event) {
         if (event.target.className == 'site-meta') {
