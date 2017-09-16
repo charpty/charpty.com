@@ -1,7 +1,6 @@
 <template>
   <footer class="footer">
     <div class="main-footer">
-      
     </div>
     <div class="copyright">
       <div class="container">
@@ -20,6 +19,10 @@
 </script>
 
 <style>
+
+  .footer {
+    bottom: 0px;
+  }
 
   .copyright {
     position: inherit;

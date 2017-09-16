@@ -29,27 +29,30 @@
 
 <style>
   .body-app {
-    min-height:100%;
+    min-height:800px;
     position: relative;
     font-family: "Helvetica Neue", Helvetica, "Microsoft YaHei", "WenQuanYi Micro Hei", Arial, sans-serif;
     font-size: 14px;
     line-height: 2;
     width: 100%;
-    top: 0px;
-    left:0px;
-    overflow-x: hidden;
+    overflow: hidden;
   }
 
   .body-header-and-content {
     width: 100%;
-    padding-bottom:75px;
-    min-height: 500px;
-    top:0px;
+    padding-bottom:35px;
+    min-height: 700px;
+  }
+
+  @media (max-width: 641px) {
+    .body-header-and-content {
+      min-height: 500px;
+    }
   }
 
   .body-footer {
-    position: absolute;
-    bottom:0;
+    position: relative;
+    bottom:0px;
     width: 100%;
     left: 0;
   }

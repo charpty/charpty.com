@@ -43,7 +43,9 @@
   .y2017-post {
     align-self: center;
     align: center;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
+    background: ghostwhite;
+    overflow: hidden;
   }
 
 </style>

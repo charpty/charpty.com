@@ -11,13 +11,11 @@
 
 
 <script>
-  import Jumbotron from './ArticleJumbotron'
   import ArticleTable from './ArticlesTable'
   import RightMisc from './RightMisc'
 
   export default {
     components: {
-      'article-jumbotron': Jumbotron,
       'articles-table': ArticleTable,
       'right-misc': RightMisc
     }
