@@ -20,7 +20,8 @@
                 </div>
               </div>
               <div class="featured-media" v-on:click="goArtileDetail(article.name)">
-                <img v-if="article.coverImage" v-bind:src="article.coverImage" v-bind:alt="article.title" v-bind:title="article.title">
+                <img v-if="article.coverImage" v-bind:src="article.coverImage" v-bind:alt="article.title"
+                     v-bind:title="article.title">
               </div>
               <div v-on:click="goArtileDetail(article.name)" class="post-content">
                 <p v-html="parseSummary(article.summary)">
@@ -32,18 +33,24 @@
               <footer class="post-footer clearfix">
                 <div class="pull-left tag-list">
                   <span class="author">阅读量：<a href="#">{{ article.pinged < 0 ? '暂未统计' : article.pinged }}</a></span>
-                  <span class="author">&nbsp;&nbsp; | &nbsp;&nbsp;喜欢：<a href="#">{{ article.praised < 0 ? '暂未统计' : article.praised }}</a></span>
-                  <span class="bottom-right-misc1"> &nbsp;&nbsp; | &nbsp;&nbsp;分类：<a href="#">{{ article.groupName }}</a></span>
-                  <span class="bottom-right-misc2">&nbsp;&nbsp; | &nbsp;&nbsp;评论数：<a href="#">{{ article.commentCount < 0 ? '暂未统计' : article.commentCount }}</a></span>
+                  <span class="author">&nbsp;&nbsp; | &nbsp;&nbsp;喜欢：<a
+                    href="#">{{ article.praised < 0 ? '暂未统计' : article.praised }}</a></span>
+                  <span class="bottom-right-misc1"> &nbsp;&nbsp; | &nbsp;&nbsp;分类：<a href="#">{{ article.groupName
+                    }}</a></span>
+                  <span class="bottom-right-misc2">&nbsp;&nbsp; | &nbsp;&nbsp;评论数：<a
+                    href="#">{{ article.commentCount < 0 ? '暂未统计' : article.commentCount }}</a></span>
                 </div>
                 <div class="pull-right share">
                 </div>
               </footer>
             </article>
             <nav class="pagination" role="navigation">
-              <span class="page-number" v-if="this.currentPage && this.currentPage > 0" v-on:click="previousPage()">上一页</span>
-              <span class="page-number">第 {{ currentPage + 1 }} 页 &frasl; 共 {{ Math.ceil(totalCount / everySize) }} 页</span>
-              <span class="page-number" v-if="(this.everySize*(this.currentPage+1))<this.totalCount" v-on:click="nextPage()">下一页</span>
+              <span class="page-number" v-if="this.currentPage && this.currentPage > 0"
+                    v-on:click="previousPage()">上一页</span>
+              <span class="page-number">第 {{ currentPage + 1 }} 页 &frasl; 共 {{ Math.ceil(totalCount / everySize)
+                }} 页</span>
+              <span class="page-number" v-if="(this.everySize*(this.currentPage+1))<this.totalCount"
+                    v-on:click="nextPage()">下一页</span>
             </nav>
           </main>
         </div>
@@ -68,15 +75,15 @@
         everySize: 5
       }
     },
-    created () {
+    created() {
       this.listArticles();
     },
     methods: {
-      async listArticles (){
+      async listArticles() {
         this.countAricles();
         let start = 0;
         if (this.currentPage > 0) {
-          start = (this.currentPage*this.everySize);
+          start = (this.currentPage * this.everySize);
         }
         let data = await api.get("articles", {
           start: start,

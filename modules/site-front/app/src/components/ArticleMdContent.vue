@@ -7,7 +7,9 @@
           <i class="fa fa-user-circle" aria-hidden="true"></i>
           <span v-on:click="goAboutAuthor()" class="author">{{ article.creator }}</span>
           &nbsp;|&nbsp;&nbsp;<i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;
-          <time class="post-date" datetime="" title="">{{ article.creationDate ? article.creationDate.split(' ')[0] : "" }}</time>
+          <time class="post-date" datetime="" title="">{{ article.creationDate ? article.creationDate.split(' ')[0] : ""
+            }}
+          </time>
           &nbsp;|&nbsp;&nbsp;<i class="fa fa-file-word-o" aria-hidden="true"></i>
           <span>{{ article.wordCount }}</span>
         </section>
@@ -50,7 +52,7 @@
       turnMarkdown2Html: function (content) {
         return markdownParser.parse(content);
       },
-      goAboutAuthor(){
+      goAboutAuthor() {
         router.push("/about/author")
       }
     }
