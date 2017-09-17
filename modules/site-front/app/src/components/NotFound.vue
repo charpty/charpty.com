@@ -6,28 +6,35 @@
         <i class="fa fa-ship"></i>
         <p></p>
         <h1>404 Not Found</h1>
-        <p>The link you followed does not exist, or the page may have been removed.</p>
-        <a href="#" @click="$router.go(-1)">Return Back</a>
+        <p>您访问的页面不存在</p>
+        <a v-on:click="goHomePage()">返回首页</a>
       </div>
     </main>
   </div>
 </template>
 
 <script>
-export default {
+  import router from '../router'
+
+  export default {
+  methods:{
+      goHomePage() {
+        router.push("/")
+      }
+  }
 }
 </script>
 
 <style lang="stylus" scoped>
 .content
-  padding:50px 0
+  padding:10px 0
   fullWidth()
 
 .placeholder
-  height:156px
+  height:16px
   position:relative
-  @media (max-width: 601px)
-    height:120px
+  @media (max-width: 641px)
+    height:10px
 i
   font-size 100px
   color #e95095
@@ -46,6 +53,6 @@ p
   color #666
 .container
   text-align center
-  margin 80px auto 150px
+  margin 40px auto 50px
   max-width 25rem
 </style>

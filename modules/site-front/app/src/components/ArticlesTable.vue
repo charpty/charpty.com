@@ -11,7 +11,7 @@
                 </h1>
                 <div class="post-meta">
                   <i class="fa fa-user-circle" aria-hidden="true"></i>
-                  <span v-on:click="goAboutAuthor(article.creator)" class="author">{{ article.creator }}</span>
+                  <span v-on:click="goAboutAuthor()" class="author">{{ article.creator }}</span>
                   &nbsp;|&nbsp;&nbsp;<i></i>
                   <i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;
                   <time class="post-date" datetime="" title="">{{ article.creationDate.split(' ')[0] }}</time>
@@ -88,17 +88,19 @@
       nextPage: function () {
         this.currentPage++;
         this.listArticles();
+        document.body.scrollTop = 0;
       },
       previousPage: function () {
         this.currentPage--;
         this.listArticles();
+        document.body.scrollTop = 0;
       },
       goArtileDetail: function (articleName) {
         router.push({name: 'article', params: {articleName: articleName}});
         document.body.scrollTop = 0;
       },
-      goAboutAuthor: function (authorName) {
-        router.push({name: 'author', params: {name: authorName}});
+      goAboutAuthor: function () {
+        router.push("/about/author");
       },
       parseSummary: function (summary) {
         if (summary && summary.length > 7) {

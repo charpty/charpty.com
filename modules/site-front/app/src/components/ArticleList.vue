@@ -37,6 +37,7 @@
   @media (max-width: 981px) {
     .right-misc-wrap {
       visibility: hidden;
+      height: 0px;
     }
 
     .articles-table-wrap {

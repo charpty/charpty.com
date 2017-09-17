@@ -5,7 +5,7 @@
         <h1 class="post-title">{{ article.title }}</h1>
         <section class="post-meta">
           <i class="fa fa-user-circle" aria-hidden="true"></i>
-          <span v-on:click="goAboutAuthor(article.creator)" class="author">{{ article.creator }}</span>
+          <span v-on:click="goAboutAuthor()" class="author">{{ article.creator }}</span>
           &nbsp;|&nbsp;&nbsp;<i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;
           <time class="post-date" datetime="" title="">{{ article.creationDate ? article.creationDate.split(' ')[0] : "" }}</time>
           &nbsp;|&nbsp;&nbsp;<i class="fa fa-file-word-o" aria-hidden="true"></i>
@@ -47,9 +47,11 @@
         this.mdHtml = this.turnMarkdown2Html(data.content);
         document.title = data.title;
       },
-
       turnMarkdown2Html: function (content) {
         return markdownParser.parse(content);
+      },
+      goAboutAuthor(){
+        router.push("/about/author")
       }
     }
   }
@@ -57,20 +59,12 @@
 
 <style>
   @import "../stylus/article_post.styl";
+  @import "../stylus/animation.styl";
 
   .markdown-body {
     animation: slideInFromTop 1.5s ease-out 0s 1;
     -webkit-animation: slideInFromTop 1.5s ease-out 0s 1;
+    word-break: break-all;
   }
 
-  @keyframes slideInFromTop {
-    0% {
-      transform: translateY(-1%);
-      color: white;
-    }
-    100% {
-      transform: translateY(0);
-      color: #4c4c4c;
-    }
-  }
 </style>

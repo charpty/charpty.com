@@ -40,13 +40,15 @@
 
   .body-header-and-content {
     width: 100%;
-    padding-bottom:35px;
     min-height: 700px;
   }
 
   @media (max-width: 641px) {
     .body-header-and-content {
       min-height: 500px;
+    }
+    .body-app {
+      min-height:600px;
     }
   }
 

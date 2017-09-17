@@ -4,7 +4,10 @@ import ArticleList from '../components/ArticleList.vue';
 import Article from '../components/Article.vue';
 import WriteArticle from '../components/WriteArticle.vue';
 import AboutSite from '../components/AboutSite.vue';
+import AboutAuthor from '../components/AboutAuthor.vue';
 import Y2017 from '../components/Y2017.vue';
+
+import NotFound from '../components/NotFound.vue'
 
 Vue.use(Router);
 
@@ -35,9 +38,19 @@ const routes = [
     component: AboutSite
   },
   {
+    path: '/about/author',
+    name: 'aboutAuthor',
+    component: AboutAuthor
+  },
+  {
     path: '/y2017',
     name: 'y2017',
     component: Y2017
+  },
+  {
+    path: '*',
+    name: 'notFound',
+    component: NotFound
   }
 ];
 

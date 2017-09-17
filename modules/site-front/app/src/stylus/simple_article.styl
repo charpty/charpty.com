@@ -1,7 +1,8 @@
+@import "../stylus/animation.styl";
+
 .simple-article {
   align-self: center;
   align: center;
-  margin-bottom: 20px;
   overflow: hidden;
   background: #fff;
 }
@@ -12,4 +13,7 @@
 
 .simple-article-content {
   margin-top: 20px;
+  animation: slideInFromTop 2s ease-out 0s 1;
+  -webkit-animation: slideInFromTop 2s ease-out 0s 1;
+  word-break: break-all;
 }

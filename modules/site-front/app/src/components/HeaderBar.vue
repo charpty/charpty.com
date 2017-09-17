@@ -78,7 +78,11 @@
         }
       },
       tryGoHomePage: function () {
-        window.location.href = "/";
+        if (this.$route && this.$route.name == 'articleList') {
+          window.location.href = "/";
+        } else {
+          router.push('/');
+        }
       },
       goRoute: function (path) {
         router.push(path);
