@@ -60,7 +60,9 @@
     </select>
 
     <select id="updateWordCount">
-
+        UPDATE ARTICLE SET
+        WORD_COUNT = #{wordCount}
+        WHERE ID = #{id}
     </select>
 
     <select id="getArticle" parameterType="java.lang.String" resultMap="BaseResultMap">
