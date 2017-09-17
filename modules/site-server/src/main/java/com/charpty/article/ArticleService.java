@@ -1,7 +1,5 @@
 package com.charpty.article;
 
-import org.springframework.data.domain.Pageable;
-
 import java.util.List;
 
 /**
@@ -13,26 +11,9 @@ import java.util.List;
  */
 public interface ArticleService {
 
-	/**
-	 * List articles list.
-	 *
-	 * @param pageable the pageable
-	 *
-	 * @return the list
-	 */
-	List<Article> listArticles(Pageable pageable);
+	List<Article> listArticles(ArticleForm form);
 
-	/**
-	 * Gets article.
-	 *
-	 * @param id the id
-	 *
-	 * @return the article
-	 */
-	Article getArticle(String id);
+	Article getArticle(String name);
 
-	/**
-	 * @return
-	 */
-	long countArticles();
+	long countArticles(ArticleForm form);
 }

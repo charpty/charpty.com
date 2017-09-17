@@ -1,7 +1,5 @@
 package com.charpty.article;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
 import java.util.Date;
 
 /**
@@ -9,10 +7,8 @@ import java.util.Date;
  * @version $Id$
  * @since 2017/8/20 上午10:20
  */
-@Entity
 public class Article {
 
-	@Id
 	private int id;
 	private String name;
 	private int type;
@@ -36,30 +32,6 @@ public class Article {
 
 	public Article() {
 
-	}
-
-	public Article(int id, String name, int type, int status, String title, String tag, String summary, String coverImage, String groupName, String creator,
-			Date creationDate, Date modificationDate, int displayOrder, int pinged, int praised, int wordCount, int commentStatus, int commentCount,
-			int revision) {
-		this.id = id;
-		this.name = name;
-		this.type = type;
-		this.status = status;
-		this.title = title;
-		this.tag = tag;
-		this.summary = summary;
-		this.coverImage = coverImage;
-		this.groupName = groupName;
-		this.creator = creator;
-		this.creationDate = creationDate;
-		this.modificationDate = modificationDate;
-		this.displayOrder = displayOrder;
-		this.pinged = pinged;
-		this.praised = praised;
-		this.wordCount = wordCount;
-		this.commentStatus = commentStatus;
-		this.commentCount = commentCount;
-		this.revision = revision;
 	}
 
 	public int getId() {

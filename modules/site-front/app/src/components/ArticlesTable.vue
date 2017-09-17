@@ -74,9 +74,13 @@
     methods: {
       async listArticles (){
         this.countAricles();
+        let start = 0;
+        if (this.currentPage > 0) {
+          start = (this.currentPage*this.everySize);
+        }
         let data = await api.get("articles", {
-          size: this.everySize,
-          page: this.currentPage
+          start: start,
+          limit: this.everySize
         });
         this.articles = data;
         document.title = "charpty的文章列表";

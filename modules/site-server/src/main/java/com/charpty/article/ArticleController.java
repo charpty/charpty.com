@@ -1,15 +1,11 @@
 package com.charpty.article;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 /**
  * @author CaiBo
@@ -24,19 +20,21 @@ public class ArticleController {
 	private ArticleService articleService;
 
 	@RequestMapping(value = "/articles", method = RequestMethod.GET)
-	public List<Article> listArticles(@PageableDefault(value = 7, sort = { "displayOrder", "modificationDate", "creationDate",
-			"id" }, direction = Sort.Direction.DESC) Pageable pageable) {
-		return articleService.listArticles(pageable);
+	public List<Article> listArticles(ArticleForm form) {
+		if (form.getLimit() > 500) {
+			form.setLimit(500);
+		}
+		return articleService.listArticles(form);
 	}
 
 	@RequestMapping(value = "/articles/count", method = RequestMethod.GET)
-	public long countArticles() {
-		return articleService.countArticles();
+	public long countArticles(ArticleForm form) {
+		return articleService.countArticles(form);
 	}
 
-	@RequestMapping(value = "/article/{id}", method = RequestMethod.GET)
-	public Article getArticle(@PathVariable("id") String id) {
-		return articleService.getArticle(id);
+	@RequestMapping(value = "/article/{name}", method = RequestMethod.GET)
+	public Article getArticle(@PathVariable("name") String name) {
+		return articleService.getArticle(name);
 	}
 
 }

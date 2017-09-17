@@ -1,17 +1,9 @@
 package com.charpty.article;
 
-import com.charpty.misc.DailyWordController;
-import com.google.common.collect.Lists;
-import com.tomato.util.NumberUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
+import com.charpty.article.mapper.ArticleMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * @author CaiBo
@@ -22,35 +14,21 @@ import java.util.List;
 public class ArticleServiceImpl implements ArticleService {
 
 	@Autowired
-	private ArticleRepository articleRepository;
+	private ArticleMapper articleMapper;
 
 	@Override
-	public List<Article> listArticles(Pageable pageable) {
-		List<Article> result = articleRepository.listArticles(pageable);
-		return result;
+	public List<Article> listArticles(ArticleForm form) {
+		List<Article> articles = articleMapper.listArticles(form);
+		return articles;
 	}
 
 	@Override
-	public Article getArticle(String idOrName) {
-		Article result = null;
-		if (NumberUtil.isPositiveInteger(idOrName)) {
-			result = articleRepository.findOne(new Integer(idOrName));
-		} else {
-			result = articleRepository.findByName(idOrName);
-		}
-		if (result != null) {
-			int wordCount = result.getWordCount();
-			int currentCount = result.getContent().length();
-			if (wordCount < 0 || wordCount != currentCount) {
-				result.setWordCount(currentCount);
-				articleRepository.updateWordCount(result.getId(), currentCount);
-			}
-		}
-		return result;
+	public Article getArticle(String name) {
+		return articleMapper.getArticle(name);
 	}
 
 	@Override
-	public long countArticles() {
-		return articleRepository.count();
+	public long countArticles(ArticleForm form) {
+		return articleMapper.countArticles(form);
 	}
 }
