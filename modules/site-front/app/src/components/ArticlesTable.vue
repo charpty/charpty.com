@@ -16,17 +16,17 @@
                   <i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;
                   <time class="post-date" datetime="" title="">{{ article.creationDate.split(' ')[0] }}</time>
                   &nbsp;|&nbsp;&nbsp;<i class="fa fa-file-word-o" aria-hidden="true"></i>
-                  <span>{{ article.wordCount }}</span>
+                  <span>{{ article.wordCount < 0 ? '未统计' : article.wordCount }}</span>
                 </div>
               </div>
-              <div class="featured-media" v-on:click="goArtileDetail(article.id)">
+              <div class="featured-media" v-on:click="goArtileDetail(article.name)">
                 <img v-if="article.coverImage" v-bind:src="article.coverImage" v-bind:alt="article.title" v-bind:title="article.title">
               </div>
-              <div v-on:click="goArtileDetail(article.id)" class="post-content">
+              <div v-on:click="goArtileDetail(article.name)" class="post-content">
                 <p v-html="parseSummary(article.summary)">
                 </p>
               </div>
-              <div class="post-permalink" v-on:click="goArtileDetail(article.id)">
+              <div class="post-permalink" v-on:click="goArtileDetail(article.name)">
                 <a class="btn btn-warning">阅读全文</a>
               </div>
               <footer class="post-footer clearfix">
@@ -42,7 +42,7 @@
             </article>
             <nav class="pagination" role="navigation">
               <span class="page-number" v-if="this.currentPage && this.currentPage > 0" v-on:click="previousPage()">上一页</span>
-              <span class="page-number">第 {{ currentPage + 1 }} 页 &frasl; 共 {{ Math.ceil(totalCount / everySize ) }} 页</span>
+              <span class="page-number">第 {{ currentPage + 1 }} 页 &frasl; 共 {{ Math.ceil(totalCount / everySize) }} 页</span>
               <span class="page-number" v-if="(this.everySize*(this.currentPage+1))<this.totalCount" v-on:click="nextPage()">下一页</span>
             </nav>
           </main>
@@ -93,8 +93,8 @@
         this.currentPage--;
         this.listArticles();
       },
-      goArtileDetail: function (articleId) {
-        router.push({name: 'article', params: {articleId: articleId}});
+      goArtileDetail: function (articleName) {
+        router.push({name: 'article', params: {articleName: articleName}});
         document.body.scrollTop = 0;
       },
       goAboutAuthor: function (authorName) {

@@ -1,21 +1,20 @@
 <template>
-  <main class="y2017-post">
+  <main class="simple-article">
     <div class="container">
       <div class="row">
-        <div class="col-sm-8 blog-main">
-          <div class="y2017-post">
-            <h2 class="blog-post-title">2017年了</h2>
+        <div class="col-md-9 main-content">
+          <div>
+            <h2 class="simple-article-title">2017年了</h2>
             <i class="fa fa-user-circle" aria-hidden="true"></i>&nbsp;<span>蔡博</span>&nbsp;&nbsp;
             <i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;
             <span class="blog-post-meta">2017-01-02 </span>&nbsp;&nbsp;
           </div>
         </div>
       </div>
-      <div v-html="this.content">
+      <div class="simple-article-content" v-html="this.content">
         <i></i>
       </div>
     </div>
-
   </main>
 </template>
 
@@ -40,12 +39,5 @@
 </script>
 
 <style>
-  .y2017-post {
-    align-self: center;
-    align: center;
-    margin-bottom: 20px;
-    background: ghostwhite;
-    overflow: hidden;
-  }
-
+  @import "../stylus/simple_article.styl";
 </style>

@@ -3,6 +3,7 @@ import Router from 'vue-router';
 import ArticleList from '../components/ArticleList.vue';
 import Article from '../components/Article.vue';
 import WriteArticle from '../components/WriteArticle.vue';
+import AboutSite from '../components/AboutSite.vue';
 import Y2017 from '../components/Y2017.vue';
 
 Vue.use(Router);
@@ -19,7 +20,7 @@ const routes = [
     component: ArticleList
   },
   {
-    path: '/article/:articleId',
+    path: '/article/:articleName',
     name: 'article',
     component: Article
   },
@@ -27,6 +28,11 @@ const routes = [
     path: '/write',
     name: 'writeArticle',
     component: WriteArticle
+  },
+  {
+    path: '/about/site',
+    name: 'aboutSite',
+    component: AboutSite
   },
   {
     path: '/y2017',

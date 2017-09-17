@@ -42,7 +42,7 @@
     },
     methods: {
       getArticleDetail: async function () {
-        let data = await api.get("/article/" + this.$route.params.articleId);
+        let data = await api.get("/article/" + this.$route.params.articleName);
         this.article = data;
         this.mdHtml = this.turnMarkdown2Html(data.content);
         document.title = data.title;

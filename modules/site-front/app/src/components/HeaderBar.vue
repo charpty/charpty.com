@@ -39,7 +39,8 @@
               </a></li>
             <li role="presentation"><a aria-controls="profile" role="tab" data-toggle="tab">J2EE设计</a></li>
             <li role="presentation"><a aria-controls="profile" role="tab" data-toggle="tab">结构与存储</a></li>
-            <li role="presentation"><a aria-controls="profile" role="tab" data-toggle="tab">关于本站</a></li>
+            <li role="presentation" v-on:click="goRoute('/about/site')">
+              <a aria-controls="profile" role="tab" data-toggle="tab">关于本站</a></li>
           </ul>
         </div>
       </nav>

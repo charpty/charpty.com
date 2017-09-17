@@ -33,10 +33,9 @@ public class ArticleServiceImpl implements ArticleService {
 	@Override
 	public Article getArticle(String idOrName) {
 		Article result = null;
-		try {
-			int idLong = Integer.valueOf(idOrName);
-			result = articleRepository.findOne(idLong);
-		} catch (NumberFormatException ignore) {
+		if (NumberUtil.isPositiveInteger(idOrName)) {
+			result = articleRepository.findOne(new Integer(idOrName));
+		} else {
 			result = articleRepository.findByName(idOrName);
 		}
 		if (result != null) {
