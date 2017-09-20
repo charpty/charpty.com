@@ -9,3 +9,4 @@ logs
 src/main/webapp/node_modules
 *.log
 node_modules
+modules/site-front/src/main/webapp

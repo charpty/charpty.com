@@ -37,8 +37,14 @@
               <a aria-controls="profile" role="tab" data-toggle="tab">
                 2017年
               </a></li>
-            <li role="presentation"><a aria-controls="profile" role="tab" data-toggle="tab">J2EE设计</a></li>
-            <li role="presentation"><a aria-controls="profile" role="tab" data-toggle="tab">结构与存储</a></li>
+            <li role="presentation" v-on:click="unsupport()">
+              <a aria-disabled="true">
+                J2EE设计
+              </a></li>
+            <li role="presentation" v-on:click="unsupport()">
+              <a aria-disabled="true">
+                结构与存储
+              </a></li>
             <li role="presentation" v-on:click="goRoute('/about/site')">
               <a aria-controls="profile" role="tab" data-toggle="tab">关于本站</a></li>
           </ul>
@@ -53,7 +59,7 @@
   import api from '../api';
 
   export default {
-    data(){
+    data() {
       return {
         dailyWord: "成功=目标，其他语句都是这行代码的注释",
         titleClickCount: 0,
@@ -64,6 +70,10 @@
       this.getDailyWord();
     },
     methods: {
+
+      unsupport: function () {
+        console.log("unsupport");
+      },
       barClick: function () {
         if ($(window).width() <= 641) {
           $('#button-navbar-toggle').click();
