@@ -2,6 +2,7 @@ package com.charpty.article;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -34,6 +35,7 @@ public class ArticleController {
 
 	@RequestMapping(value = "/article/{name}", method = RequestMethod.GET)
 	public Article getArticle(@PathVariable("name") String name) {
+		Assert.notNull(name, "article name can not be null");
 		return articleService.getArticle(name);
 	}
 
