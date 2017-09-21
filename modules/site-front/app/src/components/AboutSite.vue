@@ -32,7 +32,7 @@
         + "前端技术栈：<br>&nbsp;[Vue](https://cn.vuejs.org)、[fetch](https://github.com/github/fetch)、"
         + "[Bootstrap](http://v3.bootcss.com)<br>"
         + "后端技术栈：<br>&nbsp;[Spring Boot](https://projects.spring.io/spring-boot)、"
-        + "[JPA](https://projects.spring.io/spring-data-jpa)、[tomato](https://github.com/charpty/tomato)、"
+        + "[MyBatis](http://www.mybatis.org/mybatis-3)、[tomato](https://github.com/charpty/tomato)、"
         + "[mysql5.7](https://dev.mysql.com/doc/relnotes/mysql/5.7/en/)<br>"
         + "服务器相关：<br>&nbsp;[OpenResty](https://github.com/openresty)、"
         + "[阿里云CDN](https://help.aliyun.com/document_detail/27101.html)、[阿里云OSS](https://help.aliyun.com/document_detail/31817.html)"
@@ -45,7 +45,7 @@
       document.title = "关于本站";
     },
     methods: {
-      goAboutAuthor(){
+      goAboutAuthor() {
         router.push("/about/author")
       }
     }
