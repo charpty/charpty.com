@@ -27,13 +27,10 @@ public class ArticleServiceImpl implements ArticleService {
 		Article article = articleMapper.getArticle(name);
 		int wd, cl;
 		if (article != null) {
-			String content = article.getContent();
-			if (content == null) {
-				content = "";
-			}
-			cl = content.length();
+			cl = article.getContent().length();
 			if ((wd = article.getWordCount()) < 0 || wd != cl) {
 				articleMapper.updateWordCount(article.getId(), cl);
+				article.setWordCount(cl);
 			}
 		}
 		return article;
