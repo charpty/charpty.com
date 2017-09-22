@@ -5,7 +5,8 @@
         <div class="col-md-9 main-content">
           <div>
             <h2 class="simple-article-title">2017年了</h2>
-            <i class="fa fa-user-circle" aria-hidden="true"></i>&nbsp;<span>蔡博</span>&nbsp;&nbsp;
+            <i class="fa fa-user-circle" aria-hidden="true"></i>&nbsp;
+            <span v-on:click="goAboutAuthor()">蔡博</span>&nbsp;&nbsp;
             <i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;
             <span class="blog-post-meta">2017-01-02 </span>&nbsp;&nbsp;
           </div>
@@ -20,6 +21,7 @@
 
 <script>
   import markdownParser from '../utils/markdown'
+  import router from '../router'
 
   export default {
     data() {
@@ -34,6 +36,11 @@
     created() {
       this.content = markdownParser.parse(this.content);
       document.title = "charpty的2017年";
+    },
+    methods: {
+      goAboutAuthor: function () {
+        router.push("/about/author");
+      },
     }
   }
 

@@ -9,6 +9,7 @@ import com.charpty.util.PageableForm;
  */
 public class ArticleForm extends PageableForm {
 
+	private int type = ArticleType.NORMAL.getType();
 	private String groupName;
 
 	public String getGroupName() {
