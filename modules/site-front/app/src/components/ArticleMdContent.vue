@@ -69,4 +69,10 @@
     word-break: break-all;
   }
 
+  @media (max-width: 641px) {
+    .markdown-body pre {
+      padding: 5px;
+    }
+  }
+
 </style>
