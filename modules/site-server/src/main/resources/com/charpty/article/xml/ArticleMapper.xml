@@ -43,6 +43,9 @@
         <if test="groupName != null">
             AND GROUP_NAME = #{groupName,jdbcType=VARCHAR,javaType=java.lang.String}
         </if>
+        <if test="type > -1 ">
+            AND TYPE = #{type,jdbcType=INTEGER,javaType=java.lang.Integer}
+        </if>
         ORDER BY DISPLAY_ORDER,MODIFICATION_DATE DESC
         <if test="start > -1">
             LIMIT #{start}, #{limit}
@@ -56,6 +59,9 @@
         WHERE STATUS > 0 AND STATUS &lt; 20
         <if test="groupName != null">
             AND GROUP_NAME = #{groupName,jdbcType=VARCHAR,javaType=java.lang.String}
+        </if>
+        <if test="type > -1 ">
+            AND TYPE = #{type,jdbcType=INTEGER,javaType=java.lang.Integer}
         </if>
     </select>
 

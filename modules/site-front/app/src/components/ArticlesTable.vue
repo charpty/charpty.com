@@ -7,7 +7,7 @@
             <article v-for="(article,index) in articles" :key="index" class="post">
               <div class="post-head">
                 <h1 class="post-title">
-                  <span v-on:click="goArtileDetail(article.id)">{{ article.title }}</span>
+                  <span v-on:click="goArticleDetail(article.id)">{{ article.title }}</span>
                 </h1>
                 <div class="post-meta">
                   <i class="fa fa-user-circle" aria-hidden="true"></i>
@@ -19,15 +19,15 @@
                   <span>{{ article.wordCount < 0 ? '未统计' : article.wordCount }}</span>
                 </div>
               </div>
-              <div class="featured-media" v-on:click="goArtileDetail(article.name)">
+              <div class="featured-media" v-on:click="goArticleDetail(article.name)">
                 <img v-if="article.coverImage" v-bind:src="article.coverImage" v-bind:alt="article.title"
                      v-bind:title="article.title">
               </div>
-              <div v-on:click="goArtileDetail(article.name)" class="post-content">
+              <div v-on:click="goArticleDetail(article.name)" class="post-content">
                 <p v-html="parseSummary(article.summary)">
                 </p>
               </div>
-              <div class="post-permalink" v-on:click="goArtileDetail(article.name)">
+              <div class="post-permalink" v-on:click="goArticleDetail(article.name)">
                 <a class="btn btn-warning">阅读全文</a>
               </div>
               <footer class="post-footer clearfix">
@@ -99,16 +99,16 @@
       nextPage: function () {
         this.currentPage++;
         this.listArticles();
-        document.body.scrollTop = 0;
+        this.toTop();
       },
       previousPage: function () {
         this.currentPage--;
         this.listArticles();
-        document.body.scrollTop = 0;
+        this.toTop();
       },
-      goArtileDetail: function (articleName) {
+      goArticleDetail: function (articleName) {
         router.push({name: 'article', params: {articleName: articleName}});
-        document.body.scrollTop = 0;
+        this.toTop();
       },
       goAboutAuthor: function () {
         router.push("/about/author");
@@ -118,6 +118,11 @@
           return markdownParser.parse(summary);
         }
         return summary;
+      },
+      toTop: function () {
+        $('html,body').animate({scrollTop: '0px'}, 200);
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
       }
     },
   }
