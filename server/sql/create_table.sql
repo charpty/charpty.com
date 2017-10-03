@@ -2,7 +2,7 @@
 DROP TABLE IF EXISTS ARTICLE;
 CREATE TABLE ARTICLE (
   `ID` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `NAME` varchar(50) NOT NULL COMMENT '文章名称唯一标识，用于防止数据迁移',
+  `NAME` varchar(60) NOT NULL COMMENT '文章名称唯一标识，用于防止数据迁移',
   `TYPE` int(4) unsigned NOT NULL DEFAULT 10 COMMENT '文章类别，10：普通文章，20：个人随记',
   `STATUS` tinyint(4) NOT NULL DEFAULT 10 COMMENT '文章状态，0：草稿箱，10：已发布 20：已删除',
   `TITLE` varchar(30) NOT NULL COMMENT '文章标题',
