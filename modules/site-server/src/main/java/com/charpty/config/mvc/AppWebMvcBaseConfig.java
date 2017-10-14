@@ -13,13 +13,12 @@ import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
 import com.tomato.util.BooleanUtil;
 import com.tomato.util.NumberUtil;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.GsonHttpMessageConverter;
+import org.springframework.stereotype.Controller;
 import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.OptionalValidatorFactoryBean;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -35,16 +34,15 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
  * @version $Id$
  * @since 2017年7月14日 上午11:24:17
  */
-@Configuration
 @EnableWebMvc
-@EnableAutoConfiguration(exclude = SecurityAutoConfiguration.class)
+@ComponentScan(basePackages = "com.charpty", useDefaultFilters = false, includeFilters = @ComponentScan.Filter(Controller.class))
 public class AppWebMvcBaseConfig extends WebMvcConfigurerAdapter {
 
 	/**
 	 * Form 表单验证消息本地化资源处理
 	 */
 	private static String MESSAGE_SOURCE_DEFAULT_ENCODING = "UTF-8";
-	private String[] messageSourceBasenames = { "classpath:ValidationMessages" };
+	private String[] messageSourceBaseNames = { "classpath:ValidationMessages" };
 	/**
 	 * JSON 序列化/反序列化时本地化需求处理
 	 */
@@ -66,13 +64,13 @@ public class AppWebMvcBaseConfig extends WebMvcConfigurerAdapter {
 	 * @param basenames
 	 */
 	public void addMessageSourceBasenames(String... basenames) {
-		List<String> list = new ArrayList<>(Arrays.asList(messageSourceBasenames));
+		List<String> list = new ArrayList<>(Arrays.asList(messageSourceBaseNames));
 		for (String basename : basenames) {
 			if (!list.contains(basename)) {
 				list.add(basename);
 			}
 		}
-		messageSourceBasenames = list.toArray(new String[list.size()]);
+		messageSourceBaseNames = list.toArray(new String[list.size()]);
 	}
 
 	@Override
@@ -89,7 +87,7 @@ public class AppWebMvcBaseConfig extends WebMvcConfigurerAdapter {
 	public Validator getValidator() {
 		ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
 		messageSource.setDefaultEncoding(MESSAGE_SOURCE_DEFAULT_ENCODING);
-		messageSource.setBasenames(messageSourceBasenames);
+		messageSource.setBasenames(messageSourceBaseNames);
 		OptionalValidatorFactoryBean validator = new OptionalValidatorFactoryBean();
 		validator.setValidationMessageSource(messageSource);
 		return validator;
