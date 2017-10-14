@@ -7,7 +7,7 @@ package com.charpty.util;
  */
 public class PageableForm {
 
-	private int start;
+	private int start = -1;
 	private int limit;
 
 	public int getStart() {
