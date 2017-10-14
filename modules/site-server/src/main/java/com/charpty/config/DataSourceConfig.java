@@ -6,11 +6,12 @@ import javax.sql.DataSource;
 import org.apache.ibatis.mapping.VendorDatabaseIdProvider;
 import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.type.TypeAliasRegistry;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.jndi.JndiTemplate;
 
 /**
@@ -18,6 +19,7 @@ import org.springframework.jndi.JndiTemplate;
  * @version $Id$
  * @since 2017/10/14 下午9:57
  */
+@Configuration
 public class DataSourceConfig {
 
 	@Autowired
@@ -29,9 +31,12 @@ public class DataSourceConfig {
 	}
 
 	@Bean
-	public DataSource productionDataSource() throws SQLException {
-		DataSource ds = null;
-
+	public DataSource dataSource() throws SQLException {
+		DriverManagerDataSource ds = new DriverManagerDataSource();
+		ds.setDriverClassName("com.mysql.jdbc.Driver");
+		ds.setUrl(System.getProperty("db.url"));
+		ds.setUsername(System.getProperty("db.username"));
+		ds.setPassword(System.getProperty("db.password"));
 		return ds;
 	}
 
