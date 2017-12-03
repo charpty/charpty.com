@@ -1,5 +1,5 @@
 import markdownParser from '../markdown';
-import SimpleMDE from 'simpleMDE';
+import SimpleMDE from 'simplemde';
 import 'simplemde/dist/simplemde.min.css';
 import '../../assets/css/font-awesome.min.css';
 
