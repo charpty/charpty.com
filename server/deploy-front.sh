@@ -11,7 +11,7 @@ cd modules/site-front/app
 npm run build
 # 仅仅将html目录setfacl给site用户
 rm -rf ~/html-bak
-mv /usr/local/openresty/nginx/html/* ~/html-bak/
+mv /usr/local/openresty/nginx/html/* ~/html-bak/ || true
 cp -rf dist/* /usr/local/openresty/nginx/html/
 
 # clean cache files
