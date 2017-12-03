@@ -16,7 +16,7 @@ cd ..
 sed -ibakvendorjs 's/\/static\/js\/vendor.*\.js/https:\/\/caibo.ren\/s\/vendor.js/' dist/index.html
 rm -rf ./bakvendorjs
 cp dist/static/js/vendor*.js vendor.js
-python upload_imags_alioss.py vendor.js
+python upload_s.py vendor.js
 
 # 仅仅将html目录setfacl给site用户
 rm -rf ~/html-bak
