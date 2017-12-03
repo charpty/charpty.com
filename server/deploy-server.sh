@@ -1,4 +1,4 @@
-#/bin/bash
+#!/usr/bin/env bash
 
 # just deploy my site
 
