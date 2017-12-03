@@ -18,7 +18,7 @@ npm run build
 # 由于vendor.js偏大（1M左右），服务器带宽却非常少，所以将其放在OSS上
 # TODO 目前仅有caibo.ren有证书
 cd ~
-sed -ibakvendorjs 's/\/static\/js\/vendor.*\.js/https:\/\/caibo.ren\/s\/vendor.js/' ${dist_dir}/index.html
+sed -ibakvendorjs 's/\/static\/js\/vendor\.\w*\.js/https:\/\/caibo.ren\/s\/vendor.js/' ${dist_dir}/index.html
 rm -rf ./bakvendorjs
 cp ${dist_dir}/static/js/vendor*.js ~/vendor.js
 cd ~
