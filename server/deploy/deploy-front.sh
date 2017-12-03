@@ -32,5 +32,5 @@ cp -rf ${dist_dir}/* /usr/local/openresty/nginx/html/
 
 # clean cache files
 # TODO
-nginx -sreload
+# nginx -sreload
 echo '\033[0;32m*******************deploy success***************************'
