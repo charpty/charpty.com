@@ -4,7 +4,6 @@
 import oss2
 import sys
 import json
-import utils
 
 reload(sys)
 sys.setdefaultencoding('utf8')
@@ -43,7 +42,7 @@ def get_oss_bucket_handler(config):
 def upload_s_file(bucket_handler, file_name):
     with open(file_name, "r") as fd:
         bucket_handler.put_object("s/" + file_name, fd)
-        print "%s %s" % (utils.be_success_green("success upload file: "), file_name)
+        print "%s %s" % ("success upload file: ", file_name)
 
 
 def main():
