@@ -9,10 +9,7 @@ import org.springframework.boot.web.servlet.ServletContextInitializer;
 import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.FilterType;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.context.request.RequestContextListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
@@ -56,12 +53,21 @@ public class ServletMappingConfig {
 	}
 
 	@Bean
+	public FilterRegistrationBean h5ModeFilterRegistration(AppContextFilter appContextFilter) {
+		FilterRegistrationBean registration = new FilterRegistrationBean();
+		registration.setFilter(appContextFilter);
+		registration.addUrlPatterns("/*");
+		registration.setOrder(1);
+		return registration;
+	}
+
+	@Bean
 	public FilterRegistrationBean characterEncodingFilterRegistration() {
 		FilterRegistrationBean registration = new FilterRegistrationBean();
 		registration.setFilter(new CharacterEncodingFilter());
 		registration.addInitParameter("encoding", "UTF-8");
 		registration.addUrlPatterns("/*");
-		registration.setOrder(1);
+		registration.setOrder(2);
 		return registration;
 	}
 
