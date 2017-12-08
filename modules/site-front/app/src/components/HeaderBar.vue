@@ -2,15 +2,13 @@
   <main>
     <header class="site-header">
       <nav class="navbar navbar-default" role="navigation">
-        <div class="container">
-          <button type="button" id="button-navbar-toggle" class="navbar-toggle" data-toggle="collapse"
-                  data-target="#site-navbar-collapse">
-            <span class="sr-only">切换导航</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-        </div>
+        <button type="button" id="button-navbar-toggle" class="navbar-toggle" data-toggle="collapse"
+                data-target="#site-navbar-collapse">
+          <span class="sr-only">切换导航</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
         <div class="headband"></div>
         <div class="phone-header">
           <div class="site-meta" v-on:click="panelClick($event)">
