@@ -2,7 +2,7 @@
   <main>
     <header class="site-header">
       <nav class="navbar navbar-default" role="navigation">
-        <div class="container-fluid">
+        <div class="container">
           <button type="button" id="button-navbar-toggle" class="navbar-toggle" data-toggle="collapse"
                   data-target="#site-navbar-collapse">
             <span class="sr-only">切换导航</span>
