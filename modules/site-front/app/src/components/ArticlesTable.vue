@@ -44,7 +44,7 @@
                 </div>
               </footer>
             </article>
-            <nav class="pagination" role="navigation">
+            <nav class="paging" role="navigation">
               <span class="page-number" v-if="this.currentPage && this.currentPage > 0"
                     v-on:click="previousPage()">上一页</span>
               <span class="page-number">第 {{ currentPage + 1 }} 页 &frasl; 共 {{ Math.ceil(totalCount / everySize)
@@ -124,7 +124,7 @@
         document.body.scrollTop = 0;
         document.documentElement.scrollTop = 0;
       }
-    },
+    }
   }
 </script>
 
