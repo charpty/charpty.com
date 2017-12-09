@@ -1,11 +1,5 @@
 import marked from 'marked'
-import hljs from 'highlight.js';
-import 'highlight.js/styles/solarized-light.css';
-
-hljs.configure({
-  languages: ["Bash", "SQL", "C++", "Java", "JavaScript", "Markdown", "HTTP", "CSS",
-    "Shell Session", "JSON", "Nginx", "Python", "HTML", "XML"]
-});
+import hljs from '../highlight'
 
 marked.setOptions({
   renderer: new marked.Renderer(),

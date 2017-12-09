@@ -10,16 +10,10 @@ function resolve(dir) {
 
 module.exports = {
   entry: {
-    app: './src/main.js'
+    app: './src/main.js',
+    utils: ["./src/utils/markdown/index.js", "./src/utils/highlight/index.js"]
   },
-  plugins: [
-    new webpack.ProvidePlugin({
-      $: "jquery",
-      jQuery: "jquery",
-      jquery: "jquery",
-      "window.jQuery": "jquery"
-    })
-  ],
+  plugins: [],
   output: {
     path: config.build.assetsRoot,
     filename: '[name].js',
@@ -31,8 +25,7 @@ module.exports = {
     extensions: ['.js', '.vue', '.json'],
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
-      '@': resolve('src'),
-      jquery: "jquery/src/jquery"
+      '@': resolve('src')
     }
 
   },

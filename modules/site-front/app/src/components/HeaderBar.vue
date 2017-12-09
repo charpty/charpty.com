@@ -19,9 +19,7 @@
         <div class="main-header">
           <div class="row">
             <div class="col-sm-12">
-              <a class="hide" href="" title=""><img src="../assets/main_header.jpg" alt=""></a>
               <h2 class="text-hide"></h2>
-              <img src="../assets/main_header.jpg" alt="" class="hide">
             </div>
           </div>
         </div>
@@ -73,13 +71,13 @@
         console.log("unsupport");
       },
       barClick: function () {
-        if ($(window).width() <= 641) {
-          $('#button-navbar-toggle').click();
+        if (window.width() <= 641) {
+          document.getElementById('button-navbar-toggle').click();
         }
       },
       panelClick: function (event) {
         if (event.target.className == 'site-meta') {
-          $('#button-navbar-toggle').click();
+          document.getElementById('button-navbar-toggle').click();
         }
         if ((this.panelClickCount++) % 3 === 1) {
           this.getDailyWord();

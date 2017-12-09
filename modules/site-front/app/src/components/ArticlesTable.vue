@@ -120,7 +120,7 @@
         return summary;
       },
       toTop: function () {
-        $('html,body').animate({scrollTop: '0px'}, 200);
+        document.body.animate({scrollTop: '0px'}, 200);
         document.body.scrollTop = 0;
         document.documentElement.scrollTop = 0;
       }
