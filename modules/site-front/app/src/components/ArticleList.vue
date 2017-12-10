@@ -9,7 +9,6 @@
   </main>
 </template>
 
-
 <script>
   import ArticleTable from './ArticlesTable'
   import RightMisc from './RightMisc'
@@ -22,41 +21,6 @@
   }
 </script>
 
-<style lang="css">
-
-  .articles-table-wrap {
-    float: left;
-    width: 70%;
-  }
-
-  .right-misc-wrap {
-    float: right;
-    width: 30%;
-  }
-
-  @media (max-width: 981px) {
-    .right-misc-wrap {
-      visibility: hidden;
-      height: 0px;
-    }
-
-    .articles-table-wrap {
-      width: 100%;
-    }
-  }
-
-  .man-wrap {
-    align: center;
-    overflow: hidden;
-  }
-
-  @media (min-width: 1281px) {
-    .man-wrap {
-      align: center;
-      margin-left: 100px;
-      margin-right: 100px;
-      overflow: hidden;
-    }
-  }
-
+<style lang="stylus">
+  @import "../stylus/articles.styl"
 </style>

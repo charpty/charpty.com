@@ -1,6 +1,6 @@
 <template lang="html">
   <div id="app" class="body-app">
-  <div class="body-header-and-content">
+  <div class="header-and-content">
   <header-bar></header-bar>
       <transition name="fade">
         <keep-alive>
@@ -15,14 +15,14 @@
 </template>
 
 <script>
-
   import HeaderBar from './components/HeaderBar'
   import FooterBar from './components/FooterBar'
+
   export default {
     name: 'app',
     components: {
-      'header-bar':HeaderBar,
-      'footer-bar':FooterBar
+      'header-bar': HeaderBar,
+      'footer-bar': FooterBar
     }
   }
 </script>
@@ -38,13 +38,13 @@
     overflow: hidden;
   }
 
-  .body-header-and-content {
+  .header-and-content {
     width: 100%;
     min-height: 700px;
   }
 
   @media (max-width: 641px) {
-    .body-header-and-content {
+    .header-and-content {
       min-height: 500px;
     }
     .body-app {
@@ -62,7 +62,7 @@
   .fade-enter-active, .fade-leave-active {
     transition: opacity .7s
   }
-  .fade-enter, .fade-leave-to /* .fade-leave-active in below version 2.1.8 */ {
+  .fade-enter, .fade-leave-to {
     opacity: 0
   }
 

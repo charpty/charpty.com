@@ -1,13 +1,13 @@
 <template>
   <main class="simple-article">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-9 main-content">
+    <div class="simple-container">
+      <div class="simple-row">
+        <div class="simple-col-md-9">
           <div>
             <h2 class="simple-article-title">关于笔者</h2>
             <i class="fa fa-user-circle" aria-hidden="true"></i>&nbsp;<span>蔡博</span>&nbsp;&nbsp;
             <i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;
-            <span class="blog-post-meta">2017-09-18 </span>&nbsp;&nbsp;
+            <span class="simple-meta">2017-09-18 </span>&nbsp;&nbsp;
           </div>
         </div>
       </div>
@@ -45,4 +45,5 @@
 
 <style>
   @import "../stylus/simple_article.styl";
+  @import "../stylus/animation.styl";
 </style>

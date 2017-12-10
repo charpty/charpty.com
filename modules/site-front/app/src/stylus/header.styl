@@ -1,3 +1,17 @@
+.site-header {
+  padding-top: 0px;
+}
+
+.navbar {
+  position: relative;
+  min-height: 50px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  border-color: #e7e7e7;
+}
+
 .navbar-toggle {
   position: relative;
   float: right;
@@ -9,17 +23,6 @@
   background-image: none;
   border: 1px solid transparent;
   border-radius: 4px;
-}
-
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  border: 0;
 }
 
 .navbar-toggle .icon-bar {
@@ -34,26 +37,21 @@
   margin-top: 4px;
 }
 
-.site-meta {
-  position: relative;
-  text-align: center;
-}
-
-.headband {
-  height: 3px;
-  background: #222;
-}
-
 .phone-header {
   display: none;
   visibility: hidden;
-  height: 110px;
+  height: auto;
   width: auto;
   padding: 20px;
   background: #222;
   top: 0px;
   right: 0px;
   position: relative;
+}
+
+.site-meta {
+  position: relative;
+  text-align: center;
 }
 
 .custom-title {
@@ -75,14 +73,52 @@
   z-index: 100px;
 }
 
-.active {
-  border-bottom: 2px solid #e67e22;
-  margin-bottom: -2px;
+.main-header {
+  background-image: url("../assets/main_header.jpg");
+  height: 220px;
+}
+
+.navbar-collapse {
+  display: block;
+  height: auto;
+  padding-bottom: 0;
+  overflow: visible;
+  text-align: center;
+}
+
+.navbar-nav {
+  float: left;
+  padding-left: 0px;
+  margin: 0;
+}
+
+.nav > li > a {
+  color: #777;
+  padding: 10px 15px;
+  display: block;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  line-height: 20px;
+}
+
+.nav > li > a:hover {
+  color: #333;
+  background-color: transparent
+}
+
+.nav > li {
+  float: none;
+  display: inline-block;
 }
 
 .navbar .nav, .navbar .nav > li {
   float: none;
   display: inline-block;
+}
+
+/* 以MAC为准各终端适应性匹配 */
+@media (max-width: 768px) {
+
 }
 
 @media (max-width: 768px) {
@@ -120,26 +156,12 @@
   }
 }
 
-.main-header {
-  background-image: url("../assets/main_header.jpg");
-  height: 220px;
-}
-
-/* smartphones, iPhone, portrait 480x320 phones */
 @media (min-width: 320px) {
   .main-header {
     height: 150px;
   }
 }
 
-/* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
-@media (min-width: 481px) {
-  .main-header {
-    height: 120px;
-  }
-}
-
-/* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */
 @media (max-width: 641px) {
   .navbar {
     margin-bottom: 3px;
@@ -154,27 +176,14 @@
     height: 0px;
     visibility: hidden;
   }
-}
 
-@media (min-width: 641px) {
-  .collapse {
-    text-align: center;
-  }
-
-  .collapsing {
-    text-align: center;
+  .navbar-collapse {
+    margin-left: 0px;
+    height: 0px;
+    visibility: hidden;
   }
 }
 
-/* tablet, landscape iPad, lo-res laptops ands desktops */
-@media (min-width: 961px) {
-}
-
-/* big landscape tablets, laptops, and desktops */
-@media (min-width: 1025px) {
-}
-
-/* hi-res laptops and desktops */
 @media (min-width: 1281px) {
   .main-header {
     height: 220px;

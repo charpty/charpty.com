@@ -14,7 +14,6 @@
           <span>{{ article.wordCount }}</span>
         </section>
       </header>
-      <br><br>
       <section>
         <div class="markdown-body" v-html="this.mdHtml">
         </div>
@@ -60,19 +59,6 @@
 </script>
 
 <style>
-  @import "../stylus/article_post.styl";
+  @import "../stylus/articles.styl";
   @import "../stylus/animation.styl";
-
-  .markdown-body {
-    animation: slideInFromTop 1.5s ease-out 0s 1;
-    -webkit-animation: slideInFromTop 1.5s ease-out 0s 1;
-    word-break: break-all;
-  }
-
-  @media (max-width: 641px) {
-    .markdown-body pre {
-      padding: 5px;
-    }
-  }
-
 </style>

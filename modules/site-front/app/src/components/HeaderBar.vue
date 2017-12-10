@@ -1,15 +1,13 @@
 <template>
   <main>
     <header class="site-header">
-      <nav class="navbar navbar-default" role="navigation">
-        <button type="button" id="button-navbar-toggle" class="navbar-toggle" data-toggle="collapse"
-                data-target="#site-navbar-collapse">
-          <span class="sr-only">切换导航</span>
+      <nav class="navbar">
+        <button type="button" id="button-navbar-toggle"
+                class="navbar-toggle" v-on:click="navbarToggle()">
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <div class="headband"></div>
         <div class="phone-header">
           <div class="site-meta" v-on:click="panelClick($event)">
             <span v-on:click="tryGoHomePage()" class="custom-title">知足者常乐</span>
@@ -17,32 +15,19 @@
           </div>
         </div>
         <div class="main-header">
-          <div class="row">
-            <div class="col-sm-12">
-              <h2 class="text-hide"></h2>
-            </div>
-          </div>
         </div>
-        <div class="collapse navbar-collapse" id="site-navbar-collapse" v-on:click="barClick()">
+        <div class="navbar-collapse" id="site-navbar-collapse" v-on:click="barClick()">
           <ul class="nav navbar-nav">
-            <li role="presentation" v-on:click="goRoute('/articles')">
-              <a aria-controls="profile" role="tab" data-toggle="tab">
-                文章列表
-              </a></li>
-            <li role="presentation" v-on:click="goRoute('/y2017')">
-              <a aria-controls="profile" role="tab" data-toggle="tab">
-                2017年
-              </a></li>
-            <li role="presentation" v-on:click="unsupport()">
-              <a aria-disabled="true">
-                J2EE设计
-              </a></li>
-            <li role="presentation" v-on:click="unsupport()">
-              <a aria-disabled="true">
-                结构与存储
-              </a></li>
-            <li role="presentation" v-on:click="goRoute('/about/site')">
-              <a aria-controls="profile" role="tab" data-toggle="tab">关于本站</a></li>
+            <li v-on:click="goRoute('/articles')">
+              <a>文章列表</a></li>
+            <li v-on:click="goRoute('/y2017')">
+              <a>2017年</a></li>
+            <li v-on:click="unsupport()">
+              <a>J2EE设计</a></li>
+            <li v-on:click="unsupport()">
+              <a>结构与存储</a></li>
+            <li v-on:click="goRoute('/about/site')">
+              <a>关于本站</a></li>
           </ul>
         </div>
       </nav>
@@ -66,12 +51,21 @@
       this.getDailyWord();
     },
     methods: {
-
+      navbarToggle: function () {
+        var nav = document.getElementById("site-navbar-collapse");
+        if (nav.style.visibility && nav.style.visibility == "visible") {
+          nav.style.visibility = "hidden"
+          nav.style.height = "0";
+        } else {
+          nav.style.visibility = "visible"
+          nav.style.height = "auto";
+        }
+      },
       unsupport: function () {
         console.log("unsupport");
       },
       barClick: function () {
-        if (window.width() <= 641) {
+        if (window.width <= 641) {
           document.getElementById('button-navbar-toggle').click();
         }
       },
