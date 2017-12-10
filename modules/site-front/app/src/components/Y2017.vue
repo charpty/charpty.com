@@ -1,15 +1,13 @@
 <template>
   <main class="simple-article">
     <div class="simple-container">
-      <div class="simple-row">
-        <div class="simple-col-md-9">
-          <div>
-            <h2 class="simple-article-title">2017年了</h2>
-            <i class="fa fa-user-circle" aria-hidden="true"></i>&nbsp;
-            <span v-on:click="goAboutAuthor()">蔡博</span>&nbsp;&nbsp;
-            <i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;
-            <span class="simple-blog-post-meta">2017-01-02 </span>&nbsp;&nbsp;
-          </div>
+      <div class="simple-col">
+        <div>
+          <h2 class="simple-article-title">2017年了</h2>
+          <i class="fa fa-user-circle" aria-hidden="true"></i>&nbsp;
+          <span v-on:click="goAboutAuthor()">蔡博</span>&nbsp;&nbsp;
+          <i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;
+          <span class="simple-blog-post-meta">2017-01-02 </span>&nbsp;&nbsp;
         </div>
       </div>
       <div class="simple-article-content" v-html="this.content">

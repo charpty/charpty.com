@@ -1,19 +1,17 @@
 <template>
   <main class="simple-article">
     <div class="simple-container">
-      <div class="simple-row">
-        <div class="simple-col-md-9">
-          <div>
-            <h2 class="simple-article-title">关于本站</h2>
-            <i class="fa fa-user-circle" aria-hidden="true"></i>&nbsp;
-            <span v-on:click="goAboutAuthor()">蔡博</span>&nbsp;&nbsp;
-            <i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;
-            <span class="simple-meta">2017-09-17 </span>&nbsp;&nbsp;
-          </div>
+      <div class="simple-col">
+        <div>
+          <h2 class="simple-article-title">关于本站</h2>
+          <i class="fa fa-user-circle" aria-hidden="true"></i>&nbsp;
+          <span v-on:click="goAboutAuthor()">蔡博</span>&nbsp;&nbsp;
+          <i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;
+          <span class="simple-meta">2017-09-17 </span>&nbsp;&nbsp;
         </div>
       </div>
-      <br>
-      <p>本站由<span v-on:click="goAboutAuthor()"><a>charpty</a></span>编写，主要用于个人博客网站</p>
+      <p class="simple-row">本站由<span v-on:click="goAboutAuthor()">
+        <a>charpty</a></span>编写，主要用于个人博客网站</p>
       <div class="simple-article-content" v-html="this.content">
         <i></i>
       </div>
