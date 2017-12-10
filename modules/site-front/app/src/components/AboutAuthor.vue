@@ -46,4 +46,5 @@
 <style>
   @import "../stylus/simple_article.styl";
   @import "../stylus/animation.styl";
+  @import "../stylus/front.styl";
 </style>

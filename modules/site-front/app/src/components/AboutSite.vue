@@ -56,6 +56,7 @@
 <style>
   @import "../stylus/simple_article.styl";
   @import "../stylus/animation.styl";
+  @import "../stylus/front.styl";
 
   .simple-article-content {
     margin-top: 0;

@@ -1,13 +1,10 @@
 <template lang="html">
   <div>
-    <div class="placeholder"></div>
-    <main class="blog content">
-      <div class="container">
-        <i class="fa fa-ship"></i>
-        <p></p>
-        <h1>404 Not Found</h1>
-        <p>您访问的页面不存在</p>
-        <a v-on:click="goHomePage()">返回首页</a>
+    <main class="main404">
+      <div class="container404">
+        <h1 class="h404">404 Not Found</h1>
+        <p class="p404">您访问的页面不存在</p>
+        <a class="a404" v-on:click="goHomePage()">返回首页</a>
       </div>
     </main>
   </div>
@@ -25,33 +22,20 @@
 }
 </script>
 
-<style lang="stylus" scoped>
-.content
-  padding:10px 0
-  fullWidth()
-
-.placeholder
-  height:16px
-  position:relative
-  @media (max-width: 641px)
-    height:10px
-i
-  font-size 100px
-  color #e95095
-
-h1
+<style lang="stylus">
+.h404
   color #333
   font-size 36px
   font-weight 300
   letter-spacing -1
-a
+.a404
   color #e95095
   transition color .3s
   &:hover
     color purple
-p
+.p404
   color #666
-.container
+.container404
   text-align center
   margin 40px auto 50px
   max-width 25rem

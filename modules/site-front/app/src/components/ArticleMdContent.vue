@@ -60,5 +60,6 @@
 
 <style>
   @import "../stylus/articles.styl";
+  @import "../stylus/front.styl";
   @import "../stylus/animation.styl";
 </style>
