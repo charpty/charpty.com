@@ -6,7 +6,7 @@
           <article v-for="(article,index) in articles" :key="index" class="post">
             <div class="post-head">
               <h1 class="post-title">
-                <span v-on:click="goArticleDetail(article.id)">{{ article.title }}</span>
+                <span v-on:click="goArticleDetail(article.name)">{{ article.title }}</span>
               </h1>
               <div class="post-meta">
                 <i class="fa fa-user-circle" aria-hidden="true"></i>
