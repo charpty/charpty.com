@@ -96,17 +96,17 @@
       },
       nextPage: function () {
         this.currentPage++;
-        this.listArticles();
         this.toTop();
+        this.listArticles();
       },
       previousPage: function () {
         this.currentPage--;
-        this.listArticles();
         this.toTop();
+        this.listArticles();
       },
       goArticleDetail: function (articleName) {
-        router.push({name: 'article', params: {articleName: articleName}});
         this.toTop();
+        router.push({name: 'article', params: {articleName: articleName}});
       },
       goAboutAuthor: function () {
         router.push("/about/author");
