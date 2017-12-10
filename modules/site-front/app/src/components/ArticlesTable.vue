@@ -118,7 +118,9 @@
         return summary;
       },
       toTop: function () {
-        document.body.animate({scrollTop: '0px'}, 200);
+        if (document.body.animate) {
+          document.body.animate({scrollTop: '0px'}, 200);
+        }
         document.body.scrollTop = 0;
         document.documentElement.scrollTop = 0;
       }
