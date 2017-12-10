@@ -58,8 +58,8 @@
   }
 </script>
 
-<style>
-  @import "../stylus/articles.styl";
-  @import "../stylus/front.styl";
+<style lang="stylus">
   @import "../stylus/animation.styl";
+  @import "../stylus/front.styl";
+  @import "../stylus/articles.styl";
 </style>

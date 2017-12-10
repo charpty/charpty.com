@@ -128,8 +128,8 @@
 
 
 <style lang="stylus">
-  @import "../stylus/articles.styl";
-  @import "../stylus/pagination.styl";
   @import "../stylus/common.styl"
   @import "../stylus/front.styl"
+  @import "../stylus/articles.styl";
+  @import "../stylus/pagination.styl";
 </style>

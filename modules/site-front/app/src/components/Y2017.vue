@@ -45,7 +45,7 @@
 </script>
 
 <style>
-  @import "../stylus/simple_article.styl";
-  @import "../stylus/front.styl";
   @import "../stylus/animation.styl";
+  @import "../stylus/front.styl";
+  @import "../stylus/simple_article.styl";
 </style>
