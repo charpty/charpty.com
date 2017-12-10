@@ -26,8 +26,8 @@
               <p v-html="parseSummary(article.summary)">
               </p>
             </div>
-            <div class="post-permalink" v-on:click="goArticleDetail(article.name)">
-              <a class="btn btn-warning">阅读全文</a>
+            <div class="post-permalink">
+              <a v-on:click="goArticleDetail(article.name)" class="btn btn-warning">阅读全文</a>
             </div>
             <footer class="post-footer clearfix">
               <div class="pull-left tag-list">
