@@ -96,13 +96,13 @@
       },
       nextPage: function () {
         this.currentPage++;
-        this.toTop();
         this.listArticles();
+        this.toTop();
       },
       previousPage: function () {
         this.currentPage--;
-        this.toTop();
         this.listArticles();
+        this.toTop();
       },
       goArticleDetail: function (articleName) {
         this.toTop();
