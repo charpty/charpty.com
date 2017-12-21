@@ -1,4 +1,4 @@
-package network;
+package com.charpty.network;
 
 /**
  * @author caibo

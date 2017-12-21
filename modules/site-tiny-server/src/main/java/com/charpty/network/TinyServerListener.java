@@ -1,16 +1,14 @@
-package network;
+package com.charpty.network;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
-import java.nio.channels.SelectableChannel;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
 import java.util.Iterator;
 import java.util.Set;
-import java.util.concurrent.Executors;
-import server.ServiceThreadPool;
+import com.charpty.server.ServiceThreadPool;
 
 /**
  * @author caibo

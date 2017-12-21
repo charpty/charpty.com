@@ -1,4 +1,4 @@
-package server;
+package com.charpty.server;
 
 import java.util.Collection;
 import java.util.Iterator;

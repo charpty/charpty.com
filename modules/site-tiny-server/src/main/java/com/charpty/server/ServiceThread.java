@@ -1,4 +1,4 @@
-package server;
+package com.charpty.server;
 
 /**
  * @author caibo
