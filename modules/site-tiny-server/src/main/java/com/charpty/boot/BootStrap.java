@@ -38,8 +38,7 @@ public final class BootStrap {
 
 	public static final Map<String, Callable<String>> getServerControllers(BootOption option) {
 		Map<String, Callable<String>> result = new HashMap<>();
-		Callable<String> random = new DailyWordQuery()::random;
-		result.put("/s/api/word/random", random);
+		result.put("/s/api/word/random", new DailyWordQuery()::random);
 		return result;
 	}
 
@@ -66,7 +65,7 @@ public final class BootStrap {
 				SocketChannel channel = (SocketChannel) next.channel();
 				ByteBuffer buffer = (ByteBuffer) next.attachment();
 				if (buffer == null) {
-					buffer = ByteBuffer.allocate(64);
+					buffer = ByteBuffer.allocate(128);
 					next.attach(buffer);
 				}
 				int read = channel.read(buffer);
@@ -74,13 +73,16 @@ public final class BootStrap {
 					it.remove();
 					continue;
 				}
-				// 扩容测试
 				if (read == 0 && buffer.position() == buffer.capacity()) {
-					ByteBuffer tmp = ByteBuffer.allocate(buffer.capacity() * 2);
-					tmp.put(buffer);
-					buffer = tmp;
-					next.attach(buffer);
-					continue;
+					// buffer不够
+					if (buffer.capacity() < 256) {
+						ByteBuffer tmp = ByteBuffer.allocate(buffer.capacity() * 2);
+						tmp.put(buffer);
+						next.attach(buffer);
+						continue;
+					}
+					// 按理应继续扩容，但当读超过256时应该已经读完了URL部分
+					// do nothing
 				}
 				String tmp = new String(buffer.array(), 0, buffer.position());
 				// 我的博客服务器只有GET请求
