@@ -27,7 +27,7 @@ public class ServerResponseTimeTest {
 		Selector selector = Selector.open();
 		ssc.register(selector, SelectionKey.OP_ACCEPT);
 		Class.forName("com.mysql.jdbc.Driver");
-		String url = "jdbc:mysql://localhost:33066/charptysite?characterEncoding=utf8&useSSL=false&user=charptysite&password=";
+		String url = "jdbc:mysql://localhost:33066/charptysite?characterEncoding=utf8&useSSL=false&user=charptysite&password=rap1bpm2ifm3qrm";
 		Connection con = DriverManager.getConnection(url);
 		Statement statement = con.createStatement();
 		while (true) {
@@ -94,7 +94,7 @@ public class ServerResponseTimeTest {
 					sb.append(']');
 					ByteBuffer out = ByteBuffer.allocate(1024);
 					out.clear();
-					String res = "HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: " + sb.length() //
+					String res = "HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: " + sb.toString().getBytes().length //
 							+ "\r\nContent-Type:application/json;charset=UTF-8" //
 							+ "\r\n\r\n" + sb.toString() + "\r\n\r\n\r\n";
 					byte[] bytes = res.getBytes();

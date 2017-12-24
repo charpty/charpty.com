@@ -11,8 +11,10 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.Callable;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import com.charpty.query.DailyWordQuery;
 
 /**
  * @author caibo
@@ -34,18 +36,21 @@ public final class BootStrap {
 		return selector;
 	}
 
-	public static final Map<String, Runnable> getServerControllers(BootOption option) {
-		Map<String, Runnable> result = new HashMap<>();
+	public static final Map<String, Callable<String>> getServerControllers(BootOption option) {
+		Map<String, Callable<String>> result = new HashMap<>();
+		Callable<String> random = new DailyWordQuery()::random;
+		result.put("/s/api/word/random", random);
 		return result;
 	}
 
 	public static final void aeMain(Selector selector, BootOption option) throws IOException {
+		Map<String, Callable<String>> controllers = option.getControllers();
 		while (true) {
-			aeMain(selector);
+			aeMain(selector, controllers);
 		}
 	}
 
-	private static final void aeMain(Selector selector) throws IOException {
+	private static final void aeMain(Selector selector, Map<String, Callable<String>> controllers) throws IOException {
 		int select = selector.select();
 		Set<SelectionKey> keys = selector.selectedKeys();
 		Iterator<SelectionKey> it = keys.iterator();
@@ -96,15 +101,37 @@ public final class BootStrap {
 				}
 				buffer.clear();
 				buffer = null;
-				ByteBuffer out = ByteBuffer.allocate(256);
-				out.clear();
-				String res = "HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: 0" + "\r\n\r\n\r\n";
-				out.put(res.getBytes());
-				out.flip();
-				channel.write(out);
-				channel.close();
-				out = null;
-				it.remove();
+				Callable<String> action = controllers.get(path);
+				if (action != null) {
+					String content = null;
+					try {
+						content = action.call();
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					ByteBuffer out = ByteBuffer.allocate(256);
+					out.clear();
+					StringBuffer sb = new StringBuffer(1024);
+					// header
+					sb.append("HTTP/1.1 200 OK\r\n" + "Content-Type:application/json;charset=UTF-8\r\n" + "Content-Length: ");
+					sb.append(content.getBytes().length);
+					// content
+					sb.append("\r\n\r\n").append(content);
+					sb.append("\r\n\r\n\r\n");
+
+					byte[] bytes = sb.toString().getBytes();
+					int n = 0;
+					while (n < bytes.length) {
+						out.clear();
+						int x = n + 1024 > bytes.length ? (bytes.length - n) : 1024;
+						out.put(bytes, n, x);
+						out.flip();
+						channel.write(out);
+						n = n + x;
+					}
+					out = null;
+					it.remove();
+				}
 			}
 		}
 	}
