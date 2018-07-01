@@ -12,6 +12,7 @@
     <modules>
         <module>modules/tomato</module>
         <module>modules/site-server</module>
+        <module>modules/site-netty-server</module>
         <module>modules/site-tiny-server</module>
         <module>modules/site-front</module>
     </modules>
