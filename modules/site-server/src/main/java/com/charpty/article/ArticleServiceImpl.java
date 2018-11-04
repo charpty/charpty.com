@@ -1,9 +1,12 @@
 package com.charpty.article;
 
 import java.util.List;
-import com.charpty.article.mapper.ArticleMapper;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.charpty.article.mapper.ArticleContentMapper;
+import com.charpty.article.mapper.ArticleMetaMapper;
 
 /**
  * @author CaiBo
@@ -13,31 +16,23 @@ import org.springframework.stereotype.Service;
 @Service
 public class ArticleServiceImpl implements ArticleService {
 
-	@Autowired
-	private ArticleMapper articleMapper;
+    @Autowired
+    private ArticleMetaMapper articleMetaMapper;
+    @Autowired
+    private ArticleContentMapper articleContentMapper;
 
-	@Override
-	public List<Article> listArticles(ArticleForm form) {
-		List<Article> articles = articleMapper.listArticles(form);
-		return articles;
-	}
+    @Override
+    public List<ArticleMeta> listArticles(ArticleForm form) {
+        return articleMetaMapper.listArticles(form);
+    }
 
-	@Override
-	public Article getArticle(String name) {
-		Article article = articleMapper.getArticle(name);
-		int wd, cl;
-		if (article != null) {
-			cl = article.getContent().length();
-			if ((wd = article.getWordCount()) < 0 || wd != cl) {
-				articleMapper.updateWordCount(article.getId(), cl);
-				article.setWordCount(cl);
-			}
-		}
-		return article;
-	}
+    @Override
+    public Article getArticle(String name) {
+        return articleContentMapper.getArticle(name);
+    }
 
-	@Override
-	public long countArticles(ArticleForm form) {
-		return articleMapper.countArticles(form);
-	}
+    @Override
+    public long countArticles(ArticleForm form) {
+        return articleMetaMapper.countArticles(form);
+    }
 }
