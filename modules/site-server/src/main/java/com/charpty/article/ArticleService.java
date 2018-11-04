@@ -11,9 +11,9 @@ import java.util.List;
  */
 public interface ArticleService {
 
-	List<Article> listArticles(ArticleForm form);
+    List<ArticleMeta> listArticles(ArticleForm form);
 
-	Article getArticle(String name);
+    Article getArticle(String name);
 
-	long countArticles(ArticleForm form);
+    long countArticles(ArticleForm form);
 }

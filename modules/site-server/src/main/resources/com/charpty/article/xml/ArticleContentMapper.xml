@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.charpty.article.mapper.ArticleContentMapper">
+
+    <resultMap id="BaseResultMap" type="com.charpty.article.Article">
+        <id property="id" column="ID" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+        <result property="name" column="NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="type" column="TYPE" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+        <result property="status" column="STATUS" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+        <result property="title" column="TITLE" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="tag" column="TAG" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="summary" column="SUMMARY" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="coverImage" column="COVER_IMAGE" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="content" column="CONTENT" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="groupName" column="GROUP_NAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="creator" column="CREATOR" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="creationDate" column="CREATION_DATE" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+        <result property="modificationDate" column="MODIFICATION_DATE" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+        <result property="displayOrder" column="DISPLAY_ORDER" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+        <result property="pinged" column="PINGED" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+        <result property="praised" column="PRAISED" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+        <result property="wordCount" column="WORD_COUNT" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+        <result property="commentStatus" column="COMMENT_STATUS" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+        <result property="commentCount" column="COMMENT_COUNT" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+        <result property="revision" column="REVISION" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <select id="getContent" parameterType="java.lang.String" resultType="java.lang.String">
+        SELECT
+        CONTENT
+        FROM
+        ARTICLE_CONTENT
+        WHERE NAME = #{name,jdbcType=VARCHAR,javaType=java.lang.String}
+    </select>
+
+    <select id="getArticle" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT
+          meta.ID,meta.NAME,TYPE,STATUS,TITLE,TAG,SUMMARY,COVER_IMAGE,CONTENT,GROUP_NAME,CREATOR,CREATION_DATE,
+          MODIFICATION_DATE,DISPLAY_ORDER,PINGED,PRAISED,WORD_COUNT,COMMENT_STATUS,COMMENT_COUNT,REVISION
+        FROM
+        ARTICLE_META meta
+        LEFT JOIN ARTICLE_CONTENT content ON meta.name = content.name
+        WHERE meta.NAME = #{name,jdbcType=VARCHAR,javaType=java.lang.String}
+    </select>
+
+</mapper>

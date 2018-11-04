@@ -1,6 +1,7 @@
 package com.charpty.article;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,26 +18,27 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping
 public class ArticleController {
 
-	@Autowired
-	private ArticleService articleService;
+    @Autowired
+    private ArticleService articleService;
 
-	@RequestMapping(value = "/articles", method = RequestMethod.GET)
-	public List<Article> listArticles(ArticleForm form) {
-		if (form.getLimit() > 500) {
-			form.setLimit(500);
-		}
-		return articleService.listArticles(form);
-	}
+    @RequestMapping(value = "/articles", method = RequestMethod.GET)
+    public List<ArticleMeta> listArticles(ArticleForm form) {
+        if (form.getLimit() > 500) {
+            form.setLimit(500);
+        }
+        return articleService.listArticles(form);
+    }
 
-	@RequestMapping(value = "/articles/count", method = RequestMethod.GET)
-	public long countArticles(ArticleForm form) {
-		return articleService.countArticles(form);
-	}
+    @RequestMapping(value = "/articles/count", method = RequestMethod.GET)
+    public long countArticles(ArticleForm form) {
+        return articleService.countArticles(form);
+    }
 
-	@RequestMapping(value = "/article/{name}", method = RequestMethod.GET)
-	public Article getArticle(@PathVariable("name") String name) {
-		Assert.notNull(name, "article name can not be null");
-		return articleService.getArticle(name);
-	}
+    @RequestMapping(value = "/article/{name}", method = RequestMethod.GET)
+    public Article getArticle(@PathVariable("name") String name) {
+        Assert.notNull(name, "article name can not be null");
+        Article article = articleService.getArticle(name);
+        return article;
+    }
 
 }
