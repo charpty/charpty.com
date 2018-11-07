@@ -15,5 +15,9 @@ public interface ArticleService {
 
     Article getArticle(String name);
 
+    Article getBriefArticle(String name);
+
+    String content(String name);
+
     long countArticles(ArticleForm form);
 }

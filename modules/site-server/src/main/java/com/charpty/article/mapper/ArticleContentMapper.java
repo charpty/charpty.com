@@ -13,4 +13,5 @@ public interface ArticleContentMapper {
 
     Article getArticle(String name);
 
+    Article getBriefArticle(String name);
 }

@@ -32,6 +32,16 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    public Article getBriefArticle(String name) {
+        return articleContentMapper.getBriefArticle(name);
+    }
+
+    @Override
+    public String content(String name) {
+        return articleContentMapper.getContent(name);
+    }
+
+    @Override
     public long countArticles(ArticleForm form) {
         return articleMetaMapper.countArticles(form);
     }

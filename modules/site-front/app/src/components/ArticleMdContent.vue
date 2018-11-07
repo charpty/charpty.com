@@ -43,16 +43,23 @@
     },
     methods: {
       getArticleDetail: async function () {
-        let data = await api.get("/article/" + this.$route.params.articleName);
+        let data = await api.get("article/brief/" + this.$route.params.articleName);
         this.article = data;
         this.mdHtml = this.turnMarkdown2Html(data.content);
         document.title = data.title;
+        var self = this;
+        setTimeout(() => {
+          api.get("article/" + this.$route.params.articleName).then(function (detail) {
+            self.mdHtml = self.turnMarkdown2Html(detail.content);
+          });
+        }, 1024);
+
       },
       turnMarkdown2Html: function (content) {
         return markdownParser.parse(content);
       },
       goAboutAuthor() {
-        router.push("/about/author")
+        router.push("about/author")
       }
     }
   }

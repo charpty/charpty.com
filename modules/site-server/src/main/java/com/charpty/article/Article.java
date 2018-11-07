@@ -7,6 +7,7 @@ package com.charpty.article;
 public class Article extends ArticleMeta {
 
     private String content;
+    private boolean eof = true;
 
     public String getContent() {
         return content;
@@ -14,5 +15,13 @@ public class Article extends ArticleMeta {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public boolean isEof() {
+        return eof;
+    }
+
+    public void setEof(boolean eof) {
+        this.eof = eof;
     }
 }

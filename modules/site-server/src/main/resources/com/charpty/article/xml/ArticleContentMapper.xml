@@ -43,4 +43,13 @@
         WHERE meta.NAME = #{name,jdbcType=VARCHAR,javaType=java.lang.String}
     </select>
 
+    <select id="getBriefArticle" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT
+        LEFT(CONTENT,1024) as CONTENT,CREATOR,CREATION_DATE,WORD_COUNT
+        FROM
+        ARTICLE_META meta
+        LEFT JOIN ARTICLE_CONTENT content ON meta.name = content.name
+        WHERE meta.NAME = #{name,jdbcType=VARCHAR,javaType=java.lang.String}
+    </select>
+
 </mapper>

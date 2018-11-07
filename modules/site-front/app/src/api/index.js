@@ -1,4 +1,4 @@
-const apihost = '/s/api/';
+const api_prefix = '/s/api/';
 
 const getReqHeaders = {
   'Accept': 'application/json',
@@ -26,7 +26,7 @@ function checkStatus([status, statusText, data]) {
 }
 
 export default {
-  get (url, params = {}, host = apihost) {
+  get (url, params = {}, host = api_prefix) {
     let query = [], queryStr = '';
     Object.keys(params).forEach((item) => {
       query.push(`${item}=${encodeURIComponent(params[item])}`)
@@ -45,7 +45,7 @@ export default {
     return fetch(url, init).then(parseResponse).then(checkStatus);
   },
 
-  post (url, data = {}, host = apihost) {
+  post (url, data = {}, host = api_prefix) {
     url = host + url;
     let init = {
       method: 'POST',
@@ -57,7 +57,7 @@ export default {
     return fetch(url, init).then(parseResponse).then(checkStatus);
   },
 
-  put (url, data = {}, host = apihost) {
+  put (url, data = {}, host = api_prefix) {
     url = host + url;
     let init = {
       method: 'PUT',
@@ -69,7 +69,7 @@ export default {
     return fetch(url, init).then(parseResponse).then(checkStatus)
   },
 
-  delete (url, host = apihost) {
+  delete (url, host = api_prefix) {
     url = host + url;
     let init = {
       method: 'DELETE',

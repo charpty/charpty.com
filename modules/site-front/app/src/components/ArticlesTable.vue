@@ -78,7 +78,7 @@
     },
     methods: {
       async listArticles() {
-        this.countAricles();
+        this.countArticles();
         let start = 0;
         if (this.currentPage > 0) {
           start = (this.currentPage * this.everySize);
@@ -90,7 +90,7 @@
         this.articles = data;
         document.title = "charpty的文章列表";
       },
-      async countAricles() {
+      async countArticles() {
         let tc = await api.get("articles/count");
         this.totalCount = tc;
       },
@@ -109,7 +109,7 @@
         router.push({name: 'article', params: {articleName: articleName}});
       },
       goAboutAuthor: function () {
-        router.push("/about/author");
+        router.push("about/author");
       },
       parseSummary: function (summary) {
         if (summary && summary.length > 7) {
