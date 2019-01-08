@@ -1,4 +1,4 @@
-const api_prefix = '/s/api/';
+const api_prefix = '/x/api/';
 
 const getReqHeaders = {
   'Accept': 'application/json',
