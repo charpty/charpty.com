@@ -5,35 +5,20 @@
 set -e
 
 base_dir=~/charpty.com
-front_dir=${base_dir}/modules/site-front
-compile_dir=${front_dir}/app
-dist_dir=${front_dir}/dist
+front_dir=$base_dir/modules/site-front
+dist_dir=$front_dir/dist
+html_bak=/tmp/.charpt-site-html-bak
 
 cd $base_dir
 git pull origin master:master
 
-cd $compile_dir
-npm run build
+sh compile-front.sh $base_dir
 
-# 由于vendor.js偏大（1M左右），服务器带宽却非常少，所以将其放在OSS上
-# TODO 目前仅有caibo.ren有证书
-if [[ $1 =~ "-uv" ]]
-then
-    cd ~
-    sed_re='s/\/static\/js\/vendor\.\w*\.js/https:\/\/s.charpty.com\/s\/vendor.js/'
-    sed -ibakvendorjs ${sed_re} ${dist_dir}/index.html
-    rm -rf ./bakvendorjs
-    cp ${dist_dir}/static/js/vendor*.js ~/vendor.js
-    cd ~
-    python upload_s.py vendor.js
-fi
-# 仅仅将html目录setfacl给site用户
-rm -rf ~/html-bak
-mkdir -p ~/html-bak
-mv /usr/local/openresty/nginx/html/* ~/html-bak/ || true
-cp -rf ${dist_dir}/* /usr/local/openresty/nginx/html/
+rm -rf $html_bak
+mkdir -p $html_bak
+mv /usr/local/openresty/nginx/html/* $html_bak/ || true
+cp -rf $dist_dir/* /usr/local/openresty/nginx/html/
 
-# clean cache files
-# TODO
-# nginx -sreload
+# dc is an alias: for destroy the nginx cache and restart nginx
+dc
 echo '\033[0;32m*******************deploy success***************************'
