@@ -13,8 +13,6 @@
                 <span v-on:click="goAboutAuthor()" class="author">{{ article.creator }}</span>
                 |&nbsp;&nbsp;<i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;
                 <time class="post-date" datetime="" title="">{{ article.creationDate.split(' ')[0] }}</time>
-                |&nbsp;&nbsp;<i class="fa fa-group" aria-hidden="true"></i>
-                <span>{{ article.groupName }}</span>
                 |&nbsp;&nbsp;<i class="fa fa-file-word-o" aria-hidden="true"></i>
                 <span>{{ article.wordCount < 0 ? '未统计' : article.wordCount }}</span>
               </div>
@@ -32,11 +30,11 @@
             </div>
             <footer class="post-footer clearfix">
               <div class="pull-left tag-list">
-                <span class="author">阅读量：<a href="#">{{ article.pinged < 0 ? '暂未统计' : article.pinged }}</a></span>
-                <span class="author">&nbsp;&nbsp; | &nbsp;&nbsp;喜欢：<a
-                  href="#">{{ article.praised < 0 ? '暂未统计' : article.praised }}</a></span>
-                <span class="bottom-right-misc1"> &nbsp;&nbsp; | &nbsp;&nbsp;分类：<a href="#">{{ article.groupName
-                  }}</a></span>
+                <span>阅读量：<a href="#">{{ article.pinged < 0 ? '暂未统计' : article.pinged }}</a></span>
+                <span v-on:click="listArticles(article.groupName)"> &nbsp;&nbsp; | &nbsp;&nbsp;
+                  分类：<u>{{ article.groupName }}</u></span>
+                <span class="bottom-right-misc1">&nbsp;&nbsp; | &nbsp;&nbsp;
+                  喜欢：<a href="#">{{ article.praised < 0 ? '暂未统计' : article.praised }}</a></span>
                 <span class="bottom-right-misc2">&nbsp;&nbsp; | &nbsp;&nbsp;评论数：<a
                   href="#">{{ article.commentCount < 0 ? '暂未统计' : article.commentCount }}</a></span>
               </div>
@@ -78,21 +76,24 @@
       this.listArticles();
     },
     methods: {
-      async listArticles() {
-        this.countArticles();
+      async listArticles(groupName) {
+        let params = {}
+        if (groupName) {
+          params = {"groupName": groupName}
+        }
+        this.countArticles(groupName);
         let start = 0;
         if (this.currentPage > 0) {
           start = (this.currentPage * this.everySize);
         }
-        let data = await api.get("articles", {
-          start: start,
-          limit: this.everySize
-        });
+        params.start = start;
+        params.limit = this.everySize;
+        let data = await api.get("articles", params);
         this.articles = data;
         document.title = "charpty的文章列表";
       },
-      async countArticles() {
-        let tc = await api.get("articles/count");
+      async countArticles(params) {
+        let tc = await api.get("articles/count", params);
         this.totalCount = tc;
       },
       nextPage: function () {

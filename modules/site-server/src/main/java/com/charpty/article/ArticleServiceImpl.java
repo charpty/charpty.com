@@ -16,6 +16,8 @@ import com.charpty.article.mapper.ArticleMetaMapper;
 @Service
 public class ArticleServiceImpl implements ArticleService {
 
+    private static final String JS_NULL = "undefined";
+
     @Autowired
     private ArticleMetaMapper articleMetaMapper;
     @Autowired
@@ -50,6 +52,10 @@ public class ArticleServiceImpl implements ArticleService {
     private void checkAndResetArticleForm(ArticleForm form) {
         if (form.getLimit() > 500) {
             form.setLimit(500);
+        }
+        String groupName = form.getGroupName();
+        if (groupName != null && (groupName.isEmpty() || JS_NULL.equals(groupName))) {
+            form.setGroupName(null);
         }
     }
 }
