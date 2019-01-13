@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.google.gson.Gson;
-
 /**
  * @author CaiBo
  * @version $Id$
@@ -25,9 +23,6 @@ public class ArticleController {
 
     @RequestMapping(value = "/articles", method = RequestMethod.GET)
     public List<ArticleMeta> listArticles(ArticleForm form) {
-        if (form.getLimit() > 500) {
-            form.setLimit(500);
-        }
         return articleService.listArticles(form);
     }
 
@@ -39,23 +34,12 @@ public class ArticleController {
     @RequestMapping(value = "/article/{name}", method = RequestMethod.GET)
     public Article getArticle(@PathVariable("name") String name) {
         Assert.notNull(name, "article name can not be null");
-        Article article = articleService.getArticle(name);
-        return article;
-    }
-
-    @RequestMapping(value = "/article/content/{name}", method = RequestMethod.GET)
-    public Article getContent(@PathVariable("name") String name) {
-        Assert.notNull(name, "article name can not be null");
-        Article article = articleService.getArticle(name);
-        return article;
+        return articleService.getArticle(name);
     }
 
     @RequestMapping(value = "/article/brief/{name}", method = RequestMethod.GET)
     public Article getArticleBrief(@PathVariable("name") String name) {
         Assert.notNull(name, "article name can not be null");
-        Article article = articleService.getBriefArticle(name);
-        System.out.println(new Gson().toJson(article));
-        return article;
+        return articleService.getBriefArticle(name);
     }
-
 }

@@ -11,6 +11,7 @@
   export default {
     components: {
       'contact-me': ContactMe,
+
     }
   }
 

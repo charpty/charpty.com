@@ -23,6 +23,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public List<ArticleMeta> listArticles(ArticleForm form) {
+        checkAndResetArticleForm(form);
         return articleMetaMapper.listArticles(form);
     }
 
@@ -44,5 +45,11 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public long countArticles(ArticleForm form) {
         return articleMetaMapper.countArticles(form);
+    }
+
+    private void checkAndResetArticleForm(ArticleForm form) {
+        if (form.getLimit() > 500) {
+            form.setLimit(500);
+        }
     }
 }
