@@ -1,56 +1,58 @@
 <template>
   <main>
     <section>
-      <div class="container">
-        <div class="main-content">
-          <article v-for="(article,index) in articles" :key="index" class="post">
-            <div class="post-head">
-              <h1 class="post-title">
-                <span v-on:click="goArticleDetail(article.name)">{{ article.title }}</span>
-              </h1>
-              <div class="post-meta">
-                <i class="fa fa-user-circle" aria-hidden="true"></i>
-                <span v-on:click="goAboutAuthor()" class="author">{{ article.creator }}</span>
-                |&nbsp;&nbsp;<i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;
-                <time class="post-date" datetime="" title="">{{ article.creationDate.split(' ')[0] }}</time>
-                |&nbsp;&nbsp;<i class="fa fa-file-word-o" aria-hidden="true"></i>
-                <span>{{ article.wordCount < 0 ? '未统计' : article.wordCount }}</span>
-              </div>
+      <div>
+        <article v-for="(article,index) in articles" :key="index" class="post">
+          <div class="post-head">
+            <h1 class="post-title">
+              <span v-on:click="goArticleDetail(article.name)">{{ article.title }}</span>
+            </h1>
+            <div class="post-meta">
+              <i class="fa fa-user-circle" aria-hidden="true"></i>
+              <span v-on:click="goAboutAuthor()" class="author">{{ article.creator }}</span>
+              |&nbsp;&nbsp;<i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;
+              <time class="post-date" datetime="" title="">{{ article.creationDate.split(' ')[0] }}</time>
+              |&nbsp;&nbsp;<i class="fa fa-file-word-o" aria-hidden="true"></i>
+              <span>{{ article.wordCount < 0 ? '未统计' : article.wordCount }}</span>
             </div>
-            <div class="featured-media" v-on:click="goArticleDetail(article.name)">
-              <img v-if="article.coverImage" v-bind:src="article.coverImage" v-bind:alt="article.title"
-                   v-bind:title="article.title">
+          </div>
+          <div class="featured-media" v-on:click="goArticleDetail(article.name)">
+            <img v-if="article.coverImage" v-bind:src="article.coverImage" v-bind:alt="article.title"
+                 v-bind:title="article.title">
+          </div>
+          <div v-on:click="goArticleDetail(article.name)" class="post-content">
+            <p v-html="parseSummary(article.summary)">
+            </p>
+          </div>
+          <div class="post-permalink">
+            <a v-on:click="goArticleDetail(article.name)" class="btn btn-warning">阅读全文</a>
+          </div>
+          <footer class="post-footer clearfix">
+            <div class="pull-left tag-list">
+              阅读量：
+              <span>{{ article.pinged < 0 ? '暂未统计' : article.pinged }}</span>
+              &nbsp;&nbsp; | &nbsp;&nbsp;
+              分类：
+              <span class="like-href" v-on:click="resetArticles(article.groupName)">{{ article.groupName }}</span>
+              &nbsp;&nbsp; | &nbsp;&nbsp;
+              <span class="bottom-right-misc1">
+                  喜欢：{{ article.praised < 0 ? '暂未统计' : article.praised }}</span>
+              &nbsp;&nbsp; | &nbsp;&nbsp;
+              <span class="bottom-right-misc2">
+                  评论数：{{ article.commentCount < 0 ? '暂未统计' : article.commentCount }}</span>
             </div>
-            <div v-on:click="goArticleDetail(article.name)" class="post-content">
-              <p v-html="parseSummary(article.summary)">
-              </p>
+            <div class="pull-right share">
             </div>
-            <div class="post-permalink">
-              <a v-on:click="goArticleDetail(article.name)" class="btn btn-warning">阅读全文</a>
-            </div>
-            <footer class="post-footer clearfix">
-              <div class="pull-left tag-list">
-                <span>阅读量：<a href="#">{{ article.pinged < 0 ? '暂未统计' : article.pinged }}</a></span>
-                <span v-on:click="listArticles(article.groupName)"> &nbsp;&nbsp; | &nbsp;&nbsp;
-                  分类：<u>{{ article.groupName }}</u></span>
-                <span class="bottom-right-misc1">&nbsp;&nbsp; | &nbsp;&nbsp;
-                  喜欢：<a href="#">{{ article.praised < 0 ? '暂未统计' : article.praised }}</a></span>
-                <span class="bottom-right-misc2">&nbsp;&nbsp; | &nbsp;&nbsp;评论数：<a
-                  href="#">{{ article.commentCount < 0 ? '暂未统计' : article.commentCount }}</a></span>
-              </div>
-              <div class="pull-right share">
-              </div>
-            </footer>
-          </article>
-          <nav class="paging" role="navigation">
+          </footer>
+        </article>
+        <nav class="paging" role="navigation">
               <span class="page-number" v-if="this.currentPage && this.currentPage > 0"
                     v-on:click="previousPage()">上一页</span>
-            <span class="page-number">第 {{ currentPage + 1 }} 页 &frasl; 共 {{ Math.ceil(totalCount / everySize)
-              }} 页</span>
-            <span class="page-number" v-if="(this.everySize*(this.currentPage+1))<this.totalCount"
-                  v-on:click="nextPage()">下一页</span>
-          </nav>
-        </div>
+          <span class="page-number">第 {{ currentPage + 1 }} 页 &frasl; 共 {{ Math.ceil(totalCount / everySize)
+            }} 页</span>
+          <span class="page-number" v-if="(this.everySize*(this.currentPage+1))<this.totalCount"
+                v-on:click="nextPage()">下一页</span>
+        </nav>
       </div>
     </section>
   </main>
@@ -69,19 +71,28 @@
         articles: [],
         currentPage: 0,
         totalCount: 0,
-        everySize: 5
+        everySize: 5,
+        groupName: undefined
       }
     },
     created() {
       this.listArticles();
     },
     methods: {
-      async listArticles(groupName) {
+      async resetArticles(groupName) {
+        this.groupName = groupName;
+        this.listArticles();
+        this.toTop();
+      },
+      async listArticles() {
         let params = {}
-        if (groupName) {
-          params = {"groupName": groupName}
+        if (this.groupName) {
+          params = {"groupName": this.groupName}
+          document.title = "分类列表-" + this.groupName;
+        } else {
+          document.title = "charpty的文章列表";
         }
-        this.countArticles(groupName);
+        this.countArticles(params);
         let start = 0;
         if (this.currentPage > 0) {
           start = (this.currentPage * this.everySize);
@@ -90,11 +101,9 @@
         params.limit = this.everySize;
         let data = await api.get("articles", params);
         this.articles = data;
-        document.title = "charpty的文章列表";
       },
       async countArticles(params) {
-        let tc = await api.get("articles/count", params);
-        this.totalCount = tc;
+        this.totalCount = await api.get("articles/count", params);
       },
       nextPage: function () {
         this.currentPage++;
