@@ -34,11 +34,11 @@
               &nbsp;&nbsp; | &nbsp;&nbsp;
               分类：
               <span class="like-href" v-on:click="resetArticles(article.groupName)">{{ article.groupName }}</span>
-              &nbsp;&nbsp; | &nbsp;&nbsp;
               <span class="bottom-right-misc1">
-                  喜欢：{{ article.praised < 0 ? '暂未统计' : article.praised }}</span>
               &nbsp;&nbsp; | &nbsp;&nbsp;
+                  喜欢：{{ article.praised < 0 ? '暂未统计' : article.praised }}</span>
               <span class="bottom-right-misc2">
+              &nbsp;&nbsp; | &nbsp;&nbsp;
                   评论数：{{ article.commentCount < 0 ? '暂未统计' : article.commentCount }}</span>
             </div>
             <div class="pull-right share">
@@ -81,6 +81,7 @@
     methods: {
       async resetArticles(groupName) {
         this.groupName = groupName;
+        this.currentPage = 0;
         this.listArticles();
         this.toTop();
       },
