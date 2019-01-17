@@ -77,6 +77,10 @@
     },
     created() {
       this.listArticles();
+      
+      this.$root.$on('table-update', () => {
+        this.resetArticles();
+      })
     },
     methods: {
       async resetArticles(groupName) {

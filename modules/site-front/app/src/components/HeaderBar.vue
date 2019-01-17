@@ -22,9 +22,9 @@
               <a>文章列表</a></li>
             <li v-on:click="goRoute('/y2017')">
               <a>2017年</a></li>
-            <li v-on:click="unsupport()">
+            <li>
               <a>J2EE设计</a></li>
-            <li v-on:click="unsupport()">
+            <li>
               <a>结构与存储</a></li>
             <li v-on:click="goRoute('/about/site')">
               <a>关于本站</a></li>
@@ -61,9 +61,6 @@
           nav.style.height = "auto";
         }
       },
-      unsupport: function () {
-        console.log("unsupport");
-      },
       barClick: function () {
         if (window.width <= 641) {
           document.getElementById('button-navbar-toggle').click();
@@ -85,6 +82,9 @@
         }
       },
       goRoute: function (path) {
+        if (path === "/articles") {
+          this.$root.$emit("table-update");
+        }
         router.push(path);
       },
       async getDailyWord() {
@@ -92,7 +92,6 @@
         if (r && r.length > 4) {
           this.dailyWord = r;
         }
-
       }
     }
   };
