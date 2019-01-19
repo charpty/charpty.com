@@ -18,15 +18,15 @@
         </div>
         <div class="navbar-collapse" id="site-navbar-collapse" v-on:click="barClick()">
           <ul class="nav navbar-nav">
-            <li v-on:click="goRoute('/articles')">
+            <li v-on:click="itemClick('/articles')">
               <a>文章列表</a></li>
-            <li v-on:click="goRoute('/y2017')">
+            <li v-on:click="itemClick('/y2017')">
               <a>2017年</a></li>
             <li>
               <a>J2EE设计</a></li>
             <li>
               <a>结构与存储</a></li>
-            <li v-on:click="goRoute('/about/site')">
+            <li v-on:click="itemClick('/about/site')">
               <a>关于本站</a></li>
           </ul>
         </div>
@@ -42,6 +42,7 @@
   export default {
     data() {
       return {
+        toggleButton: undefined,
         dailyWord: "成功=目标，其他语句都是这行代码的注释",
         titleClickCount: 0,
         panelClickCount: 1
@@ -52,6 +53,7 @@
     },
     methods: {
       navbarToggle: function () {
+        this.toggleButton = true;
         var nav = document.getElementById("site-navbar-collapse");
         if (nav.style.visibility && nav.style.visibility == "visible") {
           nav.style.visibility = "hidden"
@@ -81,9 +83,12 @@
           router.push('/');
         }
       },
-      goRoute: function (path) {
+      itemClick: function (path) {
         if (path === "/articles") {
           this.$root.$emit("table-update");
+        }
+        if (this.toggleButton) {
+          this.navbarToggle();
         }
         router.push(path);
       },
