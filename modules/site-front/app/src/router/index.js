@@ -2,9 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import ArticleList from '../components/ArticleList.vue';
 import Article from '../components/Article.vue';
-import AboutSite from '../components/AboutSite.vue';
-import AboutAuthor from '../components/AboutAuthor.vue';
-import Y2017 from '../components/Y2017.vue';
+import SimpleArticle from '../components/SimpleArticle.vue';
 
 import NotFound from '../components/NotFound.vue'
 
@@ -27,19 +25,9 @@ const routes = [
     component: Article
   },
   {
-    path: '/about/site',
-    name: 'aboutSite',
-    component: AboutSite
-  },
-  {
-    path: '/about/author',
-    name: 'aboutAuthor',
-    component: AboutAuthor
-  },
-  {
-    path: '/y2017',
-    name: 'y2017',
-    component: Y2017
+    path: '/simple/article/:articleName',
+    name: 'simpleArticle',
+    component: SimpleArticle
   },
   {
     path: '*',

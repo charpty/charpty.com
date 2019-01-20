@@ -57,7 +57,6 @@
             self.mdHtml = self.turnMarkdown2Html(detail.content);
           });
         }, 1024);
-
       },
       turnMarkdown2Html: function (content) {
         return markdownParser.parse(content);

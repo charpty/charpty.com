@@ -20,7 +20,6 @@ function checkStatus([status, statusText, data]) {
     let error = new Error(statusText);
     error.status = status;
     error.error_message = data;
-    console.log("[ERR]code=" + status + ",msg=" + statusText);
     return Promise.reject(error)
   }
 }
@@ -34,7 +33,6 @@ export default {
     if (query.length) queryStr = '?' + query.join('&');
     url = host + url;
     if (queryStr.length > 0) url = url + queryStr;
-    console.log(url);
     let init = {
       method: 'GET',
       headers: getReqHeaders,

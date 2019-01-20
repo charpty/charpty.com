@@ -18,15 +18,15 @@
         </div>
         <div class="navbar-collapse" id="site-navbar-collapse" v-on:click="barClick()">
           <ul class="nav navbar-nav">
-            <li v-on:click="itemClick('/articles')">
+            <li v-on:click="itemClick({name: 'articleList'})">
               <a>文章列表</a></li>
-            <li v-on:click="itemClick('/y2017')">
+            <li v-on:click="itemClick({name: 'simpleArticle', params: {articleName: 'build-site-2017'}})">
               <a>2017年</a></li>
             <li>
               <a>J2EE设计</a></li>
             <li>
               <a>结构与存储</a></li>
-            <li v-on:click="itemClick('/about/site')">
+            <li v-on:click="itemClick({name: 'simpleArticle', params: {articleName: 'about-site'}})">
               <a>关于本站</a></li>
           </ul>
         </div>
@@ -83,14 +83,15 @@
           router.push('/');
         }
       },
-      itemClick: function (path) {
-        if (path === "/articles") {
+      itemClick: function (params) {
+        if (params.name === "articleList") {
           this.$root.$emit("table-update");
         }
+
         if (this.toggleButton) {
           this.navbarToggle();
         }
-        router.push(path);
+        router.push(params);
       },
       async getDailyWord() {
         let r = await api.get("word/random");
