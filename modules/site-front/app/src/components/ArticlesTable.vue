@@ -27,21 +27,21 @@
           <div class="post-permalink">
             <a v-on:click="goArticleDetail(article.name)" class="btn btn-warning">阅读全文</a>
           </div>
-          <footer class="post-footer clearfix">
-            <div class="pull-left tag-list">
+          <footer class="post-footer">
+            <div class="tag-list">
               阅读量：
-              <span>{{ article.pinged < 0 ? '暂未统计' : article.pinged }}</span>
+              <span>{{ article.pinged }}</span>
               &nbsp;&nbsp; | &nbsp;&nbsp;
               分类：
               <span class="like-href" v-on:click="resetArticles(article.groupName)">{{ article.groupName }}</span>
-              <span class="bottom-right-misc1">
+              <span>
               &nbsp;&nbsp; | &nbsp;&nbsp;
-                  喜欢：{{ article.praised < 0 ? '暂未统计' : article.praised }}</span>
+                  喜欢：<i v-on:click="likeArticle($event,article)" class="fa fa-heart bigger" aria-hidden="true"></i>
+                  {{ article.praised }}
+              </span>
               <span class="bottom-right-misc2">
               &nbsp;&nbsp; | &nbsp;&nbsp;
                   评论数：{{ article.commentCount < 0 ? '暂未统计' : article.commentCount }}</span>
-            </div>
-            <div class="pull-right share">
             </div>
           </footer>
         </article>
@@ -77,7 +77,7 @@
     },
     created() {
       this.listArticles();
-      
+
       this.$root.$on('table-update', () => {
         this.resetArticles();
       })
@@ -109,6 +109,9 @@
       },
       async countArticles(params) {
         this.totalCount = await api.get("articles/count", params);
+      },
+      async likeArticle(event, article) {
+        article.praised++;
       },
       nextPage: function () {
         this.currentPage++;

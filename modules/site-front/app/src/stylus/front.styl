@@ -1,69 +1,64 @@
-.fa-envelope {
+.fa-svg {
   display: inline-block;
   text-indent: -9999px;
   width: 10px;
   height: 20px;
   padding-bottom: 0px;
+}
+
+.fa-heart {
+  display: inline-table;
+  font: normal normal normal 14px / 1;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin-bottom: -5px;
+  width: 20px;
+  height: 20px;
+  padding-bottom: 0px;
+  background: url(../assets/fonts/heart.svg) no-repeat bottom right;
+  background-size: contain;
+}
+
+.fa-envelope {
+  @extend .fa-svg
   background: url(../assets/fonts/email.svg) no-repeat bottom right;
   background-size: contain;
 }
 
 .fa-github {
-  display: inline-block;
-  text-indent: -9999px;
-  width: 10px;
-  height: 20px;
-  padding-bottom: 0px;
+  @extend .fa-svg
   background: url(../assets/fonts/github.svg) no-repeat bottom right;
   background-size: contain;
 }
 
 .fa-globe {
-  display: inline-block;
-  text-indent: -9999px;
-  width: 10px;
-  height: 20px;
-  padding-bottom: 0px;
+  @extend .fa-svg
   background: url(../assets/fonts/website.svg) no-repeat bottom right;
   background-size: contain;
 }
 
 .fa-qq {
-  display: inline-block;
-  text-indent: -9999px;
-  width: 10px;
-  height: 20px;
-  padding-bottom: 0px;
+  @extend .fa-svg
   background: url(../assets/fonts/qq.svg) no-repeat bottom right;
   background-size: contain;
 }
 
 .fa-user-circle {
-  display: inline-block;
-  text-indent: -9999px;
-  width: 10px;
-  height: 20px;
-  padding-bottom: 0px;
+  @extend .fa-svg
   background: url(../assets/fonts/user.svg) no-repeat bottom right;
   background-size: contain;
 }
 
 .fa-calendar {
-  display: inline-block;
-  text-indent: -9999px;
-  width: 10px;
-  height: 20px;
-  padding-bottom: 0px;
+  @extend .fa-svg
   background: url(../assets/fonts/time.svg) no-repeat bottom right;
   background-size: contain;
 }
 
 .fa-file-word-o {
-  display: inline-block;
-  text-indent: -9999px;
-  width: 10px;
-  height: 20px;
-  padding-bottom: 0px;
+  @extend .fa-svg
   background: url(../assets/fonts/word.svg) no-repeat bottom right;
   background-size: contain;
 }
