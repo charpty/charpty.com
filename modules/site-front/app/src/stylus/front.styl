@@ -7,18 +7,18 @@
 }
 
 .fa-heart {
+  @extend .fa-svg
   display: inline-table;
-  font: normal normal normal 14px / 1;
-  font-size: inherit;
-  text-rendering: auto;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   margin-bottom: -5px;
   width: 20px;
   height: 20px;
-  padding-bottom: 0px;
   background: url(../assets/fonts/heart.svg) no-repeat bottom right;
   background-size: contain;
+  transition: all 0.6s;
+}
+
+.fa-heart:hover {
+  transform: scale(1.5);
 }
 
 .fa-envelope {

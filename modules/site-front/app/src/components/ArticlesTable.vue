@@ -36,7 +36,7 @@
               <span class="like-href" v-on:click="resetArticles(article.groupName)">{{ article.groupName }}</span>
               <span>
               &nbsp;&nbsp; | &nbsp;&nbsp;
-                  喜欢：<i v-on:click="likeArticle($event,article)" class="fa fa-heart bigger" aria-hidden="true"></i>
+                  喜欢：<i v-on:click="likeArticle(article)" class="fa fa-heart" aria-hidden="true"></i>
                   {{ article.praised }}
               </span>
               <span class="bottom-right-misc2">
@@ -110,7 +110,7 @@
       async countArticles(params) {
         this.totalCount = await api.get("articles/count", params);
       },
-      async likeArticle(event, article) {
+      async likeArticle(article) {
         article.praised++;
       },
       nextPage: function () {
