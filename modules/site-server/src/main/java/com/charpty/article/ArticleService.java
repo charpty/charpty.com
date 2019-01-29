@@ -2,6 +2,8 @@ package com.charpty.article;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * The interface Article service.
  *
@@ -17,7 +19,7 @@ public interface ArticleService {
 
     Article getBriefArticle(String name);
 
-    String content(String name);
-
     long countArticles(ArticleForm form);
+
+    void incrPinged(Article article, HttpServletRequest request);
 }

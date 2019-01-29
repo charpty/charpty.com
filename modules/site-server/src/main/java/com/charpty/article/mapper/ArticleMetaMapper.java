@@ -2,6 +2,8 @@ package com.charpty.article.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.charpty.article.ArticleForm;
 import com.charpty.article.ArticleMeta;
 
@@ -16,4 +18,5 @@ public interface ArticleMetaMapper {
 
     int countArticles(ArticleForm form);
 
+    int incrPinged(@Param("id") int id, @Param("increment") int increment);
 }

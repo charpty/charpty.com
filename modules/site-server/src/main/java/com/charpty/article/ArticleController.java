@@ -2,6 +2,8 @@ package com.charpty.article;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,9 +34,13 @@ public class ArticleController {
     }
 
     @RequestMapping(value = "/article/{name}", method = RequestMethod.GET)
-    public Article getArticle(@PathVariable("name") String name) {
+    public Article getArticle(@PathVariable("name") String name, HttpServletRequest request) {
         Assert.notNull(name, "article name can not be null");
-        return articleService.getArticle(name);
+        Article article = articleService.getArticle(name);
+        if (article != null) {
+            articleService.incrPinged(article, request);
+        }
+        return article;
     }
 
     @RequestMapping(value = "/article/brief/{name}", method = RequestMethod.GET)

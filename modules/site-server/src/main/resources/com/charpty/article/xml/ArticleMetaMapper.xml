@@ -59,4 +59,10 @@
         </if>
     </select>
 
+    <update id="incrPinged">
+        UPDATE ARTICLE_META
+        SET PINGED = PINGED + #{increment,jdbcType=INTEGER,javaType=java.lang.Integer}
+        WHERE ID =  #{id,jdbcType=INTEGER,javaType=java.lang.Integer}
+    </update>
+
 </mapper>
