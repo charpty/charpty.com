@@ -8,11 +8,11 @@ import java.util.List;
  */
 public class ArticleQuery {
 
-	public List<Article> listArticles() {
-		return null;
-	}
+    public List<Article> listArticles() {
+        return null;
+    }
 
-	public Article getArticle(String name) {
-		return null;
-	}
+    public Article getArticle(String name) {
+        return null;
+    }
 }

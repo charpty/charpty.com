@@ -36,11 +36,7 @@ public class ArticleController {
     @RequestMapping(value = "/article/{name}", method = RequestMethod.GET)
     public Article getArticle(@PathVariable("name") String name, HttpServletRequest request) {
         Assert.notNull(name, "article name can not be null");
-        Article article = articleService.getArticle(name);
-        if (article != null) {
-            articleService.incrPinged(article, request);
-        }
-        return article;
+        return articleService.getArticle(name);
     }
 
     @RequestMapping(value = "/article/brief/{name}", method = RequestMethod.GET)

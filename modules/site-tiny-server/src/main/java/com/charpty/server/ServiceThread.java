@@ -6,7 +6,7 @@ package com.charpty.server;
  * @since 2017/10/10 下午9:13
  */
 public class ServiceThread implements Runnable {
-	public void run() {
+    public void run() {
 
-	}
+    }
 }

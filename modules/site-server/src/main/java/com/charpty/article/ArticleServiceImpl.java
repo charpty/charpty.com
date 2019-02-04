@@ -9,7 +9,6 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import com.charpty.article.mapper.ArticleContentMapper;
@@ -59,11 +58,6 @@ public class ArticleServiceImpl implements ArticleService {
         String userAgent = request.getHeader("user-agent");
         String remote = request.getRemoteAddr();
         TaskHelper.execute(() -> incrPinged0(article, userAgent, remote));
-    }
-
-    @Scheduled(cron = "0 0 0 * *")
-    public void cleanViewed() {
-        VIEWED_FILTERS.clear();
     }
 
     private void incrPinged0(Article article, String userAgent, String remote) {
