@@ -1,4 +1,4 @@
-package com.charpty.query;
+package com.charpty.handlers;
 
 import java.util.Date;
 
@@ -7,7 +7,7 @@ import java.util.Date;
  * @version $Id$
  * @since 2017/8/20 上午10:20
  */
-public class Article {
+public class ArticleMeta {
 
     private int id;
     private String name;
@@ -17,7 +17,6 @@ public class Article {
     private String tag;
     private String summary;
     private String coverImage;
-    private String content;
     private String groupName;
     private String creator;
     private Date creationDate;
@@ -30,7 +29,7 @@ public class Article {
     private int commentCount;
     private int revision;
 
-    public Article() {
+    public ArticleMeta() {
 
     }
 
@@ -96,14 +95,6 @@ public class Article {
 
     public void setCoverImage(String coverImage) {
         this.coverImage = coverImage;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
     }
 
     public String getGroupName() {

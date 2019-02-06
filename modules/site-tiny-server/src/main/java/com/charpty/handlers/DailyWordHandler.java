@@ -1,17 +1,31 @@
-package com.charpty.query;
+package com.charpty.handlers;
+
+import com.charpty.server.HTTPRequest;
+import com.charpty.server.RequestHandler;
 
 /**
  * @author charpty
  * @since 2017/12/24
  */
-public class DailyWordQuery {
+public class DailyWordHandler implements RequestHandler {
+
+    private static final String DW_PATH = "/word/random";
 
     private final int mask = 31;
     private final String[] arr = new String[mask + 1];
     private int random = 6;
 
-    public DailyWordQuery() {
+    public DailyWordHandler() {
         initWords();
+    }
+
+    @Override
+    public String handle(HTTPRequest request) {
+        String path = request.getPath();
+        if (DW_PATH.equals(path)) {
+            return random();
+        }
+        return null;
     }
 
     public String random() {
@@ -54,4 +68,5 @@ public class DailyWordQuery {
         arr[30] = "不让生活留下遗憾，抓住改变生活的机会";
         arr[31] = "天道酬勤，但付出了不一定得到回报";
     }
+
 }

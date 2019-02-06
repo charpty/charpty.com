@@ -1,20 +1,14 @@
 package com.charpty.article;
 
-import java.util.Arrays;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.charpty.article.mapper.ArticleContentMapper;
 import com.charpty.article.mapper.ArticleMetaMapper;
-import com.charpty.util.TaskHelper;
-import com.tomato.util.DateUtil;
 
 /**
  * @author CaiBo
@@ -51,24 +45,6 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public long countArticles(ArticleForm form) {
         return articleMetaMapper.countArticles(form);
-    }
-
-    @Override
-    public void incrPinged(Article article, HttpServletRequest request) {
-        String userAgent = request.getHeader("user-agent");
-        String remote = request.getRemoteAddr();
-        TaskHelper.execute(() -> incrPinged0(article, userAgent, remote));
-    }
-
-    private void incrPinged0(Article article, String userAgent, String remote) {
-        int id = article.getId();
-        Date date = new Date();
-        DateUtil.clearTime(date);
-        int key = Arrays.hashCode(new Object[] { article.getId(), userAgent, remote, date.getTime() });
-        if (!VIEWED_FILTERS.contains(key)) {
-            articleMetaMapper.incrPinged(id, 1);
-            VIEWED_FILTERS.add(key);
-        }
     }
 
     private void checkAndResetArticleForm(ArticleForm form) {

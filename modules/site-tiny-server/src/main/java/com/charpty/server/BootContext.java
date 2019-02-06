@@ -1,6 +1,6 @@
 package com.charpty.server;
 
-import java.util.Map;
+import java.util.List;
 
 /**
  * @author caibo
@@ -11,7 +11,8 @@ public class BootContext {
 
     private int port = 5566;
     // 所有请求均范围JSON格式数据
-    private Map<String, RequestHandler> handlerMap;
+    private List<RequestHandler> handlers;
+    private BootDataSource dataSource;
 
     public static BootContext buildBootContext(String[] args) {
         BootContext context = new BootContext();
@@ -26,11 +27,19 @@ public class BootContext {
         this.port = port;
     }
 
-    public Map<String, RequestHandler> getHandlerMap() {
-        return handlerMap;
+    public List<RequestHandler> getHandlers() {
+        return handlers;
     }
 
-    public void setHandlerMap(Map<String, RequestHandler> handlerMap) {
-        this.handlerMap = handlerMap;
+    public void setHandlers(List<RequestHandler> handlers) {
+        this.handlers = handlers;
+    }
+
+    public BootDataSource getDataSource() {
+        return dataSource;
+    }
+
+    public void setDataSource(BootDataSource dataSource) {
+        this.dataSource = dataSource;
     }
 }

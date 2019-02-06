@@ -8,8 +8,8 @@ import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
 import java.util.Iterator;
-import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ExecutorService;
 
 /**
  * @author caibo
@@ -20,6 +20,7 @@ public final class BootStrap {
 
     private static final String RESPONSE_LINE = "HTTP/1.1 200 OK\r\n";
     private static final String RESPONSE_HEADER = "Content-Type:application/json;charset=UTF-8\r\n";
+    private static final ExecutorService ES = new BootExecutor();
 
     private BootStrap() {
         super();
@@ -32,19 +33,13 @@ public final class BootStrap {
         Selector selector = Selector.open();
         ssc.register(selector, SelectionKey.OP_ACCEPT);
 
-        aeMain(selector, context.getHandlerMap());
+        LogUtil.debug(BootStrap.class, "Server listen on: %d", context.getPort());
+        while (true) {
+            aeMain(selector, context);
+        }
     }
 
-    private static RequestHandler getRequestHandler(Map<String, RequestHandler> handlerMap, HTTPRequest request) {
-        return handlerMap.get("");
-    }
-
-    private static void writeError(ByteBuffer out) {
-        // 所有错误统一响应404
-        out.put("HTTP/1.1 422 422".getBytes());
-    }
-
-    private static final void aeMain(Selector selector, Map<String, RequestHandler> handlerMap) throws IOException {
+    private static final void aeMain(Selector selector, BootContext context) throws IOException {
         selector.select();
         Set<SelectionKey> keys = selector.selectedKeys();
         Iterator<SelectionKey> it = keys.iterator();
@@ -57,81 +52,104 @@ public final class BootStrap {
                 socket.register(selector, SelectionKey.OP_READ);
                 it.remove();
             } else if (next.isReadable()) {
-                SocketChannel channel = (SocketChannel)next.channel();
-                ByteBuffer buffer = (ByteBuffer)next.attachment();
-                if (buffer == null) {
-                    buffer = ByteBuffer.allocate(128);
-                    next.attach(buffer);
-                }
-                int read = channel.read(buffer);
-                if (read < 0) {
-                    it.remove();
-                    continue;
-                }
-                if (read == 0 && buffer.position() == buffer.capacity()) {
-                    // buffer不够
-                    if (buffer.capacity() < 256) {
-                        ByteBuffer tmp = ByteBuffer.allocate(buffer.capacity() * 2);
-                        tmp.put(buffer);
-                        next.attach(buffer);
-                        continue;
-                    }
-                    // 按理应继续扩容，但当读超过256时应该已经读完了URL部分
-                    // do nothing
-                }
-                String tmp = new String(buffer.array(), 0, buffer.position());
-                // 我的博客服务器只有GET请求
-                if (!tmp.startsWith("GET")) {
-                    it.remove();
-                    continue;
-                }
-                int i = tmp.indexOf("\n");
-                if (i < 0) {
-                    // 不太可能还没读到
-                    it.remove();
-                    continue;
-                }
-                int s = tmp.indexOf(" ", 4);
-                String path = tmp.substring(4, s);
-                if (path.endsWith("\r")) {
-                    path = path.substring(0, path.length() - 1);
-                }
-                buffer.clear();
-                buffer = null;
-                HTTPRequest request = new HTTPRequest();
-                RequestHandler handler = getRequestHandler(handlerMap, request);
-                ByteBuffer out = ByteBuffer.allocate(256);
-                out.clear();
-                if (handler == null) {
-                    writeError(out);
-                    it.remove();
-                    continue;
-                }
-                String content = null;
-                content = handler.handle(request);
-                StringBuffer sb = new StringBuffer(1024);
-                // header
-                sb.append(RESPONSE_LINE);
-                sb.append(RESPONSE_HEADER);
-                sb.append("Content-Length: ");
-                sb.append(content.getBytes().length);
-                // content
-                sb.append("\r\n\r\n").append(content);
-                sb.append("\r\n\r\n\r\n");
-
-                byte[] bytes = sb.toString().getBytes();
-                int n = 0;
-                while (n < bytes.length) {
-                    out.clear();
-                    int x = n + 1024 > bytes.length ? (bytes.length - n) : 1024;
-                    out.put(bytes, n, x);
-                    out.flip();
-                    channel.write(out);
-                    n = n + x;
-                }
-                out = null;
-                it.remove();
+                handleRequest(context, it, next);
             }
         }
+    }
+
+    private static void handleRequest(BootContext context, Iterator<SelectionKey> it, SelectionKey next)
+            throws IOException {
+        SocketChannel channel = (SocketChannel)next.channel();
+        ByteBuffer buffer = (ByteBuffer)next.attachment();
+        if (buffer == null) {
+            buffer = ByteBuffer.allocate(128);
+            next.attach(buffer);
+        }
+        int read = channel.read(buffer);
+        if (read < 0) {
+            it.remove();
+            return;
+        }
+        if (read == 0 && buffer.position() == buffer.capacity()) {
+            // buffer不够
+            if (buffer.capacity() < 256) {
+                ByteBuffer tmp = ByteBuffer.allocate(buffer.capacity() * 2);
+                tmp.put(buffer);
+                next.attach(buffer);
+                return;
+            }
+            // 按理应继续扩容，但当读超过256时应该已经读完了URL部分
+            // do nothing
+        }
+        String tmp = new String(buffer.array(), 0, buffer.position());
+        // 我的博客服务器只有GET请求
+        if (!tmp.startsWith("GET")) {
+            it.remove();
+            return;
+        }
+        int i = tmp.indexOf("\n");
+        if (i < 0) {
+            // 不太可能还没读到
+            it.remove();
+            return;
+        }
+        int s = tmp.indexOf(" ", 4);
+        String fullPath = tmp.substring(4, s);
+        if (fullPath.endsWith("\r")) {
+            fullPath = fullPath.substring(0, fullPath.length() - 1);
+        }
+        buffer.clear();
+        buffer = null;
+        String responseBody = processRequest(context, new HTTPRequest(context, fullPath));
+
+        if (responseBody == null) {
+            writeError(channel);
+            it.remove();
+            return;
+        }
+        StringBuffer sb = new StringBuffer(responseBody.length() + 256);
+        // header
+        sb.append(RESPONSE_LINE);
+        sb.append(RESPONSE_HEADER);
+        sb.append("Content-Length: ");
+        sb.append(responseBody.getBytes().length);
+        // content
+        sb.append("\r\n\r\n").append(responseBody);
+        sb.append("\r\n\r\n\r\n");
+
+        byte[] bytes = sb.toString().getBytes();
+        int n = 0;
+        ByteBuffer out = ByteBuffer.allocate(256);
+        out.clear();
+        while (n < bytes.length) {
+            out.clear();
+            int x = n + 1024 > bytes.length ? (bytes.length - n) : 1024;
+            out.put(bytes, n, x);
+            out.flip();
+            channel.write(out);
+            n = n + x;
+        }
+        out = null;
+        it.remove();
+    }
+
+    private static String processRequest(BootContext context, HTTPRequest request) {
+        for (RequestHandler handler : context.getHandlers()) {
+            String body = handler.handle(request);
+            if (body != null) {
+                return body;
+            }
+        }
+        return null;
+    }
+
+    private static void writeError(SocketChannel channel) throws IOException {
+        // 所有错误统一响应422
+        ByteBuffer out = ByteBuffer.allocate(256);
+        out.clear();
+        out.put("HTTP/1.1 422 422\r\n\r\n\r\n".getBytes());
+        out.flip();
+        channel.write(out);
+        channel.close();
     }
 }
