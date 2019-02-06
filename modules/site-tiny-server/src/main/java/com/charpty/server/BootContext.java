@@ -9,7 +9,8 @@ import java.util.List;
  */
 public class BootContext {
 
-    private int port = 5566;
+    private String apiPath = "/x/api";
+    private int port = 8080;
     // 所有请求均范围JSON格式数据
     private List<RequestHandler> handlers;
     private BootDataSource dataSource;
@@ -25,6 +26,14 @@ public class BootContext {
 
     public void setPort(int port) {
         this.port = port;
+    }
+
+    public String getApiPath() {
+        return apiPath;
+    }
+
+    public void setApiPath(String apiPath) {
+        this.apiPath = apiPath;
     }
 
     public List<RequestHandler> getHandlers() {

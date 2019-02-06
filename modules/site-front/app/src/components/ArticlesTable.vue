@@ -11,7 +11,7 @@
               <i class="fa fa-user-circle" aria-hidden="true"></i>
               <span v-on:click="goAboutAuthor()" class="author">{{ article.creator }}</span>
               |&nbsp;&nbsp;<i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;
-              <time class="post-date" datetime="" title="">{{ article.creationDate.split(' ')[0] }}</time>
+              <time class="post-date" datetime="" title="">{{ article.creationDate }}</time>
               |&nbsp;&nbsp;<i class="fa fa-file-word-o" aria-hidden="true"></i>
               <span>{{ article.wordCount < 0 ? '未统计' : article.wordCount }}</span>
             </div>

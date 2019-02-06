@@ -1,6 +1,7 @@
 package com.charpty.server;
 
 import java.io.IOException;
+import java.lang.management.ManagementFactory;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
@@ -20,6 +21,10 @@ public final class BootStrap {
 
     private static final String RESPONSE_LINE = "HTTP/1.1 200 OK\r\n";
     private static final String RESPONSE_HEADER = "Content-Type:application/json;charset=UTF-8\r\n";
+    private static final String START_INFO_FORMAT = "Server listen on: %d, Started in: %dms";
+    private static String apiPath;
+    private static int apiPathLen;
+
     private static final ExecutorService ES = new BootExecutor();
 
     private BootStrap() {
@@ -33,9 +38,17 @@ public final class BootStrap {
         Selector selector = Selector.open();
         ssc.register(selector, SelectionKey.OP_ACCEPT);
 
-        LogUtil.debug(BootStrap.class, "Server listen on: %d", context.getPort());
+        apiPath = context.getApiPath();
+        apiPathLen = apiPath.length();
+
+        long consume = System.currentTimeMillis() - ManagementFactory.getRuntimeMXBean().getStartTime();
+        LogUtil.info(BootStrap.class, START_INFO_FORMAT, context.getPort(), consume);
         while (true) {
-            aeMain(selector, context);
+            try {
+                aeMain(selector, context);
+            } catch (Exception e) {
+                LogUtil.error(BootStrap.class, e, "请求处理异常FF");
+            }
         }
     }
 
@@ -95,6 +108,9 @@ public final class BootStrap {
         }
         int s = tmp.indexOf(" ", 4);
         String fullPath = tmp.substring(4, s);
+        if (fullPath.startsWith(apiPath)) {
+            fullPath = fullPath.substring(apiPathLen);
+        }
         if (fullPath.endsWith("\r")) {
             fullPath = fullPath.substring(0, fullPath.length() - 1);
         }
@@ -119,7 +135,7 @@ public final class BootStrap {
 
         byte[] bytes = sb.toString().getBytes();
         int n = 0;
-        ByteBuffer out = ByteBuffer.allocate(256);
+        ByteBuffer out = ByteBuffer.allocate(4096);
         out.clear();
         while (n < bytes.length) {
             out.clear();
@@ -131,6 +147,7 @@ public final class BootStrap {
         }
         out = null;
         it.remove();
+        channel.close();
     }
 
     private static String processRequest(BootContext context, HTTPRequest request) {

@@ -1,11 +1,12 @@
 package com.charpty.handlers;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import com.charpty.server.BootContext;
 import com.charpty.server.HTTPRequest;
 import com.charpty.server.RequestHandler;
+import com.charpty.server.ResponseUtil;
 
 /**
  * @author charpty
@@ -13,9 +14,9 @@ import com.charpty.server.RequestHandler;
  */
 public class ArticleHandler implements RequestHandler {
 
-    private static final String ARTICLES_PATH = "/articles/";
+    private static final String ARTICLES_PATH = "/articles";
     private static final int ARTICLES_PATH_LEN = ARTICLES_PATH.length();
-    private static final String ARTICLES_COUNT_PART = "count";
+    private static final String ARTICLES_COUNT_PART = "/count";
     private static final String ARTICLE_PATH = "/article/";
     private static final int ARTICLE_PATH_LEN = ARTICLE_PATH.length();
     private static final String ARTICLE_BRIEF_PART = "brief/";
@@ -24,15 +25,15 @@ public class ArticleHandler implements RequestHandler {
     @Override
     public String handle(HTTPRequest request) {
         String path = request.getPath();
-        BootContext context = request.getContext();
         if (path.startsWith(ARTICLES_PATH)) {
             // => /articles/count
             if (path.startsWith(ARTICLES_COUNT_PART, ARTICLES_PATH_LEN)) {
-                return countArticles(context);
+                return countArticles(request);
             }
             // => /articles
             return listArticles(request);
         } else if (path.startsWith(ARTICLE_PATH)) {
+            BootContext context = request.getContext();
             // => /article/brief/{name}
             if (path.startsWith(ARTICLE_BRIEF_PART, ARTICLE_PATH_LEN)) {
                 return getArticleBrief(context, path.substring(ARTICLE_BRIEF_LEN));
@@ -44,20 +45,44 @@ public class ArticleHandler implements RequestHandler {
     }
 
     public String listArticles(HTTPRequest request) {
-        List<Article> result = new ArrayList<>();
-        return null;
+        ArticleForm form = getArticleForm(request);
+        List<Article> articles = ArticleDBHelper.listArticles(request.getContext().getDataSource(), form);
+        return ResponseUtil.toResponse(articles);
     }
 
-    public String countArticles(BootContext context) {
-        return "";
+    public String countArticles(HTTPRequest request) {
+        ArticleForm form = getArticleForm(request);
+        int count = ArticleDBHelper.countArticles(request.getContext().getDataSource(), form);
+        return String.valueOf(count);
     }
 
     public String getArticle(BootContext context, String name) {
-        return null;
+        Article article = ArticleDBHelper.getArticle(context.getDataSource(), name);
+        return ResponseUtil.toResponse(article);
     }
 
     public String getArticleBrief(BootContext context, String name) {
-        return null;
+        Article article = ArticleDBHelper.getArticleBrief(context.getDataSource(), name);
+        return ResponseUtil.toResponse(article);
+    }
+
+    private ArticleForm getArticleForm(HTTPRequest request) {
+        ArticleForm form = new ArticleForm();
+        Map<String, String> params = request.getParams();
+        if (params == null) {
+            return form;
+        }
+        String type = params.get("type");
+        if (type != null) {
+            form.setType(Integer.valueOf(type));
+        }
+        String start = params.get("start");
+        if (start != null) {
+            form.setStart(Integer.valueOf(start));
+            form.setLimit(Integer.valueOf(params.get("limit")));
+        }
+        form.setGroupName(params.get("groupName"));
+        return form;
     }
 
 }

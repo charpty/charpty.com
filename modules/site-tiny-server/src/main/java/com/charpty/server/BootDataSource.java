@@ -4,7 +4,6 @@ import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -12,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -33,7 +33,7 @@ public class BootDataSource {
 
     private final String jdbcUrl;
 
-    private static final Map<Class<?>, Map<Integer, WritableProperty>> WRITABLE_CACHE = new ConcurrentHashMap<>();
+    private static final Map<String, Map<Integer, WritableProperty>> WRITABLE_CACHE = new ConcurrentHashMap<>();
     private final ThreadLocal<ConnectionHolder> cache = ThreadLocal.withInitial(() -> null);
     private final ReentrantLock mainLock = new ReentrantLock();
     private final Condition notEmpty = mainLock.newCondition();
@@ -67,7 +67,7 @@ public class BootDataSource {
             try {
                 statement = holder.connection.prepareStatement(sql);
             } catch (SQLException e) {
-                e.printStackTrace();
+                throw new RuntimeException(e);
             }
             holder.statements.put(sql, statement);
         }
@@ -90,7 +90,7 @@ public class BootDataSource {
         try {
             holder = getConnection0();
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
         holder.thread = Thread.currentThread();
         holder.last = System.currentTimeMillis();
@@ -105,6 +105,7 @@ public class BootDataSource {
             if (ideaConnections.size() == 0) {
                 if (total < MAX_ALIVE) {
                     result = createConnection();
+                    total++;
                     usedConnections.add(result);
                     return result;
                 } else {
@@ -191,7 +192,7 @@ public class BootDataSource {
             try {
                 statement.setString(index, value);
             } catch (SQLException e) {
-                e.printStackTrace();
+                throw new RuntimeException(e);
             }
         }
 
@@ -199,11 +200,12 @@ public class BootDataSource {
             try {
                 statement.setInt(index, value);
             } catch (SQLException e) {
-                e.printStackTrace();
+                throw new RuntimeException(e);
             }
         }
 
         public ResultSetWrapper executeQuery() {
+            LogUtil.debug(this, "Execute SQL: %s", sql);
             try {
                 return new ResultSetWrapper(sql, statement.executeQuery());
             } catch (SQLException e) {
@@ -233,15 +235,36 @@ public class BootDataSource {
         public <T> T toBean(Class<T> type) {
             try {
                 Map<Integer, WritableProperty> wps = getWritableProperty(sql, type, resultSet.getMetaData());
-
+                T bean = type.newInstance();
+                resultSet.next();
+                fillObject(wps, bean, resultSet);
+                return bean;
             } catch (SQLException e) {
-                e.printStackTrace();
+                throw new RuntimeException(e);
+            } catch (IllegalAccessException e) {
+                throw new RuntimeException(e);
+            } catch (InstantiationException e) {
+                throw new RuntimeException(e);
             }
-            return null;
         }
 
-        public <T> List<T> toList(Class itemType) {
-            return null;
+        public <T> List<T> toList(Class<T> itemType) {
+            List<T> result = new ArrayList<>();
+            try {
+                Map<Integer, WritableProperty> wps = getWritableProperty(sql, itemType, resultSet.getMetaData());
+                while (resultSet.next()) {
+                    T bean = itemType.newInstance();
+                    fillObject(wps, bean, resultSet);
+                    result.add(bean);
+                }
+                return result;
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            } catch (IllegalAccessException e) {
+                throw new RuntimeException(e);
+            } catch (InstantiationException e) {
+                throw new RuntimeException(e);
+            }
         }
 
         public ResultSet getResultSet() {
@@ -249,36 +272,39 @@ public class BootDataSource {
         }
     }
 
-    public static <T> T toBean(Map<Integer, WritableProperty> wps, T bean, ResultSet rs) {
+    static <T> T fillObject(Map<Integer, WritableProperty> wps, T bean, ResultSet rs) {
         WritableProperty wp;
         for (Map.Entry<Integer, WritableProperty> entry : wps.entrySet()) {
             wp = entry.getValue();
-            Object value = null;
+            Object value;
             try {
                 value = rs.getObject(entry.getKey());
             } catch (SQLException e) {
-                e.printStackTrace();
+                throw new RuntimeException(e);
             }
             if (null == value && wp.isPrimitive()) {
                 continue;
             }
+            Class<?> propType = wp.getPropType();
+            if (!propType.isInstance(value)) {
+                if (value instanceof Long && propType.isPrimitive() && propType.getName() == "int") {
+                    value = Integer.valueOf(String.valueOf(value));
+                }
+            }
             try {
                 wp.getSetter().invoke(bean, value);
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (InvocationTargetException e) {
-                e.printStackTrace();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
             }
         }
         return bean;
     }
 
-    public static Map<Integer, WritableProperty> getWritableProperty(String sql, Class<?> type,
-            ResultSetMetaData meta) {
+    static Map<Integer, WritableProperty> getWritableProperty(String sql, Class<?> type, ResultSetMetaData meta) {
         Map<Integer, WritableProperty> result = new HashMap<>();
         Map<String, WritableProperty> wps = new HashMap<>();
 
-        BeanInfo beanInfo = null;
+        BeanInfo beanInfo;
         try {
             beanInfo = Introspector.getBeanInfo(type);
         } catch (IntrospectionException e) {
@@ -290,7 +316,7 @@ public class BootDataSource {
             if (null != setter) {
                 String name = pd.getName();
                 Class<?> propType = pd.getPropertyType();
-                WritableProperty wp = new WritableProperty(name, setter, propType.isPrimitive());
+                WritableProperty wp = new WritableProperty(name, setter, propType);
                 wps.put(name.toLowerCase(), wp);
             }
         }
@@ -302,38 +328,39 @@ public class BootDataSource {
             throw new RuntimeException(e);
         }
         for (int i = 1; i <= columnCount; i++) {
-            String column = null;
+            String column;
             try {
                 column = meta.getColumnLabel(i);
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
-            if (null != column) {
-                String key = column.toLowerCase();
-                WritableProperty wp = wps.get(key);
-                if (wp != null) {
-                    result.put(i, wp);
-                } else {
-                    char[] keyArr = key.toCharArray();
-                    char[] x = new char[keyArr.length];
-                    int c = 0;
-                    boolean noise = false;
-                    for (int j = 0; j < keyArr.length; j++) {
-                        if (keyArr[j] == '_') {
-                            noise = true;
-                            continue;
-                        }
-                        x[c++] = keyArr[j];
+            if (column == null) {
+                continue;
+            }
+            String key = column.toLowerCase();
+            WritableProperty wp = wps.get(key);
+            if (wp != null) {
+                result.put(i, wp);
+            } else {
+                char[] keyArr = key.toCharArray();
+                char[] x = new char[keyArr.length];
+                int c = 0;
+                boolean noise = false;
+                for (int j = 0; j < keyArr.length; j++) {
+                    if (keyArr[j] == '_') {
+                        noise = true;
+                        continue;
                     }
-                    if (noise) {
-                        key = new String(keyArr, 0, c);
-                        wp = wps.get(key);
-                        if (wp != null) {
-                            result.put(i, wp);
-                        }
-                    }
-
+                    x[c++] = keyArr[j];
                 }
+                if (noise) {
+                    key = new String(x, 0, c);
+                    wp = wps.get(key);
+                    if (wp != null) {
+                        result.put(i, wp);
+                    }
+                }
+
             }
         }
         return result;
@@ -342,12 +369,14 @@ public class BootDataSource {
     static class WritableProperty {
         private final String name;
         private final Method setter;
+        private final Class<?> propType;
         private final boolean primitive;
 
-        public WritableProperty(String name, Method setter, boolean primitive) {
+        public WritableProperty(String name, Method setter, Class<?> propType) {
             this.name = name;
             this.setter = setter;
-            this.primitive = primitive;
+            this.propType = propType;
+            this.primitive = propType.isPrimitive();
         }
 
         public String getName() {
@@ -356,6 +385,10 @@ public class BootDataSource {
 
         public Method getSetter() {
             return setter;
+        }
+
+        public Class<?> getPropType() {
+            return propType;
         }
 
         public boolean isPrimitive() {

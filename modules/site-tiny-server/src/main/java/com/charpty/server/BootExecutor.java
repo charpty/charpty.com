@@ -15,14 +15,10 @@ import java.util.concurrent.TimeUnit;
 public class BootExecutor extends ThreadPoolExecutor {
 
     public BootExecutor() {
-        super(10, 30, 1800, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(64), new ThreadFactory() {
-            @Override
-            public Thread newThread(Runnable r) {
-                return new Thread(r);
-            }
-        }, (r, executor) -> {
-            throw new RuntimeException("queue is full");
-        });
+        super(5, 30, 1800, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(32), (r) -> new Thread(),
+                (r, executor) -> {
+                    throw new RuntimeException("queue is full");
+                });
     }
 
     public BootExecutor(int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit,

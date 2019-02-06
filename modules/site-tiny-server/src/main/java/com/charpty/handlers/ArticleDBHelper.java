@@ -1,5 +1,7 @@
 package com.charpty.handlers;
 
+import java.util.List;
+
 import com.charpty.server.BootDataSource;
 
 /**
@@ -26,7 +28,7 @@ public class ArticleDBHelper {
         String COMMON_META_JOIN = sb.toString();
 
         sb.setLength(0);
-        sb.append("SELECT meta.ID,meta.NAME,CONTENT").append(META_UQ_COLUMN);
+        sb.append("SELECT meta.ID,meta.NAME,CONTENT,").append(META_UQ_COLUMN);
         sb.append(COMMON_META_JOIN);
         SQL_ARTICLE = sb.toString();
 
@@ -36,12 +38,12 @@ public class ArticleDBHelper {
         SQL_ARTICLE_BRIEF = sb.toString();
     }
 
-    public static Article listArticles(BootDataSource dataSource, ArticleForm form) {
+    public static List<Article> listArticles(BootDataSource dataSource, ArticleForm form) {
         StringBuilder sb = new StringBuilder(128);
-        sb.append("SELECT ").append(COMMON_COLUMN).append(META_CONDITION);
+        sb.append("SELECT ").append(META_COLUMN).append(META_CONDITION);
         BootDataSource.PreparedStatementWrapper statement = buildCommonArticlesStatement(sb, dataSource, form);
         BootDataSource.ResultSetWrapper rs = statement.executeQuery();
-        return rs.toBean(Article.class);
+        return rs.toList(Article.class);
     }
 
     public static int countArticles(BootDataSource dataSource, ArticleForm form) {
@@ -67,7 +69,7 @@ public class ArticleDBHelper {
         }
         sb.append(" ORDER BY DISPLAY_ORDER,MODIFICATION_DATE DESC");
         if (start > -1) {
-            sb.append("LIMIT ?, ?");
+            sb.append(" LIMIT ?, ?");
         }
         BootDataSource.PreparedStatementWrapper statement = dataSource.preparedStatement(sb.toString());
         int index = 1;

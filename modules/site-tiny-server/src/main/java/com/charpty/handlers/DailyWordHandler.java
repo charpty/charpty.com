@@ -30,7 +30,7 @@ public class DailyWordHandler implements RequestHandler {
 
     public String random() {
         // > 0
-        return arr[random++ >>> 1 & mask];
+        return "\"" + arr[random++ >>> 1 & mask] + "\"";
     }
 
     public final void initWords() {

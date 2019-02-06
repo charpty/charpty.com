@@ -24,7 +24,7 @@ public class HTTPRequest {
             String[] queryParams = fullPath.substring(i + 1).split("&");
             params = new HashMap<>(16);
             for (String param : queryParams) {
-                String[] pair = param.split(";");
+                String[] pair = param.split("=");
                 params.put(pair[0], pair[1]);
             }
         }
