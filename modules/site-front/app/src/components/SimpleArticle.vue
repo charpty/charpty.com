@@ -6,7 +6,7 @@
           <h2 class="simple-article-title">{{ article.title }}</h2>
           <i class="fa fa-user-circle" aria-hidden="true"></i>&nbsp;<span>{{ article.creator }}</span>&nbsp;&nbsp;
           <i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;
-          <span class="simple-meta">{{ article.creationDate ? article.creationDate.split(' ')[0] : ""}}</span>&nbsp;&nbsp;
+          <span class="simple-meta">{{ article.creationDate }}</span>&nbsp;&nbsp;
           <div class="simple-article-content" v-html="this.mdHtml">
             <i></i>
           </div>

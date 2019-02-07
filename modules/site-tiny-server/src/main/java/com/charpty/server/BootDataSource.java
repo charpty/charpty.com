@@ -150,6 +150,17 @@ public class BootDataSource {
         notEmpty.signal();
     }
 
+    void discard(ConnectionHolder holder) {
+        usedConnections.remove(holder);
+        try {
+            holder.connection.close();
+        } catch (SQLException ignore) {
+        }
+        mainLock.lock();
+        total--;
+        mainLock.unlock();
+    }
+
     static class ConnectionHolder {
         private final String id;
         private final Connection connection;
@@ -169,6 +180,10 @@ public class BootDataSource {
 
         public void close() {
             dataSource.close(this);
+        }
+
+        public void discard() {
+            dataSource.discard(this);
         }
     }
 
@@ -207,8 +222,9 @@ public class BootDataSource {
         public ResultSetWrapper executeQuery() {
             LogUtil.debug(this, "Execute SQL: %s", sql);
             try {
-                return new ResultSetWrapper(sql, statement.executeQuery());
+                return new ResultSetWrapper(sql, statement.executeQuery(), this);
             } catch (SQLException e) {
+                connectionHolder.discard();
                 throw new RuntimeException(e);
             }
         }
@@ -216,17 +232,22 @@ public class BootDataSource {
 
     public static class ResultSetWrapper {
         private final String sql;
-        private final ResultSet resultSet;
+        private final ResultSet rs;
+        private final PreparedStatementWrapper statement;
 
-        public ResultSetWrapper(String sql, ResultSet resultSet) {
+        public ResultSetWrapper(String sql, ResultSet resultSet, PreparedStatementWrapper statement) {
             this.sql = sql;
-            this.resultSet = resultSet;
+            this.rs = resultSet;
+            this.statement = statement;
         }
 
         public int toInt() {
             try {
-                resultSet.next();
-                return resultSet.getInt(1);
+                rs.next();
+                int i = rs.getInt(1);
+                rs.close();
+                statement.close();
+                return i;
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
@@ -234,10 +255,12 @@ public class BootDataSource {
 
         public <T> T toBean(Class<T> type) {
             try {
-                Map<Integer, WritableProperty> wps = getWritableProperty(sql, type, resultSet.getMetaData());
+                Map<Integer, WritableProperty> wps = getWritableProperty(sql, type, rs.getMetaData());
                 T bean = type.newInstance();
-                resultSet.next();
-                fillObject(wps, bean, resultSet);
+                rs.next();
+                fillObject(wps, bean, rs);
+                rs.close();
+                statement.close();
                 return bean;
             } catch (SQLException e) {
                 throw new RuntimeException(e);
@@ -251,12 +274,14 @@ public class BootDataSource {
         public <T> List<T> toList(Class<T> itemType) {
             List<T> result = new ArrayList<>();
             try {
-                Map<Integer, WritableProperty> wps = getWritableProperty(sql, itemType, resultSet.getMetaData());
-                while (resultSet.next()) {
+                Map<Integer, WritableProperty> wps = getWritableProperty(sql, itemType, rs.getMetaData());
+                while (rs.next()) {
                     T bean = itemType.newInstance();
-                    fillObject(wps, bean, resultSet);
+                    fillObject(wps, bean, rs);
                     result.add(bean);
                 }
+                rs.close();
+                statement.close();
                 return result;
             } catch (SQLException e) {
                 throw new RuntimeException(e);
@@ -268,7 +293,7 @@ public class BootDataSource {
         }
 
         public ResultSet getResultSet() {
-            return resultSet;
+            return rs;
         }
     }
 
