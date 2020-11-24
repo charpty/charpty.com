@@ -13,7 +13,7 @@
     "fetch": "1.1.0",
     "file-loader": "0.11.2",
     "github-markdown-css": "2.10.0",
-    "highlight.js": "9.13.1",
+    "highlight.js": "10.1.2",
     "isomorphic-fetch": "2.2.1",
     "marked": "0.6.1",
     "normalize.css": "7.0.0",
